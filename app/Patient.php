@@ -33,8 +33,17 @@ class Patient extends Model
         return $this->belongsTo(Municipality::class);
     }
 
+
     public function treatment_plans()
     {
         return $this->hasMany(Treatment_plan::class);
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
     }
 }

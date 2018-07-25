@@ -29,7 +29,7 @@ class CreateTeethTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('tooth_position_id')->references('id')->on('tooth-positions')
+            $table->foreign('tooth_position_id')->references('id')->on('tooth_positions')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });
