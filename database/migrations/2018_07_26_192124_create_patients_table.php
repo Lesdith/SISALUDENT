@@ -21,8 +21,8 @@ class CreatePatientsTable extends Migration
             $table->string('first_surname', 128);
             $table->string('second_surname', 128);
             $table->integer('gender_id')->unsigned();
-            $table->date('birthdate');
-            $table->integer('location_id');
+            $table->date('birth_date');
+            $table->integer('location_id')->unsigned();
             $table->string('address', 128);
             $table->integer('municipality_id')->unsigned();
             $table->string('phone_number', 50);

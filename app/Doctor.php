@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Doctor extends Model
 {
     protected $fillable = [
-        'name',
         'first_name',
         'last_name',
         'address',
-        'speciality_id',
+        'specialty_id',
     ];
 
-    public function speciality()
+    public function specialty()
     {
-        return $this->belongsTo(Speciality::class);
+        return $this->belongsTo(specialty::class);
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use PHPUnit\Framework\MockObject\Generator;
+use IntelGUA\Generators\Generate;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +16,12 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('generar', function (){
+    $numeros = new Generate();
+   $lista = $numeros->getNumbersGenerated(50000, true, 7);
+    for ($i=1; $i < count($lista); $i++) { 
+       echo $lista[$i] . "<br/>"; 
+    }
 });

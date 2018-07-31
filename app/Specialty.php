@@ -4,7 +4,7 @@ namespace Sisaludent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Speciality extends Model
+class Specialty extends Model
 {
     protected $fillable = [
         'name',

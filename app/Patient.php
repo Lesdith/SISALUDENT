@@ -13,7 +13,7 @@ class Patient extends Model
         'first_surname', 
         'second_surname', 
         'gender_id', 
-        'birthdate', 
+        'birth_date', 
         'location_id', 
         'address', 
         'municipality_id', 
@@ -28,7 +28,8 @@ class Patient extends Model
     {
         return $this->belongsTo(Location::class);
     }
-    public function muicipality()
+    
+    public function municipality()
     {
         return $this->belongsTo(Municipality::class);
     }

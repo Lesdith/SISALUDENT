@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateToothTypesTable extends Migration
+class CreateDentalStoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateToothTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tooth_types', function (Blueprint $table) {
+        Schema::create('dental_stories', function (Blueprint $table) {
             $table->increments('id');
-            $tabla->string('name', 128);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreateToothTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tooth_types');
+        Schema::dropIfExists('dental_stories');
     }
 }

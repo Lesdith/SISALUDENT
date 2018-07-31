@@ -37,7 +37,6 @@ class CreateTreatmentPlansTable extends Migration
             $table->foreign('tooth_treatment_id')->references('id')->on('tooth_treatments')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-
         });
     }
 

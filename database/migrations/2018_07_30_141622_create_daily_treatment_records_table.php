@@ -16,13 +16,19 @@ class CreateDailyTreatmentRecordsTable extends Migration
         Schema::create('daily_treatment_records', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('treatment_plan_id')->unsigned();
+            $table->integer('doctor_id')->unsigned();
             $table->decimal('total', 19, 4);
             $table->decimal('pay_debt', 19, 4);
-            $table->date('paymet_date');
-            $table->decimal('balance_debt', 19,4);
+            $table->date('payment_date');
+            $table->decimal('balance_debt', 19, 4);
             $table->timestamps();
 
-            $table->foreign('treatmet_plan_id')->references('id')->on('treatment_plans')
+            
+            $table->foreign('treatment_plan_id')->references('id')->on('treatment_plans')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            
+            $table->foreign('doctor_id')->references('id')->on('doctors')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });
