@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Sisaludent\Daily_treatment_record;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,31 +12,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-
+        
         $this->call([
-            AppointmentsSeeder::class,
-            //ClinicStoriesSeeder::class,
-            ContactsSeeder::class,
-            //DentalStoriesSeeder::class,
-            DepartmentsSeeder::class,
-            DoctorsSeeder::class,
-            GendersSeeder::class,
+            UsersSeeder::class,
+           // PasswordResetsSeeder::class,
             LocationsSeeder::class,
+            DepartmentsSeeder::class,
             MunicipalitiesSeeder::class,
-            PatientsSeeder::class,
-            RolesSeeder::class,
-            SpecialtiesSeeder::class,
-            TeethSeeder::class,
-            ToothDiagnosesSeeder::class,
-            ToothPositionsSeeder::class,
-            ToothStagesSeeder::class,
-            ToothTreatmentsSeeder::class,
             ToothTypesSeeder::class,
+            ToothStagesSeeder::class,
+            ToothPositionsSeeder::class,        
+            ToothTreatmentsSeeder::class,
+            DiagnosesSeeder::class,
+            ContactsSeeder::class,
+            SpecialtiesSeeder::class,
+            GendersSeeder::class,
+            PatientsSeeder::class,
+            DoctorsSeeder::class,
+            TeethSeeder::class,
             TreatmentPlansSeeder::class,
-
-            // PostsTableSeeder::class,
-            // CommentsTableSeeder::class,
+            //ClinicStoriesSeeder::class,
+            //DentalStoriesSeeder::class,
+            AppointmentsSeeder::class,
+            DailyTreatmentRecordsSeeder::class,
+           //RolesSeeder::class,
         ]);
     }
 }

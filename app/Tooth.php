@@ -10,7 +10,7 @@ class Tooth extends Model
         'name',
         'tooth_type_id',
         'tooth_stage_id',
-        'tooth_position',
+        'tooth_position_id',
     ];
 
     public function tooth_types()

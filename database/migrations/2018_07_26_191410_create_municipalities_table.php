@@ -15,9 +15,14 @@ class CreateMunicipalitiesTable extends Migration
     {
         Schema::create('municipalities', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 128)->unique();
+            $table->string('name')->unique();
             $table->integer('department_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('department_id')->references('id')->on('departments')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+  
         });
     }
 

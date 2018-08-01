@@ -22,7 +22,7 @@ class CreateTreatmentPlansTable extends Migration
             $table->longText('description')->nullable();
             $table->timestamps();
 
-            $table->foreign('patient_id')->references('id')->on('patients')
+           $table->foreign('patient_id')->references('id')->on('patients')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

@@ -13,4 +13,5 @@ class Contact extends Model
         'date',
         'time',
         'description',
-    ];}
+    ];
+}

@@ -10,8 +10,8 @@ class Patient extends Model
         'first_name', 
         'second_name', 
         'third_name', 
-        'first_surname', 
-        'second_surname', 
+        'father_last_name', 
+        'mother_last_name', 
         'gender_id', 
         'birth_date', 
         'location_id', 
@@ -20,19 +20,7 @@ class Patient extends Model
         'phone_number',
     ];
 
-    public function gender()
-    {
-        return $this->belongsTo(Gender::class);
-    }
-    public function location()
-    {
-        return $this->belongsTo(Location::class);
-    }
-    
-    public function municipality()
-    {
-        return $this->belongsTo(Municipality::class);
-    }
+   
 
 
     public function treatment_plans()
@@ -46,5 +34,20 @@ class Patient extends Model
     public function doctors()
     {
         return $this->hasMany(Doctor::class);
+    }
+
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+    
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
     }
 }

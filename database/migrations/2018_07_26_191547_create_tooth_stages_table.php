@@ -15,7 +15,7 @@ class CreateToothStagesTable extends Migration
     {
         Schema::create('tooth_stages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

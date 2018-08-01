@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Sisaludent\Contact::class, function (Faker $faker) {
     return [
-        'name'          => $faker->name($gender = null|'male'|'female'),
+        'name'          => $faker->name,
         'phone'         => $faker->unique()->phoneNumber,
         'email'         => $faker->unique()->safeEmail,
         'date'          => $faker->date($format = 'Y-m-d', $max = 'now'),

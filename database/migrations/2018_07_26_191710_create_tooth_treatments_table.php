@@ -15,7 +15,7 @@ class CreateToothTreatmentsTable extends Migration
     {
         Schema::create('tooth_treatments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 128);
+            $table->string('name')->unique();
             $table->decimal('cost', 19, 4);
             $table->timestamps();
         });

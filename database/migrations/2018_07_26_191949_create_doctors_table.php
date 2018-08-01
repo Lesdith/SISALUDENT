@@ -15,13 +15,14 @@ class CreateDoctorsTable extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name', 128);
-            $table->string('last_name', 128);
-            $table->string('address', 128);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('address');
             $table->integer('specialty_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('specialty_id')->references('id')->on('specialties')
+            $table->foreign('specialty_id')
+            ->references('id')->on('specialties')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });
