@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Sisaludent\Daily_treatment_record;
+use Sisaludent\Perform_treatment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,9 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         
         $this->call([
+            
+            //RolesSeeder::class,
             UsersSeeder::class,
            // PasswordResetsSeeder::class,
             LocationsSeeder::class,
+            ServicesSeeder::class,
             DepartmentsSeeder::class,
             MunicipalitiesSeeder::class,
             ToothTypesSeeder::class,
@@ -31,11 +35,14 @@ class DatabaseSeeder extends Seeder
             DoctorsSeeder::class,
             TeethSeeder::class,
             TreatmentPlansSeeder::class,
-            //ClinicStoriesSeeder::class,
-            //DentalStoriesSeeder::class,
+            DetailTreatmentPlansSeeder::class,
+            PaymentsSeeder::class,
+            PerformTreatmentsSeeder::class,
+            ClinicHistoriesSeeder::class,
+            DentalHistoriesSeeder::class,
             AppointmentsSeeder::class,
-            DailyTreatmentRecordsSeeder::class,
-           //RolesSeeder::class,
+            //ReservationMethodsSeeder::class,
+            
         ]);
     }
 }

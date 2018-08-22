@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class AppointmentsSeeder extends Seeder
+class DentalHistoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class AppointmentsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Appointment::class, 5)->create();
+        factory(Sisaludent\Dental_history::class, 5)->create();
     }
 }

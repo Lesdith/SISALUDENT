@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Department;
 
-class DepartmentsSeeder extends Seeder
+class ClinicHistoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class DepartmentsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Department::class, 5)->create();
+        factory(Sisaludent\Clinic_history::class, 5)->create();
     }
 }

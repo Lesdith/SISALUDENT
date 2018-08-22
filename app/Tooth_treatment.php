@@ -9,10 +9,18 @@ class Tooth_treatment extends Model
     protected $fillable = [
         'name',
         'cost',
+        'service_id',
     ];
 
-    public function treatment_plans()
+    public function service()
     {
-        return $this->hasMany(Treatment_plan::class);
+        return $this->belongsTo(Service::class);
     }
+
+    public function detail_treatment_plans()
+    {
+        return $this->hasMany(Detail_treatment_plan::class);
+    }
+
+   
 }

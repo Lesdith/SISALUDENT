@@ -9,9 +9,12 @@ class Contact extends Model
     protected $fillable = [
         'name',
         'phone',
-        'mail',
+        'email',
         'date',
         'time',
+        //'reservation_method_id',
         'description',
     ];
+    
+ 
 }

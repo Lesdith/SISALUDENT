@@ -8,6 +8,7 @@ class Municipality extends Model
 {
     protected $fillable = [
         'name',
+        'code',
         'department_id',
     ];
 

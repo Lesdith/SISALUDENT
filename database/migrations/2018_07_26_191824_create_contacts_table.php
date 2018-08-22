@@ -20,6 +20,7 @@ class CreateContactsTable extends Migration
             $table->string('email', 64)->unique();
             $table->date('date');
             $table->time('time');
+            //$table->integer('reservation_method_id')->unsigned();
             $table->string('description', 200);
             $table->timestamps();
         });

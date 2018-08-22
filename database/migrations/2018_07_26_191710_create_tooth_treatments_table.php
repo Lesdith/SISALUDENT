@@ -17,7 +17,13 @@ class CreateToothTreatmentsTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->decimal('cost', 19, 4);
+            $table->integer('service_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('service_id')->references('id')->on('services')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+  
         });
     }
 

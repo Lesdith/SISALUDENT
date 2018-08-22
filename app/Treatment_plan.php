@@ -3,15 +3,17 @@
 namespace Sisaludent;
 
 use Illuminate\Database\Eloquent\Model;
+use Faker\Provider\pl_PL\Payment;
 
 class Treatment_plan extends Model
 {
     protected $fillable = [
         'patient_id',
-        'tooth_id',
-        'diagnosis_id',
-        'tooth_treatment_id',
-        'description',
+        'start_date',
+        'end_date',
+        'subtotal',
+        'discount',
+        'total',
     ];
    
     public function patient()
@@ -19,24 +21,18 @@ class Treatment_plan extends Model
         return $this->belongsTo(Patient::class);
     }
 
-    public function tooth()
+    public function payment()
     {
-        return $this->belongsTo(Tooth::class);
+        return $this->hasMany(Payment::class);
     }
 
-    public function diagnoses()
+    public function detail_treatment_plans()
     {
-        return $this->belongsTo(Diagnosis::class);
+        return $this->hasMany(Detail_treatment_plan::class);
     }
 
-    public function tooth_treatments()
+    public function perform_treatments()
     {
-        return $this->belongsTo(Tooth_treatment::class);
+        return $this->hasMany(Perform_treatment::class);
     }
-
-    public function daily_treatment_record()
-    {
-        return $this->hasMany(Daily_treatment_record::class);
-    }
-    
 }

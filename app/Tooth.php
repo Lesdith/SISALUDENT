@@ -28,8 +28,9 @@ class Tooth extends Model
         return $this->belongsTo(Tooth_position::class);
     }
 
-    public function treatment_plans()
+    public function detail_treatment_plans()
     {
-        return $this->hasMany(Treatment_plan::class);
+        return $this->hasMany(Detail_treatment_plan::class);
     }
+    
 }

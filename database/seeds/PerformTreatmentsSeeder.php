@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ClinicStoriesSeeder extends Seeder
+class PerformTreatmentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class ClinicStoriesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Sisaludent\Perform_treatment::class, 5)->create();
     }
 }

@@ -18,24 +18,8 @@ class Patient extends Model
         'address', 
         'municipality_id', 
         'phone_number',
+        'image',
     ];
-
-   
-
-
-    public function treatment_plans()
-    {
-        return $this->hasMany(Treatment_plan::class);
-    }
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
-    }
-    public function doctors()
-    {
-        return $this->hasMany(Doctor::class);
-    }
-
 
     public function gender()
     {
@@ -50,4 +34,26 @@ class Patient extends Model
     {
         return $this->belongsTo(Municipality::class);
     }
+
+
+    public function treatment_plans()
+    {
+        return $this->hasMany(Treatment_plan::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }  
+    
+    public function clinic_histories()
+    {
+        return $this->hasMany(Clinic_history::class);
+    }
+    
+    public function dental_histories()
+    {
+        return $this->hasMany(Dental_history::class);
+    }
+  
 }

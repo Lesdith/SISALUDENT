@@ -4,23 +4,17 @@ namespace Sisaludent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Daily_treatment_record extends Model
+class Payment extends Model
 {
     protected $fillable = [
         'treatment_plan_id',
-        'doctor_id',
-        'total',
+        'date',
         'pay_debt',
-        'payment_date',
         'balance_debt',
-    ];  
-    
+    ];
+   
     public function treatment_plan()
     {
         return $this->belongsTo(Treatment_plan::class);
-    }
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class);
     }
 }

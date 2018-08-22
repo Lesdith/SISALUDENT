@@ -15,6 +15,8 @@ $factory->define(Sisaludent\Patient::class, function (Faker $faker) {
         'gender_id'         => rand(1,5),   
         'location_id'       => rand(1,5), 
         'municipality_id'   => rand(1,5),
+        'image'             => $faker->imageUrl($width = 640, $height = 480),
+  
 
      ];
 });
