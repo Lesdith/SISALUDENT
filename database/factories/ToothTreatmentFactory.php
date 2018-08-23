@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Sisaludent\Tooth_treatment::class, function (Faker $faker) {
+$factory->define(IntelGUA\Sisaludent\Tooth_treatment::class, function (Faker $faker) {
     $title = $faker->unique()->sentence(5);      
     return [
         'name'          => $title,

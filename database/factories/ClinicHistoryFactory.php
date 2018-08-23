@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Sisaludent\Clinic_history::class, function (Faker $faker) {
+$factory->define(IntelGUA\Sisaludent\Clinic_history::class, function (Faker $faker) {
     
     $title = $faker->unique()->sentence(5);
 

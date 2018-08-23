@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent;
+namespace IntelGUA\Sisaludent;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -14,18 +14,27 @@ use IntelGUA\Generators\Generate;
 |
 */
 
+
+/** Ejemplo para agregar la ruta de la loteria Henry
+*   Route::get('generar', function (){
+*       $numeros = new Generate();
+*       $lista = $numeros->getNumbersGenerated(50000, true, 7);
+*           for ($i=1; $i < count($lista); $i++) { 
+*               echo $lista[$i] . "<br/>"; 
+*           }
+*   });*/
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('generar', function (){
-    $numeros = new Generate();
-   $lista = $numeros->getNumbersGenerated(50000, true, 7);
-    for ($i=1; $i < count($lista); $i++) { 
-       echo $lista[$i] . "<br/>"; 
-    }
-});
+//$this->get('/', 'SiteController@index');
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('department','DepartmentController');

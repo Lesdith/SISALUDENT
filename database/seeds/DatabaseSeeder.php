@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             ClinicHistoriesSeeder::class,
             DentalHistoriesSeeder::class,
             AppointmentsSeeder::class,
+            SpecialExamsSeeder::class,
             //ReservationMethodsSeeder::class,
             
         ]);

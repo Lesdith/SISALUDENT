@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Exceptions;
+namespace IntelGUA\Sisaludent\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

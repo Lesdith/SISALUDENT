@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Sisaludent\Treatment_plan::class, function (Faker $faker) {
+$factory->define(IntelGUA\Sisaludent\Treatment_plan::class, function (Faker $faker) {
     return [
         'patient_id'            => rand(1,5), 
         'start_date'            => $faker->date($format = 'Y-m-d', $max = 'now'),

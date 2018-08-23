@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Providers;
+namespace IntelGUA\Sisaludent\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;

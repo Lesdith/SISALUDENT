@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Http\Controllers;
+namespace IntelGUA\Sisaludent\Http\Controllers;
 
 use Illuminate\Http\Request;
 

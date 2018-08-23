@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Sisaludent\User::class,
+            'model' => IntelGUA\Sisaludent\User::class,
         ],
 
         // 'users' => [

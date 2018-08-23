@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Providers;
+namespace IntelGUA\Sisaludent\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Sisaludent\Http\Controllers';
+    protected $namespace = 'IntelGUA\Sisaludent\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

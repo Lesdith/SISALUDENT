@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent;
+namespace IntelGUA\Sisaludent;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +31,11 @@ class Tooth extends Model
     public function detail_treatment_plans()
     {
         return $this->hasMany(Detail_treatment_plan::class);
+    }
+
+    public function special_exam()
+    {
+        return $this->hasMany(special_exam::class);
     }
     
 }

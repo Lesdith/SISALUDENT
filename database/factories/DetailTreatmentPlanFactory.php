@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Sisaludent\Detail_treatment_plan::class, function (Faker $faker) {
+$factory->define(IntelGUA\Sisaludent\Detail_treatment_plan::class, function (Faker $faker) {
     return [
         'treatment_plan_id'         => rand(1,5),
         'tooth_id'                  => rand(1,5),

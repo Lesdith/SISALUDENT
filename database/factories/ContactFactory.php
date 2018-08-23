@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Sisaludent\Contact::class, function (Faker $faker) {
+$factory->define(IntelGUA\Sisaludent\Contact::class, function (Faker $faker) {
     return [
         'name'                      => $faker->name,
         'phone'                     => $faker->unique()->phoneNumber,

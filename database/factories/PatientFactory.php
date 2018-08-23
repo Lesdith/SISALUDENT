@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Sisaludent\Patient::class, function (Faker $faker) {
+$factory->define(IntelGUA\Sisaludent\Patient::class, function (Faker $faker) {
     return [
         'first_name'        => $faker->firstName, 
         'second_name'       => $faker->firstName,

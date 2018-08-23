@@ -147,6 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -155,11 +156,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Sisaludent\Providers\AppServiceProvider::class,
-        Sisaludent\Providers\AuthServiceProvider::class,
-        // Sisaludent\Providers\BroadcastServiceProvider::class,
-        Sisaludent\Providers\EventServiceProvider::class,
-        Sisaludent\Providers\RouteServiceProvider::class,
+        IntelGUA\Sisaludent\Providers\AppServiceProvider::class,
+        IntelGUA\Sisaludent\Providers\AuthServiceProvider::class,
+        // IntelGUA\Sisaludent\Providers\BroadcastServiceProvider::class,
+        IntelGUA\Sisaludent\Providers\EventServiceProvider::class,
+        IntelGUA\Sisaludent\Providers\RouteServiceProvider::class,
 
     ],
 

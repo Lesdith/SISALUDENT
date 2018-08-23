@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Http\Middleware;
+namespace IntelGUA\Sisaludent\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

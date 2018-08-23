@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Providers;
+namespace IntelGUA\Sisaludent\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Sisaludent\Events\Event' => [
-            'Sisaludent\Listeners\EventListener',
+        'IntelGUA\Sisaludent\Events\Event' => [
+            'IntelGUA\Sisaludent\Listeners\EventListener',
         ],
     ];
 

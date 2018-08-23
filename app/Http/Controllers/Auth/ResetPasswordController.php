@@ -1,8 +1,8 @@
 <?php
 
-namespace Sisaludent\Http\Controllers\Auth;
+namespace IntelGUA\Sisaludent\Http\Controllers\Auth;
 
-use Sisaludent\Http\Controllers\Controller;
+use IntelGUA\Sisaludent\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller

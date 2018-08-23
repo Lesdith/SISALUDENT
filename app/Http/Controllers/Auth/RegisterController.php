@@ -1,9 +1,9 @@
 <?php
 
-namespace Sisaludent\Http\Controllers\Auth;
+namespace IntelGUA\Sisaludent\Http\Controllers\Auth;
 
-use Sisaludent\User;
-use Sisaludent\Http\Controllers\Controller;
+use IntelGUA\Sisaludent\User;
+use IntelGUA\Sisaludent\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -59,7 +59,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \Sisaludent\User
+     * @return \IntelGUA\Sisaludent\User
      */
     protected function create(array $data)
     {

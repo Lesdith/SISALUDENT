@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent\Providers;
+namespace IntelGUA\Sisaludent\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Sisaludent\Model' => 'Sisaludent\Policies\ModelPolicy',
+        'IntelGUA\Sisaludent\Model' => 'IntelGUA\Sisaludent\Policies\ModelPolicy',
     ];
 
     /**

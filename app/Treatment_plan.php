@@ -1,6 +1,6 @@
 <?php
 
-namespace Sisaludent;
+namespace IntelGUA\Sisaludent;
 
 use Illuminate\Database\Eloquent\Model;
 use Faker\Provider\pl_PL\Payment;
@@ -31,8 +31,9 @@ class Treatment_plan extends Model
         return $this->hasMany(Detail_treatment_plan::class);
     }
 
-    public function perform_treatments()
+    public function special_exam()
     {
-        return $this->hasMany(Perform_treatment::class);
+        return $this->hasMany(special_exam::class);
     }
+
 }
