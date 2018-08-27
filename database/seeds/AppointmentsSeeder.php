@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use IntelGUA\Sisaludent\Appointment;
 
 class AppointmentsSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class AppointmentsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Appointment::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Appointment::class, 5)->create();
     }
 }

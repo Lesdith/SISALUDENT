@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Treatment_plan;
+use IntelGUA\Sisaludent\Treatment_plan;
 
 class TreatmentPlansSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class TreatmentPlansSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Treatment_plan::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Treatment_plan::class, 5)->create();
     }
 }

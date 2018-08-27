@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Daily_treatment_record;
-use Sisaludent\Perform_treatment;
+use IntelGUA\Sisaludent\Daily_treatment_record;
+use IntelGUA\Sisaludent\Perform_treatment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $this->call([
-            
+
             //RolesSeeder::class,
             UsersSeeder::class,
            // PasswordResetsSeeder::class,
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             MunicipalitiesSeeder::class,
             ToothTypesSeeder::class,
             ToothStagesSeeder::class,
-            ToothPositionsSeeder::class,        
+            ToothPositionsSeeder::class,
             ToothTreatmentsSeeder::class,
             DiagnosesSeeder::class,
             ContactsSeeder::class,
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             AppointmentsSeeder::class,
             SpecialExamsSeeder::class,
             //ReservationMethodsSeeder::class,
-            
+
         ]);
     }
 }

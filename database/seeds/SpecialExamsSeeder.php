@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use IntelGUA\Sisaludent\special_exam;
 
 class SpecialExamsSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class SpecialExamsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Special_exam::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Special_exam::class, 5)->create();
     }
 }

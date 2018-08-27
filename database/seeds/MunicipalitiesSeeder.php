@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Municipality;
+use IntelGUA\Sisaludent\Municipality;
 
 class MunicipalitiesSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class MunicipalitiesSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Municipality::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Municipality::class, 5)->create();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\User;
+use IntelGUA\Sisaludent\User;
 
 class UsersSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\User::class, 5)->create();
+        factory(IntelGUA\Sisaludent\User::class, 5)->create();
     }
 }

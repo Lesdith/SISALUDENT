@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Gender;
+use IntelGUA\Sisaludent\Gender;
 
 class GendersSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class GendersSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Gender::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Gender::class, 5)->create();
     }
 }

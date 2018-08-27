@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Rol;
+use IntelGUA\Sisaludent\Rol;
 
 class RolesSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Rol::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Rol::class, 5)->create();
     }
 }

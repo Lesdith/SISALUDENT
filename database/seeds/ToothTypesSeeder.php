@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Tooth_type;
+use IntelGUA\Sisaludent\Tooth_type;
 
 class ToothTypesSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class ToothTypesSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Tooth_type::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Tooth_type::class, 5)->create();
     }
 }

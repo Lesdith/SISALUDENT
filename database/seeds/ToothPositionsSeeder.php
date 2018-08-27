@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Tooth_position;
+use IntelGUA\Sisaludent\Tooth_position;
 
 class ToothPositionsSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class ToothPositionsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Tooth_position::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Tooth_position::class, 5)->create();
     }
 }

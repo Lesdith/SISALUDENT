@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use IntelGUA\Sisaludent\Payment;
 
 class PaymentsSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class PaymentsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Payment::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Payment::class, 5)->create();
     }
 }

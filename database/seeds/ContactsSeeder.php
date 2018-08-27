@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Contact;
+use IntelGUA\Sisaludent\Contact;
 
 class ContactsSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class ContactsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Contact::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Contact::class, 5)->create();
     }
 }

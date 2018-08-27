@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sisaludent\Location;
+use IntelGUA\Sisaludent\Location;
 
 class LocationsSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class LocationsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Location::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Location::class, 5)->create();
     }
 }

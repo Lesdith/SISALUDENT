@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use IntelGUA\Sisaludent\Clinic_history;
 
 class ClinicHistoriesSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class ClinicHistoriesSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sisaludent\Clinic_history::class, 5)->create();
+        factory(IntelGUA\Sisaludent\Clinic_history::class, 5)->create();
     }
 }
