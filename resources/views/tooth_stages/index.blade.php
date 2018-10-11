@@ -48,7 +48,7 @@
 	 				<form  action="{{ URL::to('tooth_stages')}}" method="POST" id="frm-insert-tooth_stages">
 
 	                	<div class="form-group">
-	                    	<label for="name_tooth_stage">Etapas</label>
+	                    	<label for="name_tooth_stage">Etapa</label>
 	                    	<input name="name" type="text" id="name_tooth_stage" placeholder="Etapa" class="form-control"/>
 	                	</div>
 
@@ -75,7 +75,7 @@
 					<div class="modal-body">
 					<form  action="" method="POST" id="frm-update-tooth_stages">
 					<div class="form-group">
-						<label for="update_name_tooth_stages">Etapas</label>
+						<label for="update_name_tooth_stages">Etapa</label>
 						<input name="name" type="text" id="update_name_tooth_stage" placeholder="Etapa" class="form-control"/>
 					</div>
 
@@ -98,10 +98,10 @@
 		<script>
 
 			$(document).ready(function(){
-				getToothPosition();
+				getToothStage();
 			});
 
-			function getToothPosition(){
+			function getToothStage(){
 				$("#tbl-tooth_stage").empty();
 				$.get('get-tooth_stages', function(data){
 					$.each(data,	function(i, value){
@@ -122,8 +122,8 @@
 			}
 //-------------Eliminar Roles-------------
 
-				/*se creo esta funcion para que al dar click al boton elminiar muestre un alert con
-				  mensajes para que el usuario de click a la opcion aceptar o cancelar */
+				/*se creo esta función para que al dar click al botón eliminar muestre un alert con
+				  mensajes para que el usuario de click a la opción aceptar o cancelar */
 
 
 				$('body').delegate('#tbl-tooth_stages #del', 'click', function(e){

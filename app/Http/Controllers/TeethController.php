@@ -22,10 +22,13 @@ class TeethController extends Controller
 
     public function getTeeth()
     {
-        $teeth = Tooth::orderby('id', 'DESC')->get();
-        $tooth_types = Tooth_type::orderBy('id', 'DESC')->get();
-        $tooth_positions = Tooth_position::orderBy('id', 'DESC')->get();
-        $tooth_stages = Tooth_stage::orderBy('id', 'DESC')->get();
+        $teeth = Tooth::with("tooth_type")->with("tooth_stage")->with("tooth_position")->orderby('id', 'DESC')->get();
+        return $teeth;
+    }
+
+     public function getTooth($id)
+    {
+        $teeth = Tooth::findOrFail($id);
         return $teeth;
     }
 
@@ -50,9 +53,7 @@ class TeethController extends Controller
         if ($request->ajax()) {
 
             $teeth = Tooth::create($request->all());
-            $tooth_types = Tooth_type::create($request->all());
-            $tooth_positions = Tooth_type::create($request->all());
-            return $teeth;
+            return $request;
 
         }
     }
@@ -91,7 +92,7 @@ class TeethController extends Controller
      * @param  \IntelGUA\Sisaludent\Tooth  $tooth
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         if ($request->ajax()) {
 
@@ -108,11 +109,32 @@ class TeethController extends Controller
      * @param  \IntelGUA\Sisaludent\Tooth  $tooth
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        if ($request->ajax()) {
-            Teeth::destroy($request->id);
-            return redirect('teeth')->with('status', 'Diente eliminado exitosamente');
-        }
+
+    if ($request->ajax()) {
+    $tooth = Tooth::findOrFail($id);
+    $tooth->delete();
+   return redirect('teeth')->with('success', 'Diente eliminado exitosamente');
     }
+    return redirect('teeth')->with('fail', 'Diente eliminado exitosamente');
+    }
+
+
+     // $tooth = Tooth::find($id);
+            // $tooth->delete();
+            // return redirect('teeth')->with('status', 'Diente eliminado exitosamente');
+
+        // if ($request->ajax()) {
+        //     Tooth::destroy($request->id);
+        //     return redirect('teeth')->with('status', 'Diente eliminado exitosamente');
+        // }
+
+        // if ($request->ajax()) {
+        //    $diente = Tooth::find($request->$id);
+        //     return $diente;
+        //     $diente->delete();
+        //     return redirect('teeth')->with('success', 'Diente eliminado exitosamente');
+        // }
+
 }

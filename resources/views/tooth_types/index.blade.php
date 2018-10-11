@@ -220,3 +220,14 @@
 
 	</script>
 @stop
+
+// LA Funcion del editar
+
+		/* 	function getTooth(id){
+				let tooth = null;
+				let _id = id;
+				$.get("{{ route('get-tooth', [$id => "+_id+"])}}", {}, function(data){
+				tooth = data;
+				});
+				return tooth;
+			} */

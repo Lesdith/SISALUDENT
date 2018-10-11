@@ -113,7 +113,7 @@ return [
             'text'        => 'Home',
             'url'         => 'admin',
             'icon'        => 'home',
-            
+
         ],
         'ACCOUNT SETTINGS',
         [
@@ -214,5 +214,7 @@ return [
         'datatables' => true,
         'select2'    => true,
         'chartjs'    => true,
+        'toastr'     => true,
+        'sweetalert' => true,
     ],
 ];

@@ -13,17 +13,17 @@ class Tooth extends Model
         'tooth_position_id',
     ];
 
-    public function tooth_types()
+    public function tooth_type()
     {
         return $this->belongsTo(Tooth_type::class);
     }
 
-    public function tooth_stages()
+    public function tooth_stage()
     {
         return $this->belongsTo(Tooth_stage::class);
     }
 
-    public function tooth_positions()
+    public function tooth_position()
     {
         return $this->belongsTo(Tooth_position::class);
     }
@@ -37,5 +37,5 @@ class Tooth extends Model
     {
         return $this->hasMany(special_exam::class);
     }
-    
+
 }

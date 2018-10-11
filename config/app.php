@@ -146,22 +146,26 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
 
         /*
          * Package Service Providers...
          */
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
+        Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         IntelGUA\Sisaludent\Providers\AppServiceProvider::class,
         IntelGUA\Sisaludent\Providers\AuthServiceProvider::class,
-        // IntelGUA\Sisaludent\Providers\BroadcastServiceProvider::class,
+        IntelGUA\Sisaludent\Providers\BroadcastServiceProvider::class,
         IntelGUA\Sisaludent\Providers\EventServiceProvider::class,
         IntelGUA\Sisaludent\Providers\RouteServiceProvider::class,
-
     ],
 
     /*
@@ -210,7 +214,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
     ],
 
 ];

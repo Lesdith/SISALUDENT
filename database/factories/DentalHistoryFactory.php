@@ -6,7 +6,7 @@ $factory->define(IntelGUA\Sisaludent\Dental_history::class, function (Faker $fak
 
     $title = $faker->unique()->sentence(5);
     return [
-        'patient_id'                        => rand(1,5),  
+        'patient_id'                        => rand(1,5),
         'last_medical_visit_date'           => $faker->date($format = 'Y-m-d', $max = 'now'),
         'dental_hemorrhage'                 => true,
         'mouth_infections'                  => true,

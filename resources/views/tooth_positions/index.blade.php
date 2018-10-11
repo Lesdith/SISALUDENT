@@ -2,7 +2,7 @@
 @section('title', 'SISALUDENT')
 
 @section('content_header')
-<h3>Posicion del diente</h3>
+<h3>Posición diente</h3>
 @stop
 
 	@if (session('status'))

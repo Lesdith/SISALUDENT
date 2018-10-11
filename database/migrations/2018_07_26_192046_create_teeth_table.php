@@ -15,7 +15,7 @@ class CreateTeethTable extends Migration
     {
         Schema::create('teeth', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('tooth_type_id')    ->unsigned();
             $table->integer('tooth_stage_id')   ->unsigned();
             $table->integer('tooth_position_id')->unsigned();

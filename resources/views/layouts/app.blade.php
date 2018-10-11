@@ -87,7 +87,7 @@
         <!-- Bootstrap JavaScript -->
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <!-- App scripts -->
-    @yield('js')
+    @stack('js')
     </div>
 </body>
 </html>
