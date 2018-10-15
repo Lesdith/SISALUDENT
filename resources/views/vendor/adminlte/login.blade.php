@@ -32,12 +32,12 @@
                 <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
                     <input type="password" name="password" class="form-control"
                            placeholder="{{ trans('adminlte::adminlte.password') }}">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
                         </span>
                     @endif
+                    <i onclick="ShowPassword()" title="Mostrar/Ocultar" class="fa fa-eye form-control-feedback form-control-feedback-click" id="eye"></i>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
@@ -55,17 +55,6 @@
                     <!-- /.col -->
                 </div>
             </form>
-            <div class="auth-links">
-                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
-                   class="text-center"
-                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a>
-                <br>
-                @if (config('adminlte.register_url', 'register'))
-                    <a href="{{ url(config('adminlte.register_url', 'register')) }}"
-                       class="text-center"
-                    >{{ trans('adminlte::adminlte.register_a_new_membership') }}</a>
-                @endif
-            </div>
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->
@@ -81,6 +70,20 @@
                 increaseArea: '20%' // optional
             });
         });
+
+        function ShowPassword() {
+            var x = document.getElementById("Password");
+            if (x.type === "password") {
+                x.type = "text";
+
+                x.focus();
+            } else {
+                x.type = "password";
+                //$("#eye").title = "Mostrar contraseña";
+                x.focus();
+            }
+        }
+
     </script>
     @yield('js')
 @stop

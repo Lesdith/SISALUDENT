@@ -156,7 +156,7 @@ return [
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
-        Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class,
+        //Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class,
 
         /*
          * Application Service Providers...

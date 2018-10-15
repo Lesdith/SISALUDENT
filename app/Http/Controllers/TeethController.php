@@ -23,7 +23,7 @@ class TeethController extends Controller
     public function getTeeth()
     {
         $teeth = Tooth::with("tooth_type")->with("tooth_stage")->with("tooth_position")->orderby('id', 'DESC')->get();
-        return $teeth;
+        return (compact('teeth'));
     }
 
      public function getTooth($id)

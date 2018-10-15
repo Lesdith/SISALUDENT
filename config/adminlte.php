@@ -110,8 +110,8 @@ return [
     'menu' => [
         'MENU',
         [
-            'text'        => 'Home',
-            'url'         => 'admin',
+            'text'        => 'Inicio',
+            'url'         => '../home',
             'icon'        => 'home',
 
         ],

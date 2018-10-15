@@ -2,7 +2,7 @@
 @section('title', 'SISALUDENT')
 
 @section('content_header')
-<h3>Dientes</h3>
+<h3>Pacientes</h3>
 @stop
 
 	@if (session('status'))
@@ -12,18 +12,28 @@
 	@endif
 
 @section('content')
-	<button data-toggle="modal" data-target="#add_new_tooth_modal" class="btn btn-success pull-right">
+	<button data-toggle="modal" data-target="#add_new_patient_modal" class="btn btn-success pull-right">
 		<i class="fa fa-plus"></i> Nuevo Registro</button>
 
-			<table id="tbl-teeth" style="width:100%" data-plugin="dataTable" class="table table-stripped  table-bordered table-responsive">
+			<table id="tbl-patients" style="width:100%" class="table table-stripped table-bordered table-responsive">
 				<thead>
 					<tr >
 						<th class="text-center">No.</th>
-						<th data-priority="1" class="text-center">Nombre</th>
-						<th class="text-center">Tipo</th>
+						<th data-priority="1" class="text-center">Primer nombre</th>
+						<th class="text-center">Segundo nombre</th>
+						<th class="text-center">Tercer nombre</th>
+						<th class="text-center">Apellido paterno</th>
+						<th class="text-center">Apellido materno</th>
+                        <th class="text-center">Género</th>
+						<th class="text-center">Fecha de nacimiento</th>
+						<th class="text-center">Localidad</th>
+						<th class="text-center">Dirección</th>
+						<th class="text-center">Municipio</th>
 						<th class="text-center">Etapa</th>
-						<th class="text-center">Posición</th>
+						<th class="text-center">Número telefónico</th>
+						<th class="text-center">Fotografía</th>
 						<th class="text-center">Acciones</th>
+
 					</tr>
 				</thead>
 			</table>
@@ -32,7 +42,7 @@
 <!-- Bootstrap Modals -->
 	<!-- Modal - Agregar nuevo registro -->
 
-	<div class="modal fade" id="add_new_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	<div class="modal fade" id="add_new_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
@@ -42,7 +52,7 @@
 
 	            </div>
 	            <div class="modal-body">
-	 				<form  action="{{ URL::to('teeth')}}" method="POST" id="frm-insert">
+	 				<form  action="{{ URL::to('patients')}}" method="POST" id="frm-insert">
 						{{ csrf_field() }}
 	                	<div class="form-group">
 	                    	<label for="name">Nombre</label>
@@ -128,6 +138,7 @@
 
       	$(document).ready(function() {
 		dataTableTeeth();
+		//obtener_id_eliminar("#tbl-teeth tbody", table);
         //getTeeth();
         getToothPosition();
         getToothStage();
@@ -141,33 +152,27 @@
 
 		function dataTableTeeth()
 			{
-				var dt = $('#tbl-teeth').DataTable({
+				var dt =$('#tbl-teeth').DataTable({
 					"autoWidth": 	true,
 					"responsive":	true,
-					"columnDefs":	[
-						{responsivePriority: 1, targets: 0},
-						{responsivePriority: 2, targets: -2},
-						{
-							"searchable": false,
-							"orderable": false,
-							"targets": 0
-						}
+					"columnDefs":	[{
+						"searchable": false,
+						"orderable": false,
+						"targets": 0},
+					{responsivePriority: 1, targets: 0},
+					{responsivePriority: 2, targets: -2}
 					],
-
 					"order": [[ 1, 'asc' ]],
 					"fixedColumns":	true,
-
 					"language":
                      {
                          "url":"//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                      },
-
 					"ajax": {
 						"url": 		'../get-teeth',
 						"type":		'GET',
 						"dataSrc":	'teeth',
 					},
-
 					"columns" : [
 						{"data":	"id"},
 						{"data":	"name"},
@@ -290,10 +295,8 @@
 					dataType: 'json',
 					success:function(data)
 					{
-						var t = $('#tbl-teeth').DataTable();
-						t.ajax.reload()
 						$('#add_new_tooth_modal').modal('hide');
-						//getTeeth();
+						dataTableTeeth();
 						toastr["success"]("¡Diente creado exitosamente!", "Guardado")
 						// $.toast({
 						// 	heading: 'Success',
@@ -430,7 +433,7 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 						$(vid).remove();
 						}
 					});
-					//dataTableTeeth();
+					dataTableTeeth();
 					swalWithBootstrapButtons({
 						title:"Poof! ",
 						text: "Diente se eliminó correctamente!",
