@@ -49,7 +49,6 @@
 	                    	<input name="name" type="text" id="name" placeholder="Nombre" class="form-control"/>
 	                	</div>
 
-
 						<div class="form-group">
 	                    	<label for="tooth_type_id">Tipo</label>
 	                    <select name="tooth_type_id" id="tooth_type_id" class="form-control"></select>
@@ -93,7 +92,6 @@
 	                    	<input name="name" type="text" id="update_name" placeholder="Nombre" class="form-control"/>
 	                	</div>
 
-
 						<div class="form-group">
 	                    	<label for="tooth_type_id">Tipo</label>
 	                    <select name="update_tooth_type" id="update_tooth_type" class="form-control"></select>
@@ -108,6 +106,8 @@
 	                    	<label for="tooth_position_id">Posicion</label>
 							<select name="update_tooth_position" id="update_tooth_position" class="form-control"></select>
 	                	</div>
+
+					<input type="hidden" name="teeth_id" i="teeth_id">
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -132,10 +132,10 @@
         getToothPosition();
         getToothStage();
         getToothType();
-		// getToothPositionEdit();
-		// getToothTypeEdit();
-		// getToothStageEdit();
-		// getTooth();
+		getToothPositionEdit();
+        getToothStageEdit();
+        getToothTypeEdit();
+		//getTooth();
         } );
 
 
@@ -209,34 +209,7 @@
     			}).draw();
 			}
 
-// esta funcion llena el cuerpo de la tabla dientes (teeth)
-        // //console.log({{url('get-teeth')}});
-        // function getTeeth(){
-        //     $("#tbl-teeth").empty();
-        //     $.get("{{url('get-teeth')}}", function(data){
-        //         console.info(data);
-        //         $.each(data,	function(i, value){
-        //             var fila = $('<tr />');
-        //             fila.append($('<td />', {
-        //                 text : value.id
-        //             })).append($('<td />', {
-        //                 text : value.name
-        //             })).append($('<td />', {
-        //                 text : value.tooth_type.name
-        //             })).append($('<td />', {
-        //                 text : value.tooth_stage.name
-        //             })).append($('<td />', {
-        //                 text : value.tooth_position.name
-        //             })).append($('<td />', {
-        //                 html : '<a class="btn btn-sm btn-warning" href="" id="edit" data-id=' + value.id + ' >' +
-        //                         '<i class="fa fa-edit"></i> Editar</a>' +
-        //                         ' <a  class="btn btn-sm btn-danger" href="" id="del" data-id=' + value.id + ' >' +
-        //                         '<i class="fa fa-trash"></i> Eliminar</a>'
-        //             }).css('width','172px'));
-        //             $("#tbl-teeth").append(fila);
-        //         });
-        //     });
-        // }
+
 
 			//para cargar la lista de posiciones de diente
 			function getToothPosition(){
@@ -311,28 +284,26 @@
 
 	$('body').delegate('#tbl-teeth #edit', 'click', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		//let diente = getTooth(id);
-		//console.log(diente);
-		//getToothPositionEdit(diente.tooth_position_id);
-		getToothPositionEdit(id.tooth_position_id);
-		getToothStageEdit(id.tooth_stage_id);
-		getToothTypeEdit(id.tooth_type_id);
-		$.get('teeth/' + id + '/edit', {id:id}, function(data){
+			var $tr = $(this).closest('tr');
+    				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
+   						console.log(rowData);
+					var vid = rowData.id;
+		$.get('teeth/' + vid + '/edit', {id:vid}, function(data){
 			$('#frm-update').find('#update_name').val(data.name)
+			$('#frm-update').find('#update_tooth_type').val(data.tooth_type_id)
+			$('#frm-update').find('#update_tooth_stage').val(data.tooth_stage_id)
+			$('#frm-update').find('#update_tooth_position').val(data.tooth_position_id)
 			$('#update_teeth_modal').modal('show');
 		});
 	});
 
-
 	        //para cargar los datos del dropdown list de tipo de diente
-			function getToothTypeEdit(id){
+			function getToothTypeEdit(vid){
 				$('#update_tooth_type').empty();
 				$.get('get-tooth_types', function(data){
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 						console.info(value);
-						if(value.id === id ){
+						if(value.id === vid ){
 							$('#update_tooth_type').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
 						$('#update_tooth_type').append($('<option >', {value: value.id, text: `${value.name}`}));
@@ -340,13 +311,13 @@
 				});
 			}
 	        //para cargar los datos del dropdown list de la etapa de diente
-			function getToothStageEdit(id){
+			function getToothStageEdit(vid){
 				$('#update_tooth_stage').empty();
 			    $.get('get-tooth_stages', function(data){
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 						console.info(value);
-						if(value.id === id ){
+						if(value.id === vid ){
 							$('#update_tooth_stage').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
 						$('#update_tooth_stage').append($('<option >', {value: value.id, text: `${value.name}`}));
@@ -355,13 +326,13 @@
 			}
 
 	        //para cargar los datos del dropdown list de la posición del diente
-			function getToothPositionEdit(id){
+			function getToothPositionEdit(vid){
 				$('#update_tooth_position').empty();
 				$.get('get-tooth_positions', function(data){
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 						console.info(value);
-						if(value.id === id ){
+						if(value.id === vid ){
 							$('#update_tooth_position').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
 						$('#update_tooth_position').append($('<option >', {value: value.id, text: `${value.name}`}));
@@ -372,11 +343,14 @@
 
 	$('#frm-update').on('submit', function(e){
 	e.preventDefault();
-	var data 	= $(this).serialize();
+	var vid 	= $(this).serialize();
+	console.log(vid);
+	var v_token = "{{csrf_token()}}";
+	var parametros = {_method: 'PUT', _token: v_token};
 	$.ajax({
-		type 	: 'put',
-		url 	: "teeth/" + data + "",
-		data 	: data,
+		type 	: 'POST',
+		url 	: "teeth/" + vid + "",
+		data 	: parametros,
 		dataType: 'json',
 		success:function(data)
 		{
@@ -385,26 +359,48 @@
 		}
 		});
 	});
+
+
+
+	// $('#frm-update').on('submit', function(e){
+	// e.preventDefault();
+	// var $tr = $(this).closest('li').length ?
+	// 	$(this).closest('li'):
+	// 	$(this).closest('tr');
+	// var rowData = $('#tbl-teeth').DataTable().row($tr).data();
+   	// 	console.log(rowData)
+	// var vid = rowData.id;
+	// var v_token = "{{csrf_token()}}";
+	// var parametros = {_method: 'PUT', _token: v_token};
+	// $.ajax({
+	// 	type 	: 'POST',
+	// 	url 	: "teeth/" + vid + "",
+	// 	data 	: parametros,
+	// 	dataType: 'json',
+	// 	success:function(data)
+	// 	{
+	// 		$('#update_teeth_modal').modal('hide');
+	// 			getTeeth();
+	// 		var $t = $('#tbl-teeth').DataTable();
+	// 		$t.ajax.reload();
+	// 	}
+	// 	});
+	// });
+
 	//-------------Eliminar Diente-------------
 
-// Se creo esta funcion para poder capturar el (id) del elemento que se quiere eliminar
-
-  var obtener_id_eliminar = function(tbody, table) {
-            $(tbody).on("click", "button.delete", function() {
-                var data = table.row($(this).parents("tr")).data();
-            });
-        }
-
-	/*se creo esta función para que al dar click al botón eliminar muestre un alert con
+	/*se creo esta función para que al dar click al botón eliminar muestre uns alerta con
 	 mensajes para que el usuario de click a la opción aceptar o cancelar */
 
 $('body').delegate('#tbl-teeth #del', 'click', function(e){
 		e.preventDefault();
+		// Crea los botones para que el usuario decida
 		const swalWithBootstrapButtons = swal.mixin({
 			confirmButtonClass: 'btn btn-success',
 			cancelButtonClass: 'btn btn-danger',
 			buttonsStyling: false,
 		})
+		//Muestra el mensaje de la alerta y activa el botón cancelar
 		swalWithBootstrapButtons({
 			title: 'Eliminar',
 			text: "¿Realmente desea eliminar el registro?",
@@ -413,29 +409,39 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 			confirmButtonText: 'Si, eliminar!',
 			cancelButtonText: 'No, cancelar!',
 			reverseButtons: true
+			// Se recoge el valor si se dio Click al botón eliminar
 		}).then((result) =>{
 			console.log(result);
-				if (result) {
-					var $tr = $(this).closest('tr');
+				if (result.value) {
+					var $tr = $(this).closest('li').length ?
+					$(this).closest('li'):
+					$(this).closest('tr');
     				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   						 console.log(rowData)
-					var vid = $(this).data('id');
+   						console.log(rowData)
+					var vid = rowData.id;
 					var v_token = "{{csrf_token()}}";
 					var parametros = {_method: 'DELETE', _token: v_token};
 					$.ajax({
 						type  : "POST",
 						url	  : "teeth/" + vid + "",
 						data  : parametros,
+
+						// Se elimina el Dato seleccionado
 						success: function(data){
 						$(vid).remove();
+
+						//Se actualizan los datos en el DataTable
+						var $t = $('#tbl-teeth').DataTable();
+						$t.ajax.reload();
 						}
 					});
-					//dataTableTeeth();
+					//Se muestra un mensaje de que el dato se elimino correctamente
 					swalWithBootstrapButtons({
 						title:"Poof! ",
 						text: "Diente se eliminó correctamente!",
 						icon: "success",
 					});
+					// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada
 				} else if(
 					result.dismiss === swal.DismissReason.cancel){
 					swalWithBootstrapButtons("¡Operación cancelada por el usuario!");

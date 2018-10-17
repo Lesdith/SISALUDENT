@@ -32,6 +32,11 @@ class TeethController extends Controller
         return $teeth;
     }
 
+    //    public function getToothShow($id)
+    // {
+    //     $teeth = Tooth::findOrFail($id);
+    //     return $teeth;
+    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -64,10 +69,10 @@ class TeethController extends Controller
      * @param  \IntelGUA\Sisaludent\Tooth  $tooth
      * @return \Illuminate\Http\Response
      */
-    public function show(Tooth $tooth)
+    public function show($id)
     {
-        //
-    }
+        $teeth = Tooth::find($id);
+        return view('tooth.show', ['tooth'=>$teeth]);    }
 
     /**
      * Show the form for editing the specified resource.
