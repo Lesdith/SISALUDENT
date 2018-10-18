@@ -35,10 +35,10 @@ Route::get('/', function () {
 
 Route::get('get-teeth', 'TeethController@getTeeth');
 Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
-    Route::post('teeth'                , 'TeethController@store');
-    Route::post('teeth/{tooth}'     , 'TeethController@update');
-    Route::get('teeth/{tooth}/edit' , 'TeethController@edit');
-    Route::post('teeth/{tooth}'     , 'TeethController@destroy')->name('eliminar');
+//     Route::post('teeth'                , 'TeethController@store');
+//     Route::post('teeth/{tooth}'     , 'TeethController@update')->name('actualizar');
+//     Route::get('teeth/{tooth}/edit' , 'TeethController@edit');
+//     Route::post('teeth/{tooth}'     , 'TeethController@destroy')->name('eliminar');
 Route::resource('teeth', 'TeethController');
 
 

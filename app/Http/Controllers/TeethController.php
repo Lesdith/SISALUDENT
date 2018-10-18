@@ -84,8 +84,8 @@ class TeethController extends Controller
     {
         if ($request->ajax()) {
 
-            $teeth = Tooth::find($request->id);
-            return response($teeth);
+            $tooth = Tooth::find($request->id);
+            return response($tooth);
 
         }
     }
@@ -99,6 +99,7 @@ class TeethController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         if ($request->ajax()) {
 
             $teeth = Tooth::find($request->id);
@@ -106,6 +107,7 @@ class TeethController extends Controller
             return response($teeth);
 
         }
+
     }
 
     /**
@@ -124,22 +126,5 @@ class TeethController extends Controller
     }
     return redirect('teeth')->with('fail', 'Diente eliminado exitosamente');
     }
-
-
-     // $tooth = Tooth::find($id);
-            // $tooth->delete();
-            // return redirect('teeth')->with('status', 'Diente eliminado exitosamente');
-
-        // if ($request->ajax()) {
-        //     Tooth::destroy($request->id);
-        //     return redirect('teeth')->with('status', 'Diente eliminado exitosamente');
-        // }
-
-        // if ($request->ajax()) {
-        //    $diente = Tooth::find($request->$id);
-        //     return $diente;
-        //     $diente->delete();
-        //     return redirect('teeth')->with('success', 'Diente eliminado exitosamente');
-        // }
 
 }

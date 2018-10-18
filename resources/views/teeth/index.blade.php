@@ -77,7 +77,7 @@
 
 	<!-- Modal - Actualizar registro -->
 
-	<div class="modal fade" id="update_teeth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	<div class="modal fade" id="update_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
@@ -85,8 +85,9 @@
 	                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
 	            </div>
 					<div class="modal-body">
-					<form  action="" method="POST" id="frm-update">
-					{{ csrf_field() }}
+	 				<form  action="{{ URL::to('teeth')}}" method="POST" id="frm-update">
+					<input type="hidden" name="_method" value="PUT">
+    				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	                	<div class="form-group">
 	                    	<label for="name">Nombre</label>
 	                    	<input name="name" type="text" id="update_name" placeholder="Nombre" class="form-control"/>
@@ -107,7 +108,7 @@
 							<select name="update_tooth_position" id="update_tooth_position" class="form-control"></select>
 	                	</div>
 
-					<input type="hidden" name="teeth_id" i="teeth_id">
+					<input type="hidden" name="teeth_id" id="update_tooth_id">
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -119,6 +120,51 @@
 	    </div>
 	</div>
 	<!-- // Modal actualizar registro -->
+
+<!-- Modal Mostrar registro -->
+
+	<div class="modal fade" id="show_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" id="myModalLabel">Detalles del registro</h4>
+	            </div>
+					<div class="modal-body">
+					<form  action="" method="POST" id="frm-show">
+					{{ csrf_field() }}
+	                	<div class="form-group">
+	                    	<label for="name">Nombre</label>
+	                    	<input name="name" type="text" id="show_name" readonly="readonly" style="border: 0;" />
+	                	</div>
+
+						<div class="form-group">
+	                    	<label for="tooth_type_id">Tipo</label>
+	                    <input name="tooth_type" id="show_tooth_type" class="form-control" style="border: 0;"/>
+	                	</div>
+
+							<div class="form-group">
+	                    	<label for="tooth_stage_id">Etapa</label>
+							<input name="tooth_stage" id="show_tooth_stage" class="form-control" style="border: 0;"/>
+	                	</div>
+
+							<div class="form-group">
+	                    	<label for="tooth_position_id">Posicion</label>
+							<input name="tooth_position" id="show_tooth_position" class="form-control" style="border: 0;"/>
+	                	</div>
+
+							<input type="hidden" name="teeth_id" id="show_tooth_id">
+
+						<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+					</div>
+				</form>
+				</div>
+	        </div>
+	    </div>
+	</div>
+	<!-- // Modal Mostrar registro -->
+
 
 @stop
 <!-- /Content Section -->
@@ -142,6 +188,7 @@
 		function dataTableTeeth()
 			{
 				var dt = $('#tbl-teeth').DataTable({
+					"serverside":	true,
 					"autoWidth": 	true,
 					"responsive":	true,
 					"columnDefs":	[
@@ -257,7 +304,7 @@
 				var post 	= $(this).attr('method');
 				console.info(data);
 				$.ajax({
-					type 	: post,
+					type 	: put,
 					url 	: url,
 					data 	: data,
 					dataType: 'json',
@@ -284,7 +331,9 @@
 
 	$('body').delegate('#tbl-teeth #edit', 'click', function(e){
 		e.preventDefault();
-			var $tr = $(this).closest('tr');
+			var $tr = $(this).closest('li').length ?
+					$(this).closest('li'):
+					$(this).closest('tr');;
     				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
    						console.log(rowData);
 					var vid = rowData.id;
@@ -293,11 +342,12 @@
 			$('#frm-update').find('#update_tooth_type').val(data.tooth_type_id)
 			$('#frm-update').find('#update_tooth_stage').val(data.tooth_stage_id)
 			$('#frm-update').find('#update_tooth_position').val(data.tooth_position_id)
-			$('#update_teeth_modal').modal('show');
+			$('#frm-update').find('#update_tooth_id').val(data.id)
+			$('#update_tooth_modal').modal('show');
 		});
 	});
 
-	        //para cargar los datos del dropdown list de tipo de diente
+	        //Esta función se utiliza para cargar los datos del dropdown list de tipo de diente
 			function getToothTypeEdit(vid){
 				$('#update_tooth_type').empty();
 				$.get('get-tooth_types', function(data){
@@ -310,12 +360,11 @@
 					});
 				});
 			}
-	        //para cargar los datos del dropdown list de la etapa de diente
+	        //Esta función se utiliza para cargar los datos del dropdown list de la etapa de diente
 			function getToothStageEdit(vid){
 				$('#update_tooth_stage').empty();
 			    $.get('get-tooth_stages', function(data){
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 						console.info(value);
 						if(value.id === vid ){
 							$('#update_tooth_stage').append($('<option selected >', {value: value.id, text: `${value.name}`}));
@@ -325,12 +374,11 @@
 				});
 			}
 
-	        //para cargar los datos del dropdown list de la posición del diente
+	        //Esta función se utiliza para cargar los datos del dropdown list de la posición del diente
 			function getToothPositionEdit(vid){
 				$('#update_tooth_position').empty();
 				$.get('get-tooth_positions', function(data){
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 						console.info(value);
 						if(value.id === vid ){
 							$('#update_tooth_position').append($('<option selected >', {value: value.id, text: `${value.name}`}));
@@ -341,51 +389,31 @@
 			}
 	//-------------Actualizar Diente-------------
 
-	$('#frm-update').on('submit', function(e){
-	e.preventDefault();
-	var vid 	= $(this).serialize();
-	console.log(vid);
-	var v_token = "{{csrf_token()}}";
-	var parametros = {_method: 'PUT', _token: v_token};
-	$.ajax({
-		type 	: 'POST',
-		url 	: "teeth/" + vid + "",
-		data 	: parametros,
-		dataType: 'json',
-		success:function(data)
-		{
-			$('#update_teeth_modal').modal('hide');
-			getTeeth();
-		}
-		});
-	});
+	$('#update_tooth_modal').on('submit', function(e){
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				e.preventDefault();
+				var data 	= $(this).serialize();
+				var id 		= $("#update_tooth_id").val();
+				//console.log(data);
+				console.log(id);
+				$.ajax({
+					type 	: 'PUT',
+					url 	: 'teeth/' + id ,
+					data 	: data,
+					dataType: 'json',
+					success:function(data)
+					{
+					console.log(data);
+						$('#update_tooth_modal').modal('hide');
+					}
+					});
+				});
 
 
-
-	// $('#frm-update').on('submit', function(e){
-	// e.preventDefault();
-	// var $tr = $(this).closest('li').length ?
-	// 	$(this).closest('li'):
-	// 	$(this).closest('tr');
-	// var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   	// 	console.log(rowData)
-	// var vid = rowData.id;
-	// var v_token = "{{csrf_token()}}";
-	// var parametros = {_method: 'PUT', _token: v_token};
-	// $.ajax({
-	// 	type 	: 'POST',
-	// 	url 	: "teeth/" + vid + "",
-	// 	data 	: parametros,
-	// 	dataType: 'json',
-	// 	success:function(data)
-	// 	{
-	// 		$('#update_teeth_modal').modal('hide');
-	// 			getTeeth();
-	// 		var $t = $('#tbl-teeth').DataTable();
-	// 		$t.ajax.reload();
-	// 	}
-	// 	});
-	// });
 
 	//-------------Eliminar Diente-------------
 
@@ -449,35 +477,22 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 			});
 		});
 
+//--------- Se creo para poder mostrar el detalle de una fila
 
-			// swal({
-			// 	title: "Eliminar",
-			// 	text: "¿Realmente desea eliminar el registro?",
-			// 	type: 'warning',
-			// 	showCancelButton: true,
-			// 	closeOnConfirm: false,
-			// 	showLoaderOnConfirm: true,
-			// 	confirmButtonText: 'Si, eliminar!',
-			// 	cancelButtonText: 'No, cancelar!',
-			// 	reverseButtons: true
-			// 	})
-			// 	.then((willDelete) => {
-			// 	if (willDelete) {
-			// 		var id = $(this).data('id');
-			// 		$.post('{{url("teeth.destroy", ' + id + ')}}', {id:id}, function(data){
-			// 			$(+id).remove();
-			// 		});
-			// 		getTeeth();
-			// 		swal({
-			// 			title:"Poof! ",
-			// 			text: "Diente se eliminó correctamente!",
-			// 			icon: "success",
-			// 		});
-			// 	} else if(
-			// 		willDelete.dismiss === swal.DismissReason.cancel){
-			// 		swal("¡Operación cancelada por el usuario!");
-			// 	}
-			// });
+	$('body').delegate('#tbl-teeth #show', 'click', function(e){
+		e.preventDefault();
+			var $tr = $(this).closest('li').length ?
+					$(this).closest('li'):
+					$(this).closest('tr');
+    				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
+   						console.log(rowData);
+					var vid = rowData.id;
+			$('#frm-show').find('#show_name').val(rowData.name)
+			$('#frm-show').find('#show_tooth_type').val(rowData.tooth_type.name)
+			$('#frm-show').find('#show_tooth_stage').val(rowData.tooth_stage.name)
+			$('#frm-show').find('#show_tooth_position').val(rowData.tooth_position.name)
+			$('#show_tooth_modal').modal('show');
+	});
 
 </script>
 @endpush
