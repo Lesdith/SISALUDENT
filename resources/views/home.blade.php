@@ -89,16 +89,10 @@
         <div class="col-md-4">
             <h2>Servicios</h2>
             <p align="justify">
-                Para el manejo adecuado de la información, SiSaluDent cuenta con un menú de reportes a través del cual se pueden visualizar información relevante que ayude en la toma de decisiones.
+                Para el manejo adecuado de la información, SiSaluDent cuenta con.
                 <br>
                 <br>
                 * Listar todos los equipos.<br>
-                * Listar los equipos que no se encuentran en estado activo.<br>
-                * Listar todos los equipos de una ubicación física determinada.<br>
-                * Listar equipos y subequipos.<br>
-                * Listar equipo que más AprobacionMantenimiento ha recibido.<br>
-                * Mostrar que equipos estan asignados a un usuario determinado.<br>
-                * Mostrar los equipos que no han sido asignados a ningún usuario.<br>
             <p>
         </div>
     </div>

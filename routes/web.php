@@ -28,10 +28,19 @@ use IntelGUA\Generators\Generate;
 
 
 
+
+Auth::routes();
+// en las siguientes rutas si no esta logeado mandar a login
+Route::group(['middleware' => ['auth']], function () {
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/register', function () {
+    return view('home');
+});
+
 
 Route::get('get-teeth', 'TeethController@getTeeth');
 Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
@@ -53,12 +62,4 @@ Route::get('get-tooth_stages', 'ToothStagesController@getToothStage');
 Route::resource('tooth_types', 'ToothTypesController');
 Route::get('get-tooth_types', 'ToothTypesController@getToothType');
 
-
-Auth::routes();
-// en las siguientes rutas si no esta logeado mandar a login
-Route::group(['middleware' => ['auth']], function () {
-
 });
-
-//Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();

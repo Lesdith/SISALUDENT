@@ -12,7 +12,7 @@
 	@endif
 
 @section('content')
-	<button data-toggle="modal" data-target="#add_new_tooth_modal" class="btn btn-success pull-right">
+	<button data-toggle="modal" data-target="#add_new_tooth_modal" class="btn btn-success pull-right" style="margin-bottom:10px;">
 		<i class="fa fa-plus"></i> Nuevo Registro</button>
 
 			<table id="tbl-teeth" style="width:100%" data-plugin="dataTable" class="table table-stripped  table-bordered table-responsive">
@@ -95,20 +95,20 @@
 
 						<div class="form-group">
 	                    	<label for="tooth_type_id">Tipo</label>
-	                    <select name="update_tooth_type" id="update_tooth_type" class="form-control"></select>
+	                    <select name="tooth_type_id" id="update_tooth_type" class="form-control"></select>
 	                	</div>
 
 							<div class="form-group">
 	                    	<label for="tooth_stage_id">Etapa</label>
-							<select name="update_tooth_stage" id="update_tooth_stage" class="form-control"></select>
+							<select name="tooth_stage_id" id="update_tooth_stage" class="form-control"></select>
 	                	</div>
 
 							<div class="form-group">
 	                    	<label for="tooth_position_id">Posicion</label>
-							<select name="update_tooth_position" id="update_tooth_position" class="form-control"></select>
+							<select name="tooth_position_id" id="update_tooth_position" class="form-control"></select>
 	                	</div>
 
-					<input type="hidden" name="teeth_id" id="update_tooth_id">
+					<input type="hidden" name="id" id="tooth_id">
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -140,20 +140,20 @@
 
 						<div class="form-group">
 	                    	<label for="tooth_type_id">Tipo</label>
-	                    <input name="tooth_type" id="show_tooth_type" class="form-control" style="border: 0;"/>
+	                    <input name="tooth_type_id" id="show_tooth_type" class="form-control" style="border: 0;"/>
 	                	</div>
 
 							<div class="form-group">
 	                    	<label for="tooth_stage_id">Etapa</label>
-							<input name="tooth_stage" id="show_tooth_stage" class="form-control" style="border: 0;"/>
+							<input name="tooth_stage_id" id="show_tooth_stage" class="form-control" style="border: 0;"/>
 	                	</div>
 
 							<div class="form-group">
 	                    	<label for="tooth_position_id">Posicion</label>
-							<input name="tooth_position" id="show_tooth_position" class="form-control" style="border: 0;"/>
+							<input name="tooth_position_id" id="show_tooth_position" class="form-control" style="border: 0;"/>
 	                	</div>
 
-							<input type="hidden" name="teeth_id" id="show_tooth_id">
+							<input type="hidden" name="id" id="show_tooth_id">
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
@@ -342,7 +342,7 @@
 			$('#frm-update').find('#update_tooth_type').val(data.tooth_type_id)
 			$('#frm-update').find('#update_tooth_stage').val(data.tooth_stage_id)
 			$('#frm-update').find('#update_tooth_position').val(data.tooth_position_id)
-			$('#frm-update').find('#update_tooth_id').val(data.id)
+			$('#frm-update').find('#tooth_id').val(data.id)
 			$('#update_tooth_modal').modal('show');
 		});
 	});
@@ -389,26 +389,27 @@
 			}
 	//-------------Actualizar Diente-------------
 
-	$('#update_tooth_modal').on('submit', function(e){
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
+	$('#frm-update').on('submit', function(e){
 				e.preventDefault();
-				var data 	= $(this).serialize();
-				var id 		= $("#update_tooth_id").val();
-				//console.log(data);
+				var data 	= $('#frm-update').serializeArray();
+				var id 		= $("#tooth_id").val();
+				console.log(data);
 				console.log(id);
 				$.ajax({
-					type 	: 'PUT',
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
 					url 	: 'teeth/' + id ,
-					data 	: data,
 					dataType: 'json',
+					type 	: 'POST',
+					data 	: data,
 					success:function(data)
 					{
+						var $t = $('#tbl-teeth').DataTable();
+						$t.ajax.reload();
 					console.log(data);
 						$('#update_tooth_modal').modal('hide');
+
 					}
 					});
 				});

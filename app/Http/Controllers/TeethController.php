@@ -80,7 +80,7 @@ class TeethController extends Controller
      * @param  \IntelGUA\Sisaludent\Tooth  $tooth
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
         if ($request->ajax()) {
 
@@ -102,9 +102,9 @@ class TeethController extends Controller
 
         if ($request->ajax()) {
 
-            $teeth = Tooth::find($request->id);
-            $teeth->update($request->all());
-            return response($teeth);
+            $tooth = Tooth::find($request->id);
+            $tooth->update($request->all());
+            return response($tooth);
 
         }
 

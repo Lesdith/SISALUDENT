@@ -23,7 +23,7 @@
                 <div class="container">
                     <div class="navbar-header">
                         <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="navbar-brand">
-                            {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+                            {!! config('adminlte.logo', '<b>SiSalu</b>Dent') !!}
                         </a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>

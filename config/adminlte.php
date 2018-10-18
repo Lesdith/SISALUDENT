@@ -107,7 +107,8 @@ return [
     |
     */
 
-    'menu' => [
+
+     'menu' => [
         'MENU',
         [
             'text'        => 'Inicio',
@@ -115,69 +116,140 @@ return [
             'icon'        => 'home',
 
         ],
-        'ACCOUNT SETTINGS',
-        [
-            'text' => 'Profile',
-            'url'  => 'admin/settings',
-            'icon' => 'user',
-        ],
-        [
-            'text' => 'Change Password',
-            'url'  => 'admin/settings',
-            'icon' => 'lock',
-        ],
-        [
-            'text'    => 'Multilevel',
-            'icon'    => 'share',
+        'Secciones',
+         [
+            'text' => 'Agenda',
+            'url'  => '#',
+            'icon' => 'calendar',
             'submenu' => [
                 [
-                    'text' => 'Level One',
+                    'text' => 'Citas',
                     'url'  => '#',
+                    'icon' => 'edit',
                 ],
+            ],
+        ],
+    [
+        'text'    => 'Expediente',
+        'icon' => 'folder-open',
+        'submenu' => [
                 [
-                    'text'    => 'Level One',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Level Two',
-                            'url'  => '#',
+                'text' => 'Pacientes',
+                'url'  => '#',
+                'icon' => 'users',
+                'submenu' => [
+                    [
+                        'text' => 'Dientes',
+                        'url'  => '../teeth',
+                        'icon' => 'puzzle-piece',
+                    ],
+                    [
+                        'text' => 'Historiales médicos',
+                        'url'  => '#',
+                        'icon' => 'hospital-o',
+                        'submenu' => [
+                            [
+                                'text' => 'Historias Clínicas',
+                                'url'  => '#',
+                                'icon' => 'vcard',
+                            ],
+                            [
+                                'text' => 'Historias Odontológicas',
+                                'url'  => '#',
+                                'icon' => 'vcard-o',
+                            ],
                         ],
-                        [
-                            'text'    => 'Level Two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
+                    ],
+                    [
+                        'text' => 'Tratamientos',
+                        'url'  => '#',
+                        'icon' => 'medkit',
+                        'submenu' => [
+                            [
+                                'text' => 'Planes de tratamiento',
+                                'url'  => '#',
+                                'icon' => 'vcard-o',
                             ],
                         ],
                     ],
                 ],
-                [
-                    'text' => 'Level One',
-                    'url'  => '#',
-                ],
+
             ],
         ],
-        'LABELS',
-        [
-            'text'       => 'Important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
-        ],
     ],
+],
+
+    // 'menu' => [
+    //     'MENU',
+    //     [
+    //         'text'        => 'Inicio',
+    //         'url'         => '../home',
+    //         'icon'        => 'home',
+
+    //     ],
+    //     'ACCOUNT SETTINGS',
+    //     [
+    //         'text' => 'Profile',
+    //         'url'  => 'admin/settings',
+    //         'icon' => 'user',
+    //     ],
+    //     [
+    //         'text' => 'Change Password',
+    //         'url'  => 'admin/settings',
+    //         'icon' => 'lock',
+    //     ],
+    //     [
+    //         'text'    => 'Multilevel',
+    //         'icon'    => 'share',
+    //         'submenu' => [
+    //             [
+    //                 'text' => 'Level One',
+    //                 'url'  => '#',
+    //             ],
+    //             [
+    //                 'text'    => 'Level One',
+    //                 'url'     => '#',
+    //                 'submenu' => [
+    //                     [
+    //                         'text' => 'Level Two',
+    //                         'url'  => '#',
+    //                     ],
+    //                     [
+    //                         'text'    => 'Level Two',
+    //                         'url'     => '#',
+    //                         'submenu' => [
+    //                             [
+    //                                 'text' => 'Level Three',
+    //                                 'url'  => '#',
+    //                             ],
+    //                             [
+    //                                 'text' => 'Level Three',
+    //                                 'url'  => '#',
+    //                             ],
+    //                         ],
+    //                     ],
+    //                 ],
+    //             ],
+    //             [
+    //                 'text' => 'Level One',
+    //                 'url'  => '#',
+    //             ],
+    //         ],
+    //     ],
+    //     'LABELS',
+    //     [
+    //         'text'       => 'Important',
+    //         'icon_color' => 'red',
+    //     ],
+    //     [
+    //         'text'       => 'Warning',
+    //         'icon_color' => 'yellow',
+    //     ],
+    //     [
+    //         'text'       => 'Information',
+    //         'icon_color' => 'aqua',
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
