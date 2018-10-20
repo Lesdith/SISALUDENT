@@ -41,25 +41,26 @@ Route::get('/register', function () {
     return view('home');
 });
 
+//Rutas de la agenda
+Route::resource('events', 'EventsController');
+// Route::get('events', 'EventsController@index');
+// Route::post('events', 'EventsController@addEvent');
 
+
+//Rutas del modelo Tooth
 Route::get('get-teeth', 'TeethController@getTeeth');
 Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
-//     Route::post('teeth'                , 'TeethController@store');
-//     Route::post('teeth/{tooth}'     , 'TeethController@update')->name('actualizar');
-//     Route::get('teeth/{tooth}/edit' , 'TeethController@edit');
-//     Route::post('teeth/{tooth}'     , 'TeethController@destroy')->name('eliminar');
 Route::resource('teeth', 'TeethController');
 
-
+//Rutas del modelo Tooth_position
 Route::resource('tooth_positions', 'ToothPositionsController');
 Route::get('get-tooth_positions', 'ToothPositionsController@getToothPosition');
 
-
+//Rutas del modelo Tooth_stage
 Route::resource('tooth_stages', 'ToothStagesController');
 Route::get('get-tooth_stages', 'ToothStagesController@getToothStage');
 
-
+//Rutas del modelo Tooth_type
 Route::resource('tooth_types', 'ToothTypesController');
 Route::get('get-tooth_types', 'ToothTypesController@getToothType');
-
 });

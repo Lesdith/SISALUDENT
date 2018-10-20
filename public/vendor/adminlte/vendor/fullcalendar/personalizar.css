@@ -1,0 +1,17 @@
+/*!
+ * FullCalendar v3.9.0
+ * Docs & License: https://fullcalendar.io/
+ * (c) 2018 Adam Shaw
+ */
+
+body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+#calendar {
+    max-width: 100%;
+    margin: 0 auto;
+}

@@ -18,6 +18,13 @@
     <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/sweetalert/sweetalert2.min.css') }}"> -->
     <!-- <link href="https://libraries.cdnhttps.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"> -->
 
+   @if(config('adminlte.plugins.fullcalendar'))
+        <!-- Fullcalendar -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.css') }}" >
+    <link rel="stylesheet" media="print" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.print.min.css') }}" >
+    <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/fullcalendar/personalizar.css') }}" > -->
+    @endif
+
     @if(config('adminlte.plugins.select2'))
         <!-- Select2 -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
@@ -65,12 +72,25 @@
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 <!-- sweetalert -->
-    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 
 
 @if(config('adminlte.plugins.select2'))
     <!-- Select2 -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+@endif
+
+ @if(config('adminlte.plugins.fullcalendar'))
+        <!-- Fullcalendar -->
+
+    <!-- <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery.min.js') }}" ></script> -->
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery-ui.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/gcal.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/locale-all.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/locale/es.js') }}" ></script>
+
 @endif
 
 @if(config('adminlte.plugins.datatables'))

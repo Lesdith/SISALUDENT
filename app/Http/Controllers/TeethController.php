@@ -7,6 +7,7 @@ use IntelGUA\Sisaludent\Tooth_type;
 use IntelGUA\Sisaludent\Tooth_stage;
 use IntelGUA\Sisaludent\Tooth_position;
 use Illuminate\Http\Request;
+use IntelGUA\Sisaludent\Http\Requests\ToothRequest;
 
 class TeethController extends Controller
 {
@@ -53,7 +54,7 @@ class TeethController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ToothRequest $request)
     {
         if ($request->ajax()) {
 

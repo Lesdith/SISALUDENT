@@ -124,7 +124,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Citas',
-                    'url'  => '#',
+                    'url'  => '../events',
                     'icon' => 'edit',
                 ],
             ],
@@ -288,5 +288,6 @@ return [
         'chartjs'    => true,
         'toastr'     => true,
         'sweetalert' => true,
+        'fullcalendar' => true,
     ],
 ];

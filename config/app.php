@@ -146,8 +146,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+
 
 
         /*
@@ -157,6 +156,9 @@ return [
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
         //Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -218,6 +220,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ],
 
 ];

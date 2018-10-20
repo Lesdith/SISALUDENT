@@ -42,7 +42,8 @@
 
 	            </div>
 	            <div class="modal-body">
-	 				<form  action="{{ URL::to('teeth')}}" method="POST" id="frm-insert">
+	 				<form  action="{{ URL::to('teeth')}}" method="POST" id="frm-insert" onsubmit="return validaCampos();">
+					 <!-- onsubmit="return validaCampos(); sirve para validar campos vacios al dar click al boton guardar -->
 						{{ csrf_field() }}
 	                	<div class="form-group">
 	                    	<label for="name">Nombre</label>
@@ -261,6 +262,7 @@
 			//para cargar la lista de posiciones de diente
 			function getToothPosition(){
 			$.get('get-tooth_positions', function(data){
+					$('#tooth_position_id').append($('<option>', {value: "", text: 'Seleccionar posición'}));
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 					$('#tooth_position_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -271,6 +273,7 @@
 			//para cargar la lista de tipos de dientes
 			function getToothType(){
 			$.get('get-tooth_types', function(data){
+					$('#tooth_type_id').append($('<option>', {value: "", text: 'Seleccionar tipo'}));
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 					$('#tooth_type_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -281,6 +284,7 @@
 			//para cargar la lista de las etapas de diente
 			function getToothStage(){
 			$.get('get-tooth_stages', function(data){
+					$('#tooth_stage_id').append($('<option>', {value: "", text: 'Seleccionar etapa'}));
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 					$('#tooth_stage_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -291,12 +295,6 @@
 
 	//-----------Crear Diente --------
 
-  $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
 			$('#frm-insert').on('submit', function(e){
 				e.preventDefault();
 				var data 	= $(this).serialize();
@@ -304,7 +302,10 @@
 				var post 	= $(this).attr('method');
 				console.info(data);
 				$.ajax({
-					type 	: put,
+					headers: {
+                		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            		},
+					type 	: post,
 					url 	: url,
 					data 	: data,
 					dataType: 'json',
@@ -326,6 +327,33 @@
 					}
 				});
 			});
+
+
+		//Esta función se creó para validar los campos al crear un registro
+		function validaCampos(){
+
+		var nombre	 = $("#name").val();
+		var tipo 	 = $("#tooth_type_id").val();
+		var etapa 	 = $("#tooth_stage_id").val();
+		var posicion = $("#tooth_position_id").val();
+		//validamos campos
+		if($.trim(nombre) == ""){
+		toastr.error("No ha ingresado el nombre del diente","Aviso!");
+			return false;
+		}
+		if($.trim(tipo) == ""){
+		toastr.error("No ha seleccionado el tipo de Diente","Aviso!");
+			return false;
+		}
+		if($.trim(etapa) == ""){
+		toastr.error("No ha seleccionado la etapa del diente","Aviso!");
+			return false;
+		}
+		if($.trim(posicion) == ""){
+		toastr.error("No ha seleccionado la posición del diente","Aviso!");
+			return false;
+		}
+	}
 
 	//-------------Editar Diente-------------
 
@@ -468,12 +496,16 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 					swalWithBootstrapButtons({
 						title:"Poof! ",
 						text: "Diente se eliminó correctamente!",
-						icon: "success",
+						type: "success",
 					});
 					// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada
 				} else if(
 					result.dismiss === swal.DismissReason.cancel){
-					swalWithBootstrapButtons("¡Operación cancelada por el usuario!");
+					swalWithBootstrapButtons({
+						title	:"Cancelado",
+						text	:"¡Operación cancelada por el usuario!",
+						type	:"error",
+					});
 				}
 			});
 		});
