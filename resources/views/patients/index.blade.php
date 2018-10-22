@@ -12,26 +12,20 @@
 	@endif
 
 @section('content')
-	<button data-toggle="modal" data-target="#add_new_patient_modal" class="btn btn-success pull-right">
+	<button data-toggle="modal" data-target="#add_patient_modal" class="btn btn-success pull-right" style="margin-bottom:10px;">
 		<i class="fa fa-plus"></i> Nuevo Registro</button>
 
 			<table id="tbl-patients" style="width:100%" class="table table-stripped table-bordered table-responsive">
 				<thead>
 					<tr >
 						<th class="text-center">No.</th>
-						<th data-priority="1" class="text-center">Primer nombre</th>
-						<th class="text-center">Segundo nombre</th>
-						<th class="text-center">Tercer nombre</th>
-						<th class="text-center">Apellido paterno</th>
-						<th class="text-center">Apellido materno</th>
+						<th data-priority="1" class="text-center">Nombre</th>
                         <th class="text-center">Género</th>
 						<th class="text-center">Fecha de nacimiento</th>
+						<th class="text-center">Teléfono</th>
 						<th class="text-center">Localidad</th>
 						<th class="text-center">Dirección</th>
 						<th class="text-center">Municipio</th>
-						<th class="text-center">Etapa</th>
-						<th class="text-center">Número telefónico</th>
-						<th class="text-center">Fotografía</th>
 						<th class="text-center">Acciones</th>
 
 					</tr>
@@ -39,46 +33,112 @@
 			</table>
 	<div class="text-right"></div>
 
-<!-- Bootstrap Modals -->
+	<!-- Bootstrap Modals -->
 	<!-- Modal - Agregar nuevo registro -->
 
-	<div class="modal fade" id="add_new_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
-	    <div class="modal-dialog" role="document">
+	<div class="modal fade bd-example-modal-lg" id="add_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+	    <div class="modal-dialog modal-lg" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span></button>
-	                	<h4 class="modal-title" id="myModalLabel">Agregar registro</h4>
-
+	                	<h4 class="modal-title" id="myModalLabel">Agregar paciente</h4>
 	            </div>
 	            <div class="modal-body">
-	 				<form  action="{{ URL::to('patients')}}" method="POST" id="frm-insert">
+	 				<form  action="{{ URL::to('patients')}}" method="POST" id="frm-insert" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="return validaCampos();">
+					 <!-- onsubmit="return validaCampos(); sirve para validar campos vacios al dar click al boton guardar -->
+
 						{{ csrf_field() }}
-	                	<div class="form-group">
-	                    	<label for="name">Nombre</label>
-	                    	<input name="name" type="text" id="name" placeholder="Nombre" class="form-control"/>
-	                	</div>
-
-
-						<div class="form-group">
-	                    	<label for="tooth_type_id">Tipo</label>
-	                    <select name="tooth_type_id" id="tooth_type_id" class="form-control"></select>
-	                	</div>
-
-							<div class="form-group">
-	                    	<label for="tooth_stage_id">Etapa</label>
-							<select name="tooth_stage_id" id="tooth_stage_id" class="form-control"></select>
-	                	</div>
-
-							<div class="form-group">
-	                    	<label for="tooth_position_id">Posicion</label>
-							<select name="tooth_position_id" id="tooth_position_id" class="form-control"></select>
-	                	</div>
-
-						<div class="modal-footer">
-	                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-							<input type="submit" class="btn btn-success" value="Guardar" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="input-group">
+								<!-- <label for="names">Nombres:</label> -->
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<input name="names" type="text" id="names" placeholder="Ingrese el ó los nombres" class="form-control"/>
+							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="input-group">
+								<!-- <label for="surnames">Apellidos:</label> -->
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<input name="surnames" type="text" id="surnames" placeholder="Ingrese el ó los apellidos" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="input-group">
+								<!-- <label for="gender_id">Género:</label> -->
+								<span class="input-group-addon"><i class="fa fa-list"></i></span>
+								<select name="gender_id" id="gender_id" class="form-control"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group">
+								<!-- <label for="birth_date">Fecha de nacimiento:</label> -->
+								<span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+								<input name="birth_date" type="date" id="birth_date" placeholder="Ingrese la fecha de nacimiento" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group">
+								<!-- <label for="phone_number">Teléfono:</label> -->
+								<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+								<input name="phone_number" type="text" id="phone_number" placeholder="Ingrese un número de teléfono" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="input-group">
+								<!-- <label for="location_id">Localidad:</label> -->
+								<span class="input-group-addon"><i class="fa fa-list"></i></span>
+								<select name="location_id" id="location_id"  placeholder="Selecciona la localidad"  class="form-control"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group">
+								<!-- <label for="address">Dirección:</label> -->
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<input name="address" type="text" id="address" placeholder="Ingrese una dirección" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+								<div class="input-group">
+								<!-- <label for="municipality_id">Municipio:</label> -->
+								<span class="input-group-addon"><i class="fa fa-list"></i></span>
+								<select name="municipality_id" id="municipality_id"  placeholder="Selecciona el municipio" class="form-control"></select>
+							</div>
+						</div>
+					</div>
+					<br/>
+						<!-- para poder cargar la imagen se deben de agregar las librerias de jasny.bootstrapp.min.css jasny.bootstrapp.min.js-->
+					<!-- el name: debe ser exactamente igual al nombre del campo en la base de datos -->
+					<div class="row">
+						<div class="col-md-8 col-md-offset-4">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+								<div id="preview" class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+									<img src="{{ asset('../images/Paciente.png') }}" alt="...">
+								</div>
+								<div id="preview" class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+								<div>
+									<span class="btn btn-primary btn-embossed btn-file">
+										<span class="fileinput-new fa  fa-upload">&nbsp;&nbsp;Subir foto</span>
+										<span class="fileinput-exists fa fa-wrench">&nbsp;&nbsp;Cambiar</span>
+										<input type="file" name="file" id="file">
+									</span>
+									<a href="#" class="btn btn-danger btn-embossed btn-file fileinput-exists fa fa-trash" data-dismiss="fileinput">&nbsp;&nbsp;Remove</a>
+									<!-- <span href="#" class="close fileinput-exists fa fa-trash" data-dismiss="fileinput"> Eliminar</span> -->
+								</div>
+							</div>
+						</div>
+					</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+								<input type="submit" class="btn btn-success" value="Guardar" />
+							</div>
 					</form>
 	            </div>
 	        </div>
@@ -88,36 +148,106 @@
 
 	<!-- Modal - Actualizar registro -->
 
-	<div class="modal fade" id="update_teeth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
-	    <div class="modal-dialog" role="document">
+	<div class="modal fade bd-example-modal-lg" id="update_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	    <div class="modal-dialog modal-lg" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
 	            </div>
 					<div class="modal-body">
-					<form  action="" method="POST" id="frm-update">
-					{{ csrf_field() }}
-	                	<div class="form-group">
-	                    	<label for="name">Nombre</label>
-	                    	<input name="name" type="text" id="update_name" placeholder="Nombre" class="form-control"/>
-	                	</div>
+	 				<form  action="{{ URL::to('patients')}}" method="POST" id="frm-update" enctype="multipart/form-data">
+					<input type="hidden" name="_method" value="PUT">
+    				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+					<div class="row">
+						<div class="col-md-6">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<!-- <label for="names">Nombres:</label> -->
+								<input name="names" type="text" id="update_names" placeholder="Ingrese el ó los nombres" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<!-- <label for="surnames">Apellidos:</label> -->
+								<input name="surnames" type="text" id="update_surnames" placeholder="Ingrese el ó los apellidos" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-list"></i></span>
+								<!-- <label for="gender_id">Género:</label> -->
+								<select name="gender_id" id="update_gender_id" class="form-control"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+								<!-- <label for="birth_date">Fecha de nacimiento:</label> -->
+								<input name="birth_date" type="date" id="update_birth_date" placeholder="Ingrese la fecha de nacimiento" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+								<!-- <label for="phone_number">Teléfono:</label> -->
+								<input name="phone_number" type="text" id="update_phone_number" placeholder="Ingrese un numero de teléfono" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-list"></i></span>
+								<!-- <label for="location_id">Localidad:</label> -->
+								<select name="location_id" id="update_location_id"  placeholder="Selecciona la localidad"  class="form-control"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<!-- <label for="address">Dirección:</label> -->
+								<input name="address" type="text" id="update_address" placeholder="Ingrese una dirección" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+								<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-list"></i></span>
+								<!-- <label for="municipality_id">Municipio:</label> -->
+								<select name="municipality_id" id="update_municipality_id"  placeholder="Selecciona el municipio" class="form-control"></select>
+							</div>
+						</div>
+					</div>
+					<br/>
+						<br/>
+						<!-- para poder cargar la imagen se deben de agregar las librerias de jasny.bootstrapp.min.css jasny.bootstrapp.min.js-->
+					<!-- el name: debe ser exactamente igual al nombre del campo en la base de datos -->
+					<div class="row">
+						<div class="col-md-8 col-md-offset-4">
+							<div class="fileinput fileinput-exists" data-provides="fileinput">
+								<div id="update_preview" class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+									<img src="{{ asset('../images/Paciente.png') }}" alt="...">
+								</div>
+								<div id="update_preview" class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+								<div>
+									<span class="btn btn-primary btn-embossed btn-file">
+										<span class="fileinput-exists fa fa-wrench">&nbsp;&nbsp;Cambiar</span>
+										<input type="file" name="file" id="file">
+									</span>
+									<a href="#" class="btn btn-danger btn-embossed btn-file fileinput-exists fa fa-trash" data-dismiss="fileinput">&nbsp;&nbsp;Remove</a>
+									<!-- <span href="#" class="close fileinput-exists fa fa-trash" data-dismiss="fileinput"> Eliminar</span> -->
+								</div>
+							</div>
+						</div>
+					</div>
 
-						<div class="form-group">
-	                    	<label for="tooth_type_id">Tipo</label>
-	                    <select name="update_tooth_type" id="update_tooth_type" class="form-control"></select>
-	                	</div>
-
-							<div class="form-group">
-	                    	<label for="tooth_stage_id">Etapa</label>
-							<select name="update_tooth_stage" id="update_tooth_stage" class="form-control"></select>
-	                	</div>
-
-							<div class="form-group">
-	                    	<label for="tooth_position_id">Posicion</label>
-							<select name="update_tooth_position" id="update_tooth_position" class="form-control"></select>
-	                	</div>
+						<input type="hidden" name="id" id="update_id">
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -130,71 +260,191 @@
 	</div>
 	<!-- // Modal actualizar registro -->
 
+<!-- Modal Mostrar registro -->
+
+	<div class="modal fade" id="show_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" id="myModalLabel">Detalles del registro</h4>
+	            </div>
+					<div class="modal-body">
+					<form  action="" method="POST" id="frm-show">
+					{{ csrf_field() }}
+	                	<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="first_name">Primer nombre:</label>
+								<input name="first_name" type="text" id="show_first_name" placeholder="Ingrese el primer nombre" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="second_name">Segundo nombre:</label>
+								<input name="second_name" type="text" id="show_second_name" placeholder="Ingrese el segundo nombre" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="third_name">Tercer nombre:</label>
+								<input name="third_name" type="text" id="show_third_name" placeholder="Ingrese el tercer nombre" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="father_last_name">Apellido paterno:</label>
+								<input name="father_last_name" type="text" id="show_father_last_name" placeholder="Ingrese el apellido paterno" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="mother_last_name">Apellido materno:</label>
+								<input name="mother_last_name" type="text" id="show_mother_last_name" placeholder="Ingrese el apellido materno" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="gender_id">Género:</label>
+								<select name="gender_id" id="show_gender_id" class="form-control"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="birth_date">Fecha de nacimiento:</label>
+								<input name="birth_date" type="date" id="show_birth_date" placeholder="Ingrese la fecha de nacimiento" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="phone_number">Teléfono:</label>
+								<input name="phone_number" type="text" id="show_phone_number" placeholder="Ingrese un numero de teléfono" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="location_id">Localidad:</label>
+								<select name="location_id" id="show_location_id"  placeholder="Selecciona la localidad"  class="form-control"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="address">Dirección:</label>
+								<input name="address" type="text" id="show_address" placeholder="Ingrese una dirección" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+								<div class="form-group">
+								<label for="municipality_id">Municipio:</label>
+								<select name="municipality_id" id="show_municipality_id"  placeholder="Selecciona el municipio" class="form-control"></select>
+							</div>
+						</div>
+					</div>
+
+					<div class="center-block">
+						<label>Foto:</label>
+						<input type="file" class="form-control" id="image">
+					</div>
+
+						<input type="hidden" name="id" id="update_id">
+
+						<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+					</div>
+				</form>
+				</div>
+	        </div>
+	    </div>
+	</div>
+	<!-- // Modal Mostrar registro -->
 @stop
 <!-- /Content Section -->
 
+@section('css')
+<style type="text/css">
+
+	.centrar{
+		margin: 50px auto;
+		float:none;
+		}
+</style>
+@stop
+	<!-- // End Style -->
 @push('js')
 	<script>
 
       	$(document).ready(function() {
 		dataTableTeeth();
-		//obtener_id_eliminar("#tbl-teeth tbody", table);
-        //getTeeth();
-        getToothPosition();
-        getToothStage();
-        getToothType();
-		// getToothPositionEdit();
-		// getToothTypeEdit();
-		// getToothStageEdit();
-		// getTooth();
-        } );
+		getGender();
+		getLocation();
+		getMunicipality();
+		getGenderEdit();
+		getLocationEdit();
+		getMunicipalityEdit();
+
+        });
 
 
 		function dataTableTeeth()
 			{
-				var dt =$('#tbl-teeth').DataTable({
+				var dt = $('#tbl-patients').DataTable({
+					"serverside":	true,
 					"autoWidth": 	true,
 					"responsive":	true,
-					"columnDefs":	[{
-						"searchable": false,
-						"orderable": false,
-						"targets": 0},
-					{responsivePriority: 1, targets: 0},
-					{responsivePriority: 2, targets: -2}
+					"columnDefs":	[
+						{responsivePriority: 1, targets: 0},
+						{responsivePriority: 2, targets: -2},
+						{
+							"searchable": false,
+							"orderable": false,
+							"targets": 0
+						}
 					],
+
 					"order": [[ 1, 'asc' ]],
 					"fixedColumns":	true,
+
 					"language":
                      {
-                         "url":"//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                         "url":'//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                      },
+
 					"ajax": {
-						"url": 		'../get-teeth',
+						"url": 		'../get-patients',
 						"type":		'GET',
-						"dataSrc":	'teeth',
+						"dataSrc":	'patients',
 					},
+
 					"columns" : [
 						{"data":	"id"},
-						{"data":	"name"},
 
-						// {
-						// 	/**
-						// 	 * * Permite combinar el nombre de la persona en una sola columna.
-						// 	 *
-						// 	 */
-						// 	data: null,
-						// 	render: function ( data, type, row )
-						// 	{
-						// 		/**
-						// 		 ** data se carga con los campos donde se almacena el nombre.
-						// 		 */
-						// 		return data.first_name+'  '+data.second_name+'  '+data.first_surname+'  '+data.second_surname;
-						// 	},
-						// 	//editField: ['first_name', 'second_name', 'first_surname', 'second_surname']
-						// },
-						{"data":	"tooth_type.name"},
-						{"data":	"tooth_stage.name"},
-						{"data":	"tooth_position.name"},
+						{
+							/**
+							 * * Permite combinar el nombre de la persona en una sola columna.
+							 *
+							 */
+							data: null,
+							render: function ( data, type, row )
+							{
+								/**
+								 ** data se carga con los campos donde se almacena el nombre.
+								 */
+								return data.names+'  '+data.surnames;
+							},
+							//editField: ['first_name', 'second_name', 'first_surname', 'second_surname']
+						},
+						{"data":	"gender.name"},
+						{"data":	"phone_number"},
+						{"data":	"birth_date"},
+						{"data":	"location.name"},
+						{"data":	"address"},
+						{"data":	"municipality.name"},
 						{"defaultContent":
 
 							"<div class='btn-group btn-group-xs' > " +
@@ -214,200 +464,242 @@
     			}).draw();
 			}
 
-// esta funcion llena el cuerpo de la tabla dientes (teeth)
-        // //console.log({{url('get-teeth')}});
-        // function getTeeth(){
-        //     $("#tbl-teeth").empty();
-        //     $.get("{{url('get-teeth')}}", function(data){
-        //         console.info(data);
-        //         $.each(data,	function(i, value){
-        //             var fila = $('<tr />');
-        //             fila.append($('<td />', {
-        //                 text : value.id
-        //             })).append($('<td />', {
-        //                 text : value.name
-        //             })).append($('<td />', {
-        //                 text : value.tooth_type.name
-        //             })).append($('<td />', {
-        //                 text : value.tooth_stage.name
-        //             })).append($('<td />', {
-        //                 text : value.tooth_position.name
-        //             })).append($('<td />', {
-        //                 html : '<a class="btn btn-sm btn-warning" href="" id="edit" data-id=' + value.id + ' >' +
-        //                         '<i class="fa fa-edit"></i> Editar</a>' +
-        //                         ' <a  class="btn btn-sm btn-danger" href="" id="del" data-id=' + value.id + ' >' +
-        //                         '<i class="fa fa-trash"></i> Eliminar</a>'
-        //             }).css('width','172px'));
-        //             $("#tbl-teeth").append(fila);
-        //         });
-        //     });
-        // }
-
-			//para cargar la lista de posiciones de diente
-			function getToothPosition(){
-			$.get('get-tooth_positions', function(data){
+			//para cargar la lista de géneros
+			function getGender(){
+			$.get('get-genders', function(data){
+					$('#gender_id').append($('<option>', {value: "", text: 'Seleccionar género'}));
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-					$('#tooth_position_id').append($('<option>', {value: value.id, text: `${value.name}`}));
+					$('#gender_id').append($('<option>', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
 
-			//para cargar la lista de tipos de dientes
-			function getToothType(){
-			$.get('get-tooth_types', function(data){
+			//para cargar la lista de tipos de localidad
+			function getLocation(){
+			$.get('get-locations', function(data){
+					$('#location_id').append($('<option>', {value: "", text: 'Seleccionar Localidad'}));
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-					$('#tooth_type_id').append($('<option>', {value: value.id, text: `${value.name}`}));
+					$('#location_id').append($('<option>', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
 
-			//para cargar la lista de las etapas de diente
-			function getToothStage(){
-			$.get('get-tooth_stages', function(data){
+			//para cargar la lista de los municipios
+			function getMunicipality(){
+			$.get('get-municipalities', function(data){
+					$('#municipality_id').append($('<option>', {value: "", text: 'Seleccionar municipio'}));
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-					$('#tooth_stage_id').append($('<option>', {value: value.id, text: `${value.name}`}));
+					$('#municipality_id').append($('<option>', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
 
 
-	//-----------Crear Diente --------
-
-  $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+	//-----------Crear Paciente --------
 
 			$('#frm-insert').on('submit', function(e){
 				e.preventDefault();
-				var data 	= $(this).serialize();
+				var datos 	= $(this).serializeArray();
 				var url 	= $(this).attr('action');
 				var post 	= $(this).attr('method');
-				console.info(data);
+				var file = new FormData($('#frm-insert')[0]);
+
+				//agregaremos los datos serializados al objecto imagen
+					$.each(datos,function(key,input){
+						file.append(input.name,input.value);
+					});
+
+				console.info(datos);
+				console.log(file);
 				$.ajax({
-					type 	: post,
-					url 	: url,
-					data 	: data,
-					dataType: 'json',
+					headers: {
+                		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            		},
+					type 		: post,
+					url 		: url,
+					data 		: file,
+					async		: true,
+					contentType	: false, //'application/json', // The content type used when sending data to the server.
+        			cache		: false, // To unable request pages to be cached
+					dataType	: 'json',
+					processData: false,
+
 					success:function(data)
-					{
-						$('#add_new_tooth_modal').modal('hide');
-						dataTableTeeth();
-						toastr["success"]("¡Diente creado exitosamente!", "Guardado")
-						// $.toast({
-						// 	heading: 'Success',
-						// 	text: '¡Diente creado exitosamente!',
-						// 	icon: 'success',
-						// 	position: 'top-right',
-						// 	loader: true,        // Change it to false to disable loader
-						// 	loaderBg: '#9EC600'  // To change the background
-						// });
+					{console.log(file);
+						document.getElementById("frm-insert").reset();
+						var t = $('#tbl-patients').DataTable();
+						t.ajax.reload()
+						$('#add_patient_modal').modal('hide');
+						//getTeeth();
+						toastr["success"]("¡Paciente creado exitosamente!", "Guardado")
+					},
+					error: function(xr, exception){
+					console.log(xr.responseText);
 					}
 				});
 			});
 
-	//-------------Editar Diente-------------
 
-	$('body').delegate('#tbl-teeth #edit', 'click', function(e){
+		//Esta función se creó para validar los campos al crear un registro
+		function validaCampos(){
+			var nombre	 		 = $("#names").val();
+			var apellido		 = $("#surnames").val();
+			var genero			 = $("#gender_id").val();
+			var cumpleanios 	 = $("#birth_date").val();
+			var localidad		 = $("#location_id").val();
+			var direccion		 = $("#address").val();
+			var municipio		 = $("#municipality_id").val();
+			var telefono		 = $("#phone_number").val();
+			//validamos campos
+			if($.trim(nombre) == ""){
+				toastr.error("Debe ingresar al menos un nombre","Aviso!");
+					return false;
+			}
+			if($.trim(apellido) == ""){
+				toastr.error("Debe ingresar al menos un apellido","Aviso!");
+					return false;
+			}
+			if($.trim(genero) == ""){
+				toastr.error("Debe seleccionar el género","Aviso!");
+					return false;
+			}
+			if($.trim(cumpleanios) == ""){
+				toastr.error("No ha ingresado la fecha de cumpleaños","Aviso!");
+					return false;
+			}
+			if($.trim(localidad) == ""){
+				toastr.error("Debe seleccionar la localidad","Aviso!");
+					return false;
+			}
+			if($.trim(direccion) == ""){
+				toastr.error("Debe ingresar una dirección","Aviso!");
+					return false;
+			}
+			if($.trim(municipio) == ""){
+				toastr.error("Debe seleccionar el municipio","Aviso!");
+					return false;
+			}
+			if($.trim(telefono) == ""){
+				toastr.error("Debe ingresar un número de teléfono","Aviso!");
+					return false;
+			}
+		}
+
+	//-------------Editar paciente-------------
+
+	$('body').delegate('#tbl-patients #edit', 'click', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		//let diente = getTooth(id);
-		//console.log(diente);
-		//getToothPositionEdit(diente.tooth_position_id);
-		getToothPositionEdit(id.tooth_position_id);
-		getToothStageEdit(id.tooth_stage_id);
-		getToothTypeEdit(id.tooth_type_id);
-		$.get('teeth/' + id + '/edit', {id:id}, function(data){
-			$('#frm-update').find('#update_name').val(data.name)
-			$('#update_teeth_modal').modal('show');
+			var $tr = $(this).closest('li').length ?
+					$(this).closest('li'):
+					$(this).closest('tr');;
+					var rowData = $('#tbl-patients').DataTable().row($tr).data();
+						 console.log(rowData);
+
+					var vid = rowData.id;
+		$.get('patients/' + vid + '/edit', {id:vid}, function(data){
+			console.log(data.file)
+			$('#frm-update').find('#update_names').val(data.names)
+			$('#frm-update').find('#update_surnames').val(data.surnames)
+			$('#frm-update').find('#update_birth_date').val(data.birth_date)
+			$('#frm-update').find('#update_location_id').val(data.gender_id)
+			$('#frm-update').find('#update_phone_number').val(data.phone_number)
+			$('#frm-update').find('#update_location_id').val(data.location_id)
+			$('#frm-update').find('#update_address').val(data.address)
+			$('#frm-update').find('#update_municipality_id').val(data.municipality_id)
+			$('#frm-update').find('#update_file').val(data.file)
+			$('#frm-update').find('#update_id').val(data.id)
+			$('#update_patient_modal').modal('show');
 		});
+
 	});
 
-
-	        //para cargar los datos del dropdown list de tipo de diente
-			function getToothTypeEdit(id){
-				$('#update_tooth_type').empty();
-				$.get('get-tooth_types', function(data){
+	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
+			function getLocationEdit(vid){
+				$('#update_location_id').empty();
+				$.get('get-locations', function(data){
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-						console.info(value);
-						if(value.id === id ){
-							$('#update_tooth_type').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+
+						if(value.id === vid ){
+							$('#update_location_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
-						$('#update_tooth_type').append($('<option >', {value: value.id, text: `${value.name}`}));
+						$('#update_location_id').append($('<option >', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
-	        //para cargar los datos del dropdown list de la etapa de diente
-			function getToothStageEdit(id){
-				$('#update_tooth_stage').empty();
-			    $.get('get-tooth_stages', function(data){
+	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
+			function getGenderEdit(vid){
+				$('#update_gender_id').empty();
+			    $.get('get-genders', function(data){
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-						console.info(value);
-						if(value.id === id ){
-							$('#update_tooth_stage').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+
+						if(value.id === vid ){
+							$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
-						$('#update_tooth_stage').append($('<option >', {value: value.id, text: `${value.name}`}));
+						$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
 
-	        //para cargar los datos del dropdown list de la posición del diente
-			function getToothPositionEdit(id){
-				$('#update_tooth_position').empty();
-				$.get('get-tooth_positions', function(data){
+	        //Esta función se utiliza para cargar los datos del dropdown list de los municipios
+			function getMunicipalityEdit(vid){
+				$('#update_municipality_id').empty();
+				$.get('get-municipalities', function(data){
 					$.each(data,	function(i, value){
-						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-						console.info(value);
-						if(value.id === id ){
-							$('#update_tooth_position').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+
+						if(value.id === vid ){
+							$('#update_municipality_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
-						$('#update_tooth_position').append($('<option >', {value: value.id, text: `${value.name}`}));
+						$('#update_municipality_id').append($('<option >', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
-	//-------------Actualizar Diente-------------
+	//-------------Actualizar Paciente------------
 
 	$('#frm-update').on('submit', function(e){
-	e.preventDefault();
-	var data 	= $(this).serialize();
-	$.ajax({
-		type 	: 'put',
-		url 	: "teeth/" + data + "",
-		data 	: data,
-		dataType: 'json',
-		success:function(data)
-		{
-			$('#update_teeth_modal').modal('hide');
-			getTeeth();
-		}
-		});
-	});
-	//-------------Eliminar Diente-------------
+				e.preventDefault();
+				var data 	= $('#frm-update').serializeArray();
+				var id 		= $("#update_id").val();
+				console.log(data);
+				console.log(id);
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url 	: 'patients/' + id ,
+					dataType: 'json',
+					type 	: 'POST',
+					data 	: data,
+					processData: false,
+					contentType: false,
+					async		: true,
+					processData: false,
+					success:function(data)
+					{
+						var $t = $('#tbl-patients').DataTable();
+						$t.ajax.reload();
+					console.log(data);
+						$('#update_patient_modal').modal('hide');
 
-// Se creo esta funcion para poder capturar el (id) del elemento que se quiere eliminar
+					}
+					});
+				});
 
-  var obtener_id_eliminar = function(tbody, table) {
-            $(tbody).on("click", "button.delete", function() {
-                var data = table.row($(this).parents("tr")).data();
-            });
-        }
 
-	/*se creo esta función para que al dar click al botón eliminar muestre un alert con
+
+	//-------------Eliminar Paciente-------------
+
+	/*se creo esta función para que al dar click al botón eliminar muestre uns alerta con
 	 mensajes para que el usuario de click a la opción aceptar o cancelar */
 
-$('body').delegate('#tbl-teeth #del', 'click', function(e){
+$('body').delegate('#tbl-patients #del', 'click', function(e){
 		e.preventDefault();
+		// Crea los botones para que el usuario decida
 		const swalWithBootstrapButtons = swal.mixin({
 			confirmButtonClass: 'btn btn-success',
 			cancelButtonClass: 'btn btn-danger',
 			buttonsStyling: false,
 		})
+		//Muestra el mensaje de la alerta y activa el botón cancelar
 		swalWithBootstrapButtons({
 			title: 'Eliminar',
 			text: "¿Realmente desea eliminar el registro?",
@@ -416,65 +708,89 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 			confirmButtonText: 'Si, eliminar!',
 			cancelButtonText: 'No, cancelar!',
 			reverseButtons: true
+			// Se recoge el valor si se dio Click al botón eliminar
 		}).then((result) =>{
 			console.log(result);
-				if (result) {
-					var $tr = $(this).closest('tr');
-    				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   						 console.log(rowData)
-					var vid = $(this).data('id');
+				if (result.value) {
+					var $tr = $(this).closest('li').length ?
+					$(this).closest('li'):
+					$(this).closest('tr');
+    				var rowData = $('#tbl-patients').DataTable().row($tr).data();
+   						console.log(rowData)
+					var vid = rowData.id;
 					var v_token = "{{csrf_token()}}";
 					var parametros = {_method: 'DELETE', _token: v_token};
 					$.ajax({
 						type  : "POST",
-						url	  : "teeth/" + vid + "",
+						url	  : "patients/" + vid + "",
 						data  : parametros,
+
+						// Se elimina el Dato seleccionado
 						success: function(data){
 						$(vid).remove();
+
+						//Se actualizan los datos en el DataTable
+						var $t = $('#tbl-patients').DataTable();
+						$t.ajax.reload();
 						}
 					});
-					dataTableTeeth();
+					//Se muestra un mensaje de que el dato se elimino correctamente
 					swalWithBootstrapButtons({
 						title:"Poof! ",
 						text: "Diente se eliminó correctamente!",
-						icon: "success",
+						type: "success",
 					});
+					// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada
 				} else if(
 					result.dismiss === swal.DismissReason.cancel){
-					swalWithBootstrapButtons("¡Operación cancelada por el usuario!");
+					swalWithBootstrapButtons({
+						title	:"Cancelado",
+						text	:"¡Operación cancelada por el usuario!",
+						type	:"error",
+					});
 				}
 			});
 		});
 
+//--------- Se creo para poder mostrar el detalle de una fila
 
-			// swal({
-			// 	title: "Eliminar",
-			// 	text: "¿Realmente desea eliminar el registro?",
-			// 	type: 'warning',
-			// 	showCancelButton: true,
-			// 	closeOnConfirm: false,
-			// 	showLoaderOnConfirm: true,
-			// 	confirmButtonText: 'Si, eliminar!',
-			// 	cancelButtonText: 'No, cancelar!',
-			// 	reverseButtons: true
-			// 	})
-			// 	.then((willDelete) => {
-			// 	if (willDelete) {
-			// 		var id = $(this).data('id');
-			// 		$.post('{{url("teeth.destroy", ' + id + ')}}', {id:id}, function(data){
-			// 			$(+id).remove();
-			// 		});
-			// 		getTeeth();
-			// 		swal({
-			// 			title:"Poof! ",
-			// 			text: "Diente se eliminó correctamente!",
-			// 			icon: "success",
-			// 		});
-			// 	} else if(
-			// 		willDelete.dismiss === swal.DismissReason.cancel){
-			// 		swal("¡Operación cancelada por el usuario!");
-			// 	}
-			// });
+	$('body').delegate('#tbl-teeth #show', 'click', function(e){
+		e.preventDefault();
+			var $tr = $(this).closest('li').length ?
+					$(this).closest('li'):
+					$(this).closest('tr');
+    				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
+   						console.log(rowData);
+					var vid = rowData.id;
+			$('#frm-show').find('#show_name').val(rowData.name)
+			$('#frm-show').find('#show_tooth_type').val(rowData.tooth_type.name)
+			$('#frm-show').find('#show_tooth_stage').val(rowData.tooth_stage.name)
+			$('#frm-show').find('#show_tooth_position').val(rowData.tooth_position.name)
+			$('#show_tooth_modal').modal('show');
+	});
+
+
+// Esta función sirve para copiar la imagen de la vista previa en la carpeta establecida
+document.getElementById("file").onchange = function (e) {
+            let reader = new FileReader();
+
+            reader.onload = function () {
+                let preview = document.getElementById('preview'),
+                    image = document.createElement('file');
+
+                image.src = reader.result;
+
+                preview.innerHTML = '';
+                preview.append(image);
+            };
+
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        $("#button").click(function () {
+            let preview = document.getElementById('preview');
+            preview.innerHTML = '';
+		});
 
 </script>
 @endpush

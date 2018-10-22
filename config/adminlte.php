@@ -289,5 +289,7 @@ return [
         'toastr'     => true,
         'sweetalert' => true,
         'fullcalendar' => true,
+        'flat' => false,
+        'prism' => false,
     ],
 ];

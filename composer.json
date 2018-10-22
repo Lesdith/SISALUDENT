@@ -10,6 +10,7 @@
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "^1.8",
         "intelguasoft/generators": "dev-master",
+        "intervention/image": "^2.4",
         "jeroennoten/laravel-adminlte": "^1.23",
         "laravel/framework": "5.6.*",
         "laravel/socialite": "^3.1",

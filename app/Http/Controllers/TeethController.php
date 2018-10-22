@@ -73,7 +73,8 @@ class TeethController extends Controller
     public function show($id)
     {
         $teeth = Tooth::find($id);
-        return view('tooth.show', ['tooth'=>$teeth]);    }
+        return view('tooth.show', ['tooth'=>$teeth]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -125,7 +126,7 @@ class TeethController extends Controller
     $tooth->delete();
    return redirect('teeth')->with('success', 'Diente eliminado exitosamente');
     }
-    return redirect('teeth')->with('fail', 'Diente eliminado exitosamente');
+    return redirect('teeth')->with('fail', 'Operación cancelada');
     }
 
 }

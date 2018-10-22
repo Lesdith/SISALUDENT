@@ -9,7 +9,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+     <!-- Bootstrap jasny -->
+    <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/jasny/jasny-bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
@@ -42,6 +44,15 @@
         <!-- <link rel="stylesheet" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"> -->
     @endif
 
+     @if(config('adminlte.plugins.flat'))
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/flat/flat-ui.css') }}">
+    @endif
+     @if(config('adminlte.plugins.prism'))
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/prism/prism.min.css') }}">
+    @endif
+
      @if(config('adminlte.plugins.toastr'))
         <!-- Select2 -->
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/toastr/toastr.min.css') }}">
@@ -69,7 +80,11 @@
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/datatables/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.fileupload-image.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+<!-- Boostrap jasny -->
+<script src="{{ asset('vendor/adminlte/vendor/bootstrap/jasny/jasny-bootstrap.min.js') }}"></script>
 
 <!-- sweetalert -->
 <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
@@ -101,6 +116,16 @@
     <script src="{{ asset('vendor/adminlte/vendor/datatables/dataTables.responsive.min.js') }}"></script>
     <!-- <script src="//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script> -->
 
+@endif
+
+
+@if(config('adminlte.plugins.prism'))
+<script src="{{ asset('vendor/adminlte/vendor/prism/prism.js') }}"></script>
+@endif
+
+@if(config('adminlte.plugins.flat'))
+<script src="{{ asset('vendor/adminlte/vendor/flat/flat.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/flat/aplication.js') }}"></script>
 @endif
 
 @if(config('adminlte.plugins.chartjs'))

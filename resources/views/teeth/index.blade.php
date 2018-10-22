@@ -32,7 +32,7 @@
 <!-- Bootstrap Modals -->
 	<!-- Modal - Agregar nuevo registro -->
 
-	<div class="modal fade" id="add_new_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	<div class="modal fade" id="add_new_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-backdrop="static" data-keyboard="false">
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
@@ -45,26 +45,31 @@
 	 				<form  action="{{ URL::to('teeth')}}" method="POST" id="frm-insert" onsubmit="return validaCampos();">
 					 <!-- onsubmit="return validaCampos(); sirve para validar campos vacios al dar click al boton guardar -->
 						{{ csrf_field() }}
-	                	<div class="form-group">
-	                    	<label for="name">Nombre</label>
-	                    	<input name="name" type="text" id="name" placeholder="Nombre" class="form-control"/>
-	                	</div>
 
-						<div class="form-group">
-	                    	<label for="tooth_type_id">Tipo</label>
-	                    <select name="tooth_type_id" id="tooth_type_id" class="form-control"></select>
+	                	<div class="input-group">
+	                    	<!-- <label for="name">Nombre</label> -->
+							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	                    	<input name="name" type="text" id="name" placeholder="Ingrese el nombre del diente" class="form-control"/>
 	                	</div>
-
-							<div class="form-group">
-	                    	<label for="tooth_stage_id">Etapa</label>
-							<select name="tooth_stage_id" id="tooth_stage_id" class="form-control"></select>
+							<br/>
+						<div class="input-group">
+	                    	<!-- <label for="tooth_type_id">Tipo</label> -->
+							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+	                    	<select name="tooth_type_id" id="tooth_type_id" placeholder="Seleccione el tipo de diente" class="form-control"></select>
 	                	</div>
-
-							<div class="form-group">
-	                    	<label for="tooth_position_id">Posicion</label>
-							<select name="tooth_position_id" id="tooth_position_id" class="form-control"></select>
+							<br/>
+						<div class="input-group">
+	                    	<!-- <label for="tooth_stage_id">Etapa</label> -->
+							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<select name="tooth_stage_id" id="tooth_stage_id" placeholder="Seleccione la etapa del diente"  class="form-control"></select>
 	                	</div>
-
+							<br/>
+						<div class="input-group">
+	                    	<!-- <label for="tooth_position_id">Posición</label> -->
+							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<select name="tooth_position_id" id="tooth_position_id" placeholder="Seleccione la posición del diente"  class="form-control"></select>
+	                	</div>
+							<br/>
 						<div class="modal-footer">
 	                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 							<input type="submit" class="btn btn-success" value="Guardar" />
@@ -105,7 +110,7 @@
 	                	</div>
 
 							<div class="form-group">
-	                    	<label for="tooth_position_id">Posicion</label>
+	                    	<label for="tooth_position_id">Posición</label>
 							<select name="tooth_position_id" id="update_tooth_position" class="form-control"></select>
 	                	</div>
 
@@ -150,7 +155,7 @@
 	                	</div>
 
 							<div class="form-group">
-	                    	<label for="tooth_position_id">Posicion</label>
+	                    	<label for="tooth_position_id">Posición</label>
 							<input name="tooth_position_id" id="show_tooth_position" class="form-control" style="border: 0;"/>
 	                	</div>
 
@@ -205,9 +210,8 @@
 					"order": [[ 1, 'asc' ]],
 					"fixedColumns":	true,
 
-					"language":
-                     {
-                         "url":"//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+					"language":{
+                         "url": '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json',
                      },
 
 					"ajax": {
@@ -219,22 +223,6 @@
 					"columns" : [
 						{"data":	"id"},
 						{"data":	"name"},
-
-						// {
-						// 	/**
-						// 	 * * Permite combinar el nombre de la persona en una sola columna.
-						// 	 *
-						// 	 */
-						// 	data: null,
-						// 	render: function ( data, type, row )
-						// 	{
-						// 		/**
-						// 		 ** data se carga con los campos donde se almacena el nombre.
-						// 		 */
-						// 		return data.first_name+'  '+data.second_name+'  '+data.first_surname+'  '+data.second_surname;
-						// 	},
-						// 	//editField: ['first_name', 'second_name', 'first_surname', 'second_surname']
-						// },
 						{"data":	"tooth_type.name"},
 						{"data":	"tooth_stage.name"},
 						{"data":	"tooth_position.name"},
@@ -311,19 +299,12 @@
 					dataType: 'json',
 					success:function(data)
 					{
+						document.getElementById("frm-insert").reset();
 						var t = $('#tbl-teeth').DataTable();
 						t.ajax.reload()
 						$('#add_new_tooth_modal').modal('hide');
 						//getTeeth();
 						toastr["success"]("¡Diente creado exitosamente!", "Guardado")
-						// $.toast({
-						// 	heading: 'Success',
-						// 	text: '¡Diente creado exitosamente!',
-						// 	icon: 'success',
-						// 	position: 'top-right',
-						// 	loader: true,        // Change it to false to disable loader
-						// 	loaderBg: '#9EC600'  // To change the background
-						// });
 					}
 				});
 			});

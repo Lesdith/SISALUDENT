@@ -15,18 +15,15 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name');
-            $table->string('second_name')->nullable();
-            $table->string('third_name')->nullable();
-            $table->string('father_last_name')->nullable();
-            $table->string('mother_last_name')->nullable();
+            $table->string('names');
+            $table->string('surnames');
             $table->integer('gender_id')->unsigned();
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->integer('location_id')->unsigned();
             $table->string('address');
             $table->integer('municipality_id')->unsigned();
             $table->string('phone_number', 50);
-            $table->string('image')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
 
           $table->foreign('gender_id')->references('id')->on('genders')

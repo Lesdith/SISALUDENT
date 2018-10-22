@@ -37,9 +37,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/register', function () {
-    return view('home');
-});
+// Route::get('/register', function () {
+//     return view('home');
+// });
 
 //Rutas de la agenda
 Route::resource('events', 'EventsController');
@@ -47,7 +47,7 @@ Route::resource('events', 'EventsController');
 // Route::post('events', 'EventsController@addEvent');
 
 
-//Rutas del modelo Tooth
+//Rutas de  Tooth
 Route::get('get-teeth', 'TeethController@getTeeth');
 Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
 Route::resource('teeth', 'TeethController');
@@ -56,11 +56,22 @@ Route::resource('teeth', 'TeethController');
 Route::resource('tooth_positions', 'ToothPositionsController');
 Route::get('get-tooth_positions', 'ToothPositionsController@getToothPosition');
 
-//Rutas del modelo Tooth_stage
+//Rutas de Tooth_stage
 Route::resource('tooth_stages', 'ToothStagesController');
 Route::get('get-tooth_stages', 'ToothStagesController@getToothStage');
 
-//Rutas del modelo Tooth_type
+//Rutas de Tooth_type
 Route::resource('tooth_types', 'ToothTypesController');
 Route::get('get-tooth_types', 'ToothTypesController@getToothType');
+
+//Rutas del paciente
+Route::resource('patients', 'PatientsController');
+Route::get('get-patients',  'PatientsController@getPatients');
+//Ruta en pacientes para obtener género
+Route::get('get-genders', 'PatientsController@getGender');
+//Ruta en paciente para obtener localidad
+Route::get('get-locations', 'PatientsController@getLocation');
+//Ruta en pacientes para obtener municipio
+Route::get('get-municipalities', 'PatientsController@getMunicipality');
+
 });

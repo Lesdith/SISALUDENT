@@ -90,6 +90,9 @@
         m = date.getMonth(),
         y = date.getFullYear();
         $('#calendar').fullCalendar({
+          defaultTimedEventDuration: '00:30:00',
+          forceEventDuration: true,
+          selectOverlap:false,
           schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
           header: {
             left: 'prev,next today',
