@@ -70,11 +70,21 @@ class TeethController extends Controller
      * @param  \IntelGUA\Sisaludent\Tooth  $tooth
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $teeth = Tooth::find($id);
-        return view('tooth.show', ['tooth'=>$teeth]);
+       if ($request->ajax()) {
+
+            $tooth = Tooth::find($request->id);
+            //return response($tooth);
+            return view('teeth.mostrar', ['teeth'=>$tooth]);
+        }
     }
+
+    //  public function mostrar()
+    // {
+    //     return view('teeth.mostrar');
+
+    // }
 
     /**
      * Show the form for editing the specified resource.

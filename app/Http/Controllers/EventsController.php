@@ -18,20 +18,34 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events         = Event::get();
-        $event_list     =[];
-        foreach($events as $key => $event){
-            $event_list[] = Calendar::event(
-                $event->contacto,
-                true,
-                new \DateTime($event->start_date),
-                new \DateTime($event->end_date)
-            );
-        }
-        $calendar_details = Calendar::addEvents($event_list);
 
-       return view('events.index', compact('calendar_details'));
+        return view('events.index');
+
+
+    //     $events         = Event::get();
+    //     $event_list     =[];
+    //     foreach($events as $key => $event){
+    //         $event_list[] = Calendar::event(
+    //             $event->contact,
+    //             // $event->phone,
+    //             true,
+    //             new \DateTime($event->start_date),
+    //             new \DateTime($event->end_date)
+    //         );
+    //     }
+    //     $calendar_details = Calendar::addEvents($event_list);
+
+    //    return view('events.index', compact('calendar_details'));
     }
+
+    public function get_events(){
+
+        $events = Event::selectRaw('CONCAT(contact,"   ", phone) as title, id, start_date as start, end_date as end')->get()->toArray();
+
+        return response()->json($events);
+    }
+    // Tenant::selectRaw('CONCAT(First_Name, " ", Last_Name) as TenantFullName, id')->orderBy('First_Name')->lists('TenantFullName', 'id'))
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,26 +65,33 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'contact'       => 'required',
-            'telefono'      => 'required',
-            'start_date'   => 'required',
-            'end_date'     => 'required'
-        ]);
-        if ($validator->fails()){
-            \Session::flash('warning', 'Por favor ingrese datos validos');
-             return redirect()->back()
-                    ->withInput($request->all())
-                    ->withErrors($validator);
-                     }
-        $event = new Event;
-        $event->contacto    = $request['contact'];
-        $event->telefono    = $request['telefono'];
-        $event->start_date  = $request['start_date'];
-        $event->end_date   = $request['end_date'];
-        $event->save();
-        \Session::flash('success','Se creo la cita.');
-        return Redirect::to('/events');
+
+        if ($request->ajax()) {
+
+            $event = Event::create($request->all());
+            return $request;
+
+        }
+        // $validator = Validator::make($request->all(),[
+        //     'contact'       => 'required',
+        //     'phone'       => 'required',
+        //     'start_date'   => 'required',
+        //     'end_date'     => 'required'
+        // ]);
+        // if ($validator->fails()){
+        //     \Session::flash('warning', 'Por favor ingrese datos validos');
+        //      return redirect()->back()
+        //             ->withInput($request->all())
+        //             ->withErrors($validator);
+        //              }
+        // $event = new Event;
+        // $event->contact    = $request['contact'];
+        //  $event->phone    = $request['phone'];
+        // $event->start_date  = $request['start_date'];
+        // $event->end_date   = $request['end_date'];
+        // $event->save();
+        // \Session::flash('success','Se creo la cita.');
+        // return Redirect::to('/events');
     }
 
     /**
@@ -86,10 +107,10 @@ class EventsController extends Controller
 
          public function getEventOptions()
             {
-                return [
-                    'color' => $this->background_color,
-                    //etc
-                ];
+                // return [
+                //     'color' => $this->background_color,
+                //     //etc
+                // ];
             }
     /**
      * Show the form for editing the specified resource.

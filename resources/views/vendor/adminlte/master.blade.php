@@ -12,6 +12,12 @@
     <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
      <!-- Bootstrap jasny -->
     <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/jasny/jasny-bootstrap.min.css') }}">
+    <!-- Bootstrap Wisyhtml5 -->
+    <link rel="stylesheet"  href="{{ asset('vendor/adminlte/vendor/bootstrap/wysi/bootstrap-wysihtml5.css') }}">
+    <!-- Bootstrap datetimepicker -->
+    <link rel="stylesheet"  media="screen"  href="{{ asset('vendor/adminlte/vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css') }}">
+    <!-- Bootstrap daterangepicker -->
+    <link rel="stylesheet"  media="screen"  href="{{ asset('vendor/adminlte/vendor/bootstrap/datetimepicker/daterangepicker.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
@@ -22,9 +28,11 @@
 
    @if(config('adminlte.plugins.fullcalendar'))
         <!-- Fullcalendar -->
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.css') }}" >
-    <link rel="stylesheet" media="print" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.print.min.css') }}" >
-    <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/fullcalendar/personalizar.css') }}" > -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.css') }}" >
+    <link rel="stylesheet" type="text/css"  media="print" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.print.min.css') }}" >
+    <link rel="stylesheet" htype="text/css" ref="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery-ui.min.css') }}" >
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/theme.css') }}" >
+
     @endif
 
     @if(config('adminlte.plugins.select2'))
@@ -42,15 +50,6 @@
         <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/datatables/responsive.dataTables.min.css') }}">
         <!-- <link rel="stylesheet" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"> -->
-    @endif
-
-     @if(config('adminlte.plugins.flat'))
-        <!-- Select2 -->
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/flat/flat-ui.css') }}">
-    @endif
-     @if(config('adminlte.plugins.prism'))
-        <!-- Select2 -->
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/prism/prism.min.css') }}">
     @endif
 
      @if(config('adminlte.plugins.toastr'))
@@ -77,11 +76,12 @@
 
 @yield('body')
 
-<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/datatables/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
-<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.fileupload-image.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/bootstrap/wysi/bootstrap-wysihtml5.js') }}"></script>
+
+
 
 <!-- Boostrap jasny -->
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/jasny/jasny-bootstrap.min.js') }}"></script>
@@ -97,25 +97,25 @@
 
  @if(config('adminlte.plugins.fullcalendar'))
         <!-- Fullcalendar -->
-
-    <!-- <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery.min.js') }}" ></script> -->
     <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery-ui.min.js') }}" ></script>
-    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment.js') }}" ></script>
+    <!-- <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment-with-locales.js') }}" ></script> -->
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment-timezone.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment-timezone-with-data.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment-timezone-with-data-2012-2022.js') }}" ></script>
     <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.js') }}" ></script>
-    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/gcal.min.js') }}" ></script>
-    <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/locale-all.js') }}" ></script>
     <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/locale/es.js') }}" ></script>
-
 @endif
+
+<script src="{{ asset('vendor/adminlte/vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<!-- <script src="{{ asset('vendor/adminlte/vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.es.js') }}"></script> -->
+<script src="{{ asset('vendor/adminlte/vendor/bootstrap/datetimepicker/daterangepicker.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/bootstrap/datetimepicker/knockout-3.2.0.js') }}"></script>
 
 @if(config('adminlte.plugins.datatables'))
     <!-- DataTables with bootstrap 3 renderer -->
-    <!-- <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script> -->
     <script src="{{ asset('vendor/adminlte/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <!-- <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
     <script src="{{ asset('vendor/adminlte/vendor/datatables/dataTables.responsive.min.js') }}"></script>
-    <!-- <script src="//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script> -->
-
 @endif
 
 

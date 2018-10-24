@@ -8,8 +8,8 @@ use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 class Event extends Model
 {
  protected $fillable = [
-     'contacto',
-     'telefono',
+     'contact',
+     'phone',
      'start_date',
      'end_date'
     ];

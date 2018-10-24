@@ -283,12 +283,13 @@ return [
     */
 
     'plugins' => [
-        'datatables' => true,
-        'select2'    => true,
-        'chartjs'    => true,
-        'toastr'     => true,
-        'sweetalert' => true,
-        'fullcalendar' => true,
+        'datatables'    => true,
+        'select2'       => true,
+        'chartjs'       => true,
+        'toastr'        => true,
+        'sweetalert'    => true,
+        'fullcalendar'  => true,
+        'jquery-upload' => false,
         'flat' => false,
         'prism' => false,
     ],

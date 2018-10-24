@@ -6,144 +6,293 @@
 		</div>
 	@endif
 @section('content')
-<div class="container-fluid" >
-  <div class="panel panel-primary">
-    <div class="panel-heading">Registrar nueva cita</div>
-      <div class="panel-body">
-        {!! Form::open(array('route' => 'events.store', 'method' => 'POST', 'files' => 'true'))!!}
-        {{ csrf_field() }}
-        <div class='row'>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            @if (Session::has('success'))
-              <div class="alert alert-success">{{ Session::get('success')}}</div>
-            @elseif (Session::has('warning'))
-              <div class="alert alert-danger">{{ Session::get('warning')}}</div>
-            @endif
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
-             <div class="form-group">
-               {!! Form::label('contact','Contacto:') !!}
-                <div class="">
-                  {!! Form::text('contact', null, ['class' => 'form-control']) !!}
-                  {!! $errors->first('contact', '<p class="alert alert-danger">:message</p>')!!}
-                </div>
-              </div>
-          </div>
-           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
-             <div class="form-group">
-               {!! Form::label('telefono','Telefono:') !!}
-                <div class="">
-                  {!! Form::text('telefono', null, ['class' => 'form-control']) !!}
-                  {!! $errors->first('telefono', '<p class="alert alert-danger">:message</p>')!!}
-                </div>
-              </div>
-          </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-              <div class="form-group">
-                {!! Form::label('start_date','Inicio:') !!}
-                  <div class="">
-                    {!! Form::input('dateTime-local','start_date', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('start_date', '<p class="alert alert-danger">:message</p>')!!}
-                  </div>
-                </div>
+<div class="container">
+<div id="calendar"></div>
+</div>
+<div class="modal" id="evento" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear cita</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="" action="{{ URL::to('events')}}" method="POST" id="crear_evento">
+      	{{ csrf_field() }}
+
+        <div class="row">
+          <div class="col-md-6">
+							<div class="form-group">
+								<label for="contact">Nombre:</label>
+								<input name="contact" type="text" id="contact" placeholder="Ingrese el nombre del paciente" class="form-control"/>
+							</div>
+					</div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phone">Teléfono:</label>
+              <input name="phone" type="text" id="phone" placeholder="Ingrese el teléfono" class="form-control"/>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-              <div class="form-group">
-                {!! Form::label('end_date','Fin:') !!}
-                  <div class="">
-                    {!! Form::input('dateTime-local','end_date', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('end_date', '<p class="alert alert-danger">:message</p>')!!}
-                  </div>
-                </div>
+          </div>
+        </div>
+          <!-- <div class="col-md-3">
+            <div class="form-group">
+              <label for="start_date">Fecha y hora inicio:</label>
+              <input name="start_date" type="date" id="start_date" placeholder="Ingrese fecha y hora" class="form-control"/>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">&nbsp; <br/>
-              <div class="form-group">
-                <div class="">
-                    {!! Form::submit('Crear cita', ['class'=>'btn btn-primary'])!!}
-                </div>
+          </div> -->
+        <div class="row">
+            <div class="col-md-6">
+							<div class="form-group input-append datetime">
+                  <label for="start_date">Fecha y hora inicio:</label>
+                    <!-- <div class="input-append datetime"> -->
+                      <input  readonly="readonly" name="start_date" id="start_date" class="datetimepicker form-control "data-format="Y-M-D hh:mm:ss TT" type="text" />
+                      <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                      </span>
+                    <!-- </div> -->
               </div>
             </div>
-          {!! Form::close()!!}
+
+                    <!-- <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="end_date">Fecha y hora fin:</label>
+                        <input name="end_date" type="text" id="end_date" placeholder="Ingrese fecha y hora" class="form-control"/>
+                      </div>
+                    </div> -->
+
+            <div class="col-md-6">
+							 <div class="form-group input-append datetime">
+                  <label for="end_date">Fecha y hora fin:</label>
+                    <!-- <div class="input-append datetime"> -->
+                      <input  class="datetimepicker form-control" name="end_date" id="end_date" data-format="Y-M-D hh:mm:ss TT" type="text"/>
+                      <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                      </span>
+                    <!-- </div> -->
+              </div>
+            </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="panel panel-primary">
-      <div class="panel-heading">Calendario de citas</div>
-        <div  class="panel-body" >
-            {!! $calendar_details->calendar() !!}
-    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<input type="submit" class="btn btn-success" value="Guardar" />
       </div>
+      </form>
     </div>
   </div>
 </div>
+
 @stop
 
-@push('js')
-{!! $calendar_details->script() !!}
-<script>
-
-    $(document).ready(function() {
-      var date = new Date();
-    var d = date.getDate(),
-        m = date.getMonth(),
-        y = date.getFullYear();
-        $('#calendar').fullCalendar({
-          defaultTimedEventDuration: '00:30:00',
-          forceEventDuration: true,
-          selectOverlap:false,
-          schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
-          },
-          buttonText: {
-            today: 'today',
-            month: 'month',
-            week: 'week',
-            day: 'day'
-          },
-          navLinks: true, // can click day/week names to navigate views
-          selectable: true,
-          selectHelper: true,
-          select: function(start, end) {
-            var title = prompt('Contacto:');
-            var eventData;
-            if (title) {
-              eventData = {
-                title: contact,
-                phone: telefono,
-                start: start_data,
-                end: end_data
-              };
-              $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }
-            $('#calendar').fullCalendar('unselect');
-          },
-          editable: true,
-          eventLimit: true, // allow "more" link when too many events
-          events: [
-          ]
-        });
-      });
-
-
-</script>
+@push('css')
 <style>
 
   body {
-    margin: 40px 10px;
+    margin: 0;
     padding: 0;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
   }
 
+  #top,
+  #calendar.fc-unthemed {
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  }
+
+  #top {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    padding: 0 10px;
+    line-height: 40px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  #top .selector {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  #top select {
+    font: inherit; /* mock what Boostrap does, don't compete  */
+  }
+
+  .left { float: left }
+  .right { float: right }
+  .clear { clear: both }
+
   #calendar {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 40px auto;
+    padding: 0 10px;
   }
 
 </style>
+@endpush
+@push('js')
+
+<script >
+
+    $(function(){
+
+      "use strict";
+
+      var evento = [];
+      $.ajax({
+        url       : '../get-events',
+        type      : "GET",
+        dataType  : "JSON",
+        async     : false
+      }).done(function(r){
+        evento  = r;
+      })
+
+      $("#calendar").fullCalendar({
+        header  : {
+        left    : 'prev,next today',
+        center  : 'title',
+        right   : 'month,agendaWeek,agendaDay,listDay'
+      },
+      theme: 'true',
+      themeSystem: 'jquery-ui',
+      defaultView: 'listWeek',
+      buttonText: {
+            today: 'Ahora',
+            month: 'Mes',
+            week: 'Semana'
+        },
+        themeButtonIcons: {
+          prev: 'left-single-arrow',
+          next: 'right-single-arrow',
+          prevYear: 'left-double-arrow',
+          nextYear: 'right-double-arrow'
+        },
+        events  : evento,
+        hiddenDays: [ 0 ],
+        minTime: '09:00:00',
+        maxTime: '17:00:00',
+        editable: true,
+        dayClick: function(datetime, jsEvent, view, resourceObj) {
+
+          $("#start_date").val(datetime.format());
+          $("#evento").modal();
+        }
+      });
+
+      $(".connectedSortable").sortable({
+        placeholder:  "sort-highlight",
+        connectWith:  ".connectedSortable",
+        handle:       ".box-header, .nav-tabs",
+        forcePlaceholderSize: true,
+        zIndex: 999999
+      });
+      $(".connectedSortable .box-header, connectedSortable, .nav-tabs-custom").css('cursor', 'move');
+
+      $(".todo-list").sortable({
+        placeholder:  "sort-highlight",
+        handle:       ".handle",
+        forcePlaceholderSize: true,
+        zIndex: 999999
+      });
+
+      $('.textarea').wysihtml5();
+      $(".daterange").daterangepicker({
+        ranges: {
+          'Today'       :  [moment(), moment()],
+          'Yesterday'   :  [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' :  [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days':  [moment().subtract(29, 'days'), moment()],
+          'This Month'  :  [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  :  [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,'month').endOf('month')]
+        }
+      });
+
+        $("#start_date").datetimepicker({
+          format    : 'Y-M-D hh:mm:ss'
+          // format    : 'yyyy-mm-dd'
+        })
+
+        $("#end_date").datetimepicker({
+          format    : 'Y-M-D hh:mm:ss'
+          // timeFormat: 'h:mm:ss p'
+        })
+    });
+
+$('#crear_evento').on('submit', function(e){
+				e.preventDefault();
+				var data 	= $(this).serialize();
+				var url 	= $(this).attr('action');
+				var post 	= $(this).attr('method');
+
+				//console.info(data);
+				$.ajax({
+					headers: {
+                		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            		},
+					type 	: post,
+					url 	: url,
+					data 	: data,
+					dataType: 'json',
+					success:function(data)
+					{
+						document.getElementById("crear_evento").reset();
+
+						$('#evento').modal('hide');
+						//getTeeth();
+						toastr["success"]("Cita creada exitosamente!", "Guardado")
+					}
+				});
+			});
+
+    // $(document).ready(function() {
+    //   var date = new Date();
+    //   var d = date.getDate(),
+    //     m = date.getMonth(),
+    //     y = date.getFullYear();
+    //     $('#calendar').fullCalendar({
+    //       eventClick: function(calEvent, jsEvent, view) {
+
+    //                 $(this).css('background', 'red');
+    //                 //al evento click; al hacer clic sobre un evento cambiara de background
+    //                 //a color rojo y nos enviara a los datos generales del evento seleccionado
+    //             },
+    //       header: {
+    //         left: 'prev,next today',
+    //         center: 'title',
+    //         right: 'month,agendaWeek,agendaDay,listWeek'
+    //       },
+    //       buttonText: {
+    //         today: 'today',
+    //         month: 'month',
+    //         week: 'week',
+    //         day: 'day'
+    //       },
+    //       forceEventDuration: true,
+    //       selectOverlap:false,
+    //       schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+    //       navLinks: true, // can click day/week names to navigate views
+    //       selectable: true,
+    //       selectHelper: true,
+    //       select: function(start, end) {
+    //         var title = prompt('Contacto:');
+    //         var eventData;
+    //         if (title) {
+    //           eventData = {
+    //             title: contact,
+    //             start: start_data,
+    //             end: end_data
+    //           };
+    //           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+    //         }
+    //         $('#calendar').fullCalendar('unselect');
+    //       },
+    //       editable: true,
+    //       eventLimit: true, // allow "more" link when too many events
+    //       events: [
+    //       ]
+    //     });
+    //   });
+
+</script>
 @endpush

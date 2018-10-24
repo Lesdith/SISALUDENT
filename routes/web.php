@@ -3,30 +3,6 @@
 use PHPUnit\Framework\MockObject\Generator;
 use IntelGUA\Generators\Generate;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
- */
-
-
-/** Ejemplo para agregar la ruta de la loteria Henry
- *   Route::get('generar', function (){
- *       $numeros = new Generate();
- *       $lista = $numeros->getNumbersGenerated(50000, true, 7);
- *           for ($i=1; $i < count($lista); $i++) {
- *               echo $lista[$i] . "<br/>";
- *           }
- *   });*/
-
-
-
-
 
 
 Auth::routes();
@@ -43,14 +19,17 @@ Route::get('/', function () {
 
 //Rutas de la agenda
 Route::resource('events', 'EventsController');
-// Route::get('events', 'EventsController@index');
+// Route::get('api', 'EventsController@api');
+Route::get('get-events', 'EventsController@get_events');
 // Route::post('events', 'EventsController@addEvent');
-
+// Route::post('guardaEventos', array('as' => 'guardaEventos' ,'uses' => 'EventsController@create'));
 
 //Rutas de  Tooth
+Route::resource('teeth', 'TeethController');
 Route::get('get-teeth', 'TeethController@getTeeth');
 Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
-Route::resource('teeth', 'TeethController');
+//Route::get('show', 'TeethController@show');
+
 
 //Rutas del modelo Tooth_position
 Route::resource('tooth_positions', 'ToothPositionsController');

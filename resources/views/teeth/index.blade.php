@@ -129,7 +129,7 @@
 
 <!-- Modal Mostrar registro -->
 
-	<div class="modal fade" id="show_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	<!-- <div class="modal fade" id="show_tooth_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
@@ -146,7 +146,7 @@
 
 						<div class="form-group">
 	                    	<label for="tooth_type_id">Tipo</label>
-	                    <input name="tooth_type_id" id="show_tooth_type" class="form-control" style="border: 0;"/>
+	                    <input name="tooth_type_id" type="text" id="show_tooth_type"   style="border: 0;"/>
 	                	</div>
 
 							<div class="form-group">
@@ -168,9 +168,8 @@
 				</div>
 	        </div>
 	    </div>
-	</div>
+	</div> -->
 	<!-- // Modal Mostrar registro -->
-
 
 @stop
 <!-- /Content Section -->
@@ -186,8 +185,7 @@
         getToothType();
 		getToothPositionEdit();
         getToothStageEdit();
-        getToothTypeEdit();
-		//getTooth();
+		getToothTypeEdit();
         } );
 
 
@@ -288,7 +286,7 @@
 				var data 	= $(this).serialize();
 				var url 	= $(this).attr('action');
 				var post 	= $(this).attr('method');
-				console.info(data);
+				//console.info(data);
 				$.ajax({
 					headers: {
                 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -344,7 +342,7 @@
 					$(this).closest('li'):
 					$(this).closest('tr');;
     				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   						console.log(rowData);
+   						//console.log(rowData);
 					var vid = rowData.id;
 		$.get('teeth/' + vid + '/edit', {id:vid}, function(data){
 			$('#frm-update').find('#update_name').val(data.name)
@@ -361,7 +359,7 @@
 				$('#update_tooth_type').empty();
 				$.get('get-tooth_types', function(data){
 					$.each(data,	function(i, value){
-						console.info(value);
+						//console.info(value);
 						if(value.id === vid ){
 							$('#update_tooth_type').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
@@ -374,7 +372,7 @@
 				$('#update_tooth_stage').empty();
 			    $.get('get-tooth_stages', function(data){
 					$.each(data,	function(i, value){
-						console.info(value);
+						//console.info(value);
 						if(value.id === vid ){
 							$('#update_tooth_stage').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
@@ -402,8 +400,8 @@
 				e.preventDefault();
 				var data 	= $('#frm-update').serializeArray();
 				var id 		= $("#tooth_id").val();
-				console.log(data);
-				console.log(id);
+				//console.log(data);
+				//console.log(id);
 				$.ajax({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -416,7 +414,7 @@
 					{
 						var $t = $('#tbl-teeth').DataTable();
 						$t.ajax.reload();
-					console.log(data);
+					//console.log(data);
 						$('#update_tooth_modal').modal('hide');
 
 					}
@@ -449,13 +447,13 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 			reverseButtons: true
 			// Se recoge el valor si se dio Click al botón eliminar
 		}).then((result) =>{
-			console.log(result);
+			//console.log(result);
 				if (result.value) {
 					var $tr = $(this).closest('li').length ?
 					$(this).closest('li'):
 					$(this).closest('tr');
     				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   						console.log(rowData)
+   						//console.log(rowData)
 					var vid = rowData.id;
 					var v_token = "{{csrf_token()}}";
 					var parametros = {_method: 'DELETE', _token: v_token};
@@ -491,21 +489,51 @@ $('body').delegate('#tbl-teeth #del', 'click', function(e){
 			});
 		});
 
-//--------- Se creo para poder mostrar el detalle de una fila
+//--------- Se creo para poder mostrar el detalle de un registro
 
 	$('body').delegate('#tbl-teeth #show', 'click', function(e){
 		e.preventDefault();
 			var $tr = $(this).closest('li').length ?
 					$(this).closest('li'):
-					$(this).closest('tr');
+					$(this).closest('tr');;
     				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   						console.log(rowData);
+   						//console.log(rowData);
 					var vid = rowData.id;
-			$('#frm-show').find('#show_name').val(rowData.name)
-			$('#frm-show').find('#show_tooth_type').val(rowData.tooth_type.name)
-			$('#frm-show').find('#show_tooth_stage').val(rowData.tooth_stage.name)
-			$('#frm-show').find('#show_tooth_position').val(rowData.tooth_position.name)
+					var vtype=rowData.tooth_type_id;
+		$.get('teeth/' + vid , {id:vid}, function(data){
+		//	console.log(data);
+			$('#frm-show').find('#show_name').val(data.name)
+
+			//se utilizo para mostrar en texto el valor de un select (tooth_types)
+			$.get('get-tooth_types', function(data){
+			$.each(data,	function(i, value){
+				if(value.id === rowData.tooth_type_id ){
+			//		console.log(value)
+				$('#frm-show').find('#show_tooth_type').val(value.name)
+					}
+				});
+			});
+
+			//se utilizo para mostrar en texto el valor de un select (tooth_stages)
+			$.get('get-tooth_stages', function(data){
+			$.each(data,	function(i, value){
+				if(value.id === rowData.tooth_stage_id ){
+			$('#frm-show').find('#show_tooth_stage').val(value.name)
+					}
+				});
+			});
+
+			//se utilizo para mostrar en texto el valor de un select (tooth_positions)
+			$.get('get-tooth_positions', function(data){
+			$.each(data,	function(i, value){
+				if(value.id === rowData.tooth_stage_id ){
+			$('#frm-show').find('#show_tooth_position').val(value.name)
+					}
+				});
+			});
+			$('#frm-show').find('#show_tooth_id').val(data.id)
 			$('#show_tooth_modal').modal('show');
+		});
 	});
 
 </script>
