@@ -92,9 +92,14 @@ class PatientsController extends Controller
      */
     public function show($id)
     {
-        $patients = Patient::find($id);
-        return view('patient.show', ['patient'=>$patients]);
+        // if ($request->ajax()) {
+        $patient = Patient::find($id);
+        return view('patients.show', compact('patient'));
+        // return view('patients.show', ['patients'=>$patients]);
+        // return view('patients.show');
+        // }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -138,8 +143,8 @@ class PatientsController extends Controller
             }
             $patient->update($request->all());
             return response($patient);
-
         }
+
     }
 
     /**

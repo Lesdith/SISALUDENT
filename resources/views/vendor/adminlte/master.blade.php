@@ -12,6 +12,8 @@
     <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
      <!-- Bootstrap jasny -->
     <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/jasny/jasny-bootstrap.min.css') }}">
+    <!-- Jquery inputmask -->
+    <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/jquery/dist/inputmask.min.css') }}">
     <!-- Bootstrap Wisyhtml5 -->
     <link rel="stylesheet"  href="{{ asset('vendor/adminlte/vendor/bootstrap/wysi/bootstrap-wysihtml5.css') }}">
     <!-- Bootstrap datetimepicker -->
@@ -70,7 +72,8 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
 </head>
 <body class="hold-transition @yield('body_class')">
 
@@ -78,6 +81,8 @@
 
 <script src="{{ asset('vendor/adminlte/vendor/datatables/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.inputmask.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/wysi/bootstrap-wysihtml5.js') }}"></script>
 

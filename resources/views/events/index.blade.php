@@ -89,7 +89,7 @@
 @push('css')
 <style>
 
-  body {
+ body {
     margin: 0;
     padding: 0;
     font-size: 14px;
@@ -174,11 +174,10 @@
         maxTime: '17:00:00',
         editable: true,
         dayClick: function(datetime, jsEvent, view, resourceObj) {
-
           $("#start_date").val(datetime.format());
           $("#evento").modal();
-        }
-      });
+        },
+    });
 
       $(".connectedSortable").sortable({
         placeholder:  "sort-highlight",
@@ -210,12 +209,10 @@
 
         $("#start_date").datetimepicker({
           format    : 'Y-M-D hh:mm:ss'
-          // format    : 'yyyy-mm-dd'
         })
 
         $("#end_date").datetimepicker({
           format    : 'Y-M-D hh:mm:ss'
-          // timeFormat: 'h:mm:ss p'
         })
     });
 
@@ -236,63 +233,15 @@ $('#crear_evento').on('submit', function(e){
 					dataType: 'json',
 					success:function(data)
 					{
-						document.getElementById("crear_evento").reset();
-
-						$('#evento').modal('hide');
+            document.getElementById("crear_evento").reset();
+             $('#evento').modal('hide');
 						//getTeeth();
-						toastr["success"]("Cita creada exitosamente!", "Guardado")
-					}
-				});
-			});
+            toastr["success"]("Cita creada exitosamente!", "Guardado")
+            $("#calendar").fullCalendar('render');
+          }
+        });
+      });
 
-    // $(document).ready(function() {
-    //   var date = new Date();
-    //   var d = date.getDate(),
-    //     m = date.getMonth(),
-    //     y = date.getFullYear();
-    //     $('#calendar').fullCalendar({
-    //       eventClick: function(calEvent, jsEvent, view) {
-
-    //                 $(this).css('background', 'red');
-    //                 //al evento click; al hacer clic sobre un evento cambiara de background
-    //                 //a color rojo y nos enviara a los datos generales del evento seleccionado
-    //             },
-    //       header: {
-    //         left: 'prev,next today',
-    //         center: 'title',
-    //         right: 'month,agendaWeek,agendaDay,listWeek'
-    //       },
-    //       buttonText: {
-    //         today: 'today',
-    //         month: 'month',
-    //         week: 'week',
-    //         day: 'day'
-    //       },
-    //       forceEventDuration: true,
-    //       selectOverlap:false,
-    //       schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-    //       navLinks: true, // can click day/week names to navigate views
-    //       selectable: true,
-    //       selectHelper: true,
-    //       select: function(start, end) {
-    //         var title = prompt('Contacto:');
-    //         var eventData;
-    //         if (title) {
-    //           eventData = {
-    //             title: contact,
-    //             start: start_data,
-    //             end: end_data
-    //           };
-    //           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-    //         }
-    //         $('#calendar').fullCalendar('unselect');
-    //       },
-    //       editable: true,
-    //       eventLimit: true, // allow "more" link when too many events
-    //       events: [
-    //       ]
-    //     });
-    //   });
 
 </script>
 @endpush

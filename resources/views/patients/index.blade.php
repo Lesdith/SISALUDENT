@@ -20,12 +20,9 @@
 					<tr >
 						<th class="text-center">No.</th>
 						<th data-priority="1" class="text-center">Nombre</th>
-                        <th class="text-center">Género</th>
-						<th class="text-center">Fecha de nacimiento</th>
 						<th class="text-center">Teléfono</th>
 						<th class="text-center">Localidad</th>
 						<th class="text-center">Dirección</th>
-						<th class="text-center">Municipio</th>
 						<th class="text-center">Acciones</th>
 
 					</tr>
@@ -85,7 +82,7 @@
 							<div class="input-group">
 								<!-- <label for="phone_number">Teléfono:</label> -->
 								<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
-								<input name="phone_number" type="text" id="phone_number" placeholder="Ingrese un número de teléfono" class="form-control"/>
+								<input name="phone_number" type="text" data-mask="9999-9999" id="phone_number" placeholder="Ingrese un número de teléfono" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -387,7 +384,7 @@
 		getGenderEdit();
 		getLocationEdit();
 		getMunicipalityEdit();
-
+	    validar ();
         });
 
 
@@ -439,16 +436,13 @@
 							},
 							//editField: ['first_name', 'second_name', 'first_surname', 'second_surname']
 						},
-						{"data":	"gender.name"},
 						{"data":	"phone_number"},
-						{"data":	"birth_date"},
 						{"data":	"location.name"},
 						{"data":	"address"},
-						{"data":	"municipality.name"},
 						{"defaultContent":
 
 							"<div class='btn-group btn-group-xs' > " +
-							"<button type='button' id='show' class='show btn btn-info' title='Mostrar' data-id='id'><i class='fa fa-eye'></i></button>"+
+							"<button type='button' id='show'  class='show btn btn-info'   title='Mostrar'   data-id='id'><i class='fa fa-eye'></i></button>"+
 							"<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>"+
 							"<button type='button' id='del' class='delete btn btn-danger' title='Eliminar'><i class='fa fa-trash-o'></i></button>"+
 							"</div>"
@@ -540,7 +534,7 @@
 			});
 
 
-		//Esta función se creó para validar los campos al crear un registro
+		//Esta función se creó para validar los campos vacíos al crear un registro
 		function validaCampos(){
 			var nombre	 		 = $("#names").val();
 			var apellido		 = $("#surnames").val();
@@ -584,6 +578,94 @@
 					return false;
 			}
 		}
+
+/* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
+para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
+
+		function validar () {
+			jQuery.validator.addMethod("lettersonly", function(value, element) {
+				return this.optional(element) || /^[a-z\sÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]+$/i.test(value);
+			}, );
+			jQuery.validator.addMethod("phoneguion", function(value, element) {
+				return this.optional(element) || /^[0-9\-]+$/i.test(value);
+			}, );
+			$('#frm-insert').validate({
+				keyup: true,
+				rules: {
+					names: {
+						// required: 		true,
+						lettersonly: 	true,
+						minlength: 		2,
+						maxlength: 		35,
+					},
+					surnames: {
+						// required: 		true,
+						lettersonly: 	true,
+						minlength: 		2,
+						maxlength: 		35,
+					},
+					gender_id: {
+						required:		true,
+					},
+					birth_date: {
+						required: 		true
+					},
+					location_id: {
+						required: 		true,
+					},
+					address: {
+						required: 		true,
+						minlength: 		5,
+					},
+					municipality_id: {
+						required: 		true
+					},
+					phone_number: {
+						phoneguion: 	true,
+						minlength: 		9,
+						maxlength: 		9,
+					}
+
+				},
+				messages: {
+					names: {
+						// required: 		function () {toastr.error('Por favor ingrese al menos un nombre')},
+						lettersonly: 	function () {toastr.error('Los nombres solo pueden contener letras')},
+						minlength: 		function () {toastr.error('Ingrese un nombre válido')},
+						maxlength: 		function () {toastr.error('Ingrese un nombre válido')},
+					},
+					surnames: {
+						// required: 		function () {toastr.error('Por favor ingrese al menos un apellido')},
+						lettersonly: 	function () {toastr.error('Los apellidos solo pueden contener letras')},
+						minlength: 		function () {toastr.error('Ingrese un apellido válido')},
+						maxlength: 		function () {toastr.error('Ingrese un apellido válido')},
+					},
+					gender_id: {
+						required: 		function () {toastr.error('Debe elegir un género')}
+					},
+					birth_date: {
+						required: 		function () {toastr.error('Debe ingresa fecha de nacimiento')},
+						date: 			function () {toastr.error('Ingrese una fecha válida')}
+					},
+					location_id: {
+						required: 		function () {toastr.error('Debe elegir localidad')},
+					},
+					municipality_id: {
+						required: 		function () {toastr.error('Debe elegir un municipio')}
+					},
+					address: {
+						required: 		function () {toastr.error('La dirección es requerida')},
+						minlength: 		function () {toastr.error('Ingrese una dirección válida')},
+					},
+					phone_number: {
+						phoneguion: 		function () {toastr.error('Ingrese un número de teléfono válido')},
+						minlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
+						maxlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
+					}
+				},
+			});
+		}
+
 
 	//-------------Editar paciente-------------
 
@@ -755,20 +837,80 @@ $('body').delegate('#tbl-patients #del', 'click', function(e){
 
 //--------- Se creo para poder mostrar el detalle de una fila
 
-	$('body').delegate('#tbl-teeth #show', 'click', function(e){
+
+$('body').delegate('#tbl-patients #show', 'click', function(e){
 		e.preventDefault();
 			var $tr = $(this).closest('li').length ?
 					$(this).closest('li'):
-					$(this).closest('tr');
-    				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
-   						console.log(rowData);
+					$(this).closest('tr');;
+    				var rowData = $('#tbl-patients').DataTable().row($tr).data();
+   						//console.log(rowData);
 					var vid = rowData.id;
-			$('#frm-show').find('#show_name').val(rowData.name)
-			$('#frm-show').find('#show_tooth_type').val(rowData.tooth_type.name)
-			$('#frm-show').find('#show_tooth_stage').val(rowData.tooth_stage.name)
-			$('#frm-show').find('#show_tooth_position').val(rowData.tooth_position.name)
-			$('#show_tooth_modal').modal('show');
+					console.log(vid);
+				$.get('patients/' + vid , {id:vid}, function(data){
+					window.location.href = 'patients/' +vid;
+
+				// $.ajax({
+				// 	url:     'patients/' + vid , {id:vid},
+				// 	type:    'GET',
+				//     data:    { src: 'patients.show' },
+				// 	success: function(response) {
+				// 	// window.location.href = 'patients/' +vid;
+				// 	}
+				// });
+
+		//
+
+
+			// $('#frm-show').find('#show_name').val(data.name)
+
+		// 	//se utilizo para mostrar en texto el valor de un select (tooth_types)
+		// 	$.get('get-tooth_types', function(data){
+		// 	$.each(data,	function(i, value){
+		// 		if(value.id === rowData.tooth_type_id ){
+		// 	//		console.log(value)
+		// 		$('#frm-show').find('#show_tooth_type').val(value.name)
+		// 			}
+		// 		});
+		// 	});
+
+		// 	//se utilizo para mostrar en texto el valor de un select (tooth_stages)
+		// 	$.get('get-tooth_stages', function(data){
+		// 	$.each(data,	function(i, value){
+		// 		if(value.id === rowData.tooth_stage_id ){
+		// 	$('#frm-show').find('#show_tooth_stage').val(value.name)
+		// 			}
+		// 		});
+		// 	});
+
+		// 	//se utilizo para mostrar en texto el valor de un select (tooth_positions)
+		// 	$.get('get-tooth_positions', function(data){
+		// 	$.each(data,	function(i, value){
+		// 		if(value.id === rowData.tooth_stage_id ){
+		// 	$('#frm-show').find('#show_tooth_position').val(value.name)
+		// 			}
+		// 		});
+		// 	});
+		// 	$('#frm-show').find('#show_tooth_id').val(data.id)
+		// 	$('#show_tooth_modal').modal('show');
+		 });
 	});
+
+
+	// $('body').delegate('#tbl-teeth #show', 'click', function(e){
+	// 	e.preventDefault();
+	// 		var $tr = $(this).closest('li').length ?
+	// 				$(this).closest('li'):
+	// 				$(this).closest('tr');
+    // 				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
+   	// 					console.log(rowData);
+	// 				var vid = rowData.id;
+	// 		$('#frm-show').find('#show_name').val(rowData.name)
+	// 		$('#frm-show').find('#show_tooth_type').val(rowData.tooth_type.name)
+	// 		$('#frm-show').find('#show_tooth_stage').val(rowData.tooth_stage.name)
+	// 		$('#frm-show').find('#show_tooth_position').val(rowData.tooth_position.name)
+	// 		$('#show_tooth_modal').modal('show');
+	// });
 
 
 // Esta función sirve para copiar la imagen de la vista previa en la carpeta establecida

@@ -179,7 +179,6 @@
 
       	$(document).ready(function() {
 		dataTableTeeth();
-        //getTeeth();
         getToothPosition();
         getToothStage();
         getToothType();

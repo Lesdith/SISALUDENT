@@ -44,13 +44,18 @@ Route::resource('tooth_types', 'ToothTypesController');
 Route::get('get-tooth_types', 'ToothTypesController@getToothType');
 
 //Rutas del paciente
-Route::resource('patients', 'PatientsController');
+// Route::resource('patients', 'PatientsController');
+Route::resource('patients', 'PatientsController', ['except' => ['show']]);
 Route::get('get-patients',  'PatientsController@getPatients');
+Route::get('patients/{id}', 'PatientsController@show')->name('patients.show');
 //Ruta en pacientes para obtener género
 Route::get('get-genders', 'PatientsController@getGender');
 //Ruta en paciente para obtener localidad
 Route::get('get-locations', 'PatientsController@getLocation');
 //Ruta en pacientes para obtener municipio
 Route::get('get-municipalities', 'PatientsController@getMunicipality');
+
+//Ruta temporal para trabajar pacientes
+// Route::get('get-show', 'PatientsController@show');
 
 });
