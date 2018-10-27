@@ -16,18 +16,18 @@ class CreateClinicHistoriesTable extends Migration
         Schema::create('clinic_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->boolean('infectious_disease');
-            $table->string('disease_name');
-            $table->boolean('cardiac');
-            $table->boolean('allergic');
-            $table->string('what_you_allergy');
-            $table->boolean('diabetic');
-            $table->boolean('pregnant');
-            $table->boolean('epileptic');
-            $table->string('observations', 200);
+            $table->boolean('infectious_disease')->nullable();
+            $table->string('disease_name')->nullable();
+            $table->boolean('cardiac')->nullable();
+            $table->boolean('allergic')->nullable();
+            $table->string('what_you_allergy')->nullable();
+            $table->boolean('diabetic')->nullable();
+            $table->boolean('pregnant')->nullable();
+            $table->boolean('epileptic')->nullable();
+            $table->string('observations', 200)->nullable();
             $table->timestamps();
 
-            
+
             $table->foreign('patient_id')->references('id')->on('patients')
             ->onDelete('cascade')
             ->onUpdate('cascade');

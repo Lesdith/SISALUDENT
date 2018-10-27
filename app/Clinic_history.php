@@ -17,8 +17,8 @@ class Clinic_history extends Model
         'pregnant',
         'epileptic',
         'observations',
-    ];  
-    
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);

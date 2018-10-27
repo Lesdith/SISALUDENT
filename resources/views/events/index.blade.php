@@ -47,7 +47,7 @@
 							<div class="form-group input-append datetime">
                   <label for="start_date">Fecha y hora inicio:</label>
                     <!-- <div class="input-append datetime"> -->
-                      <input  readonly="readonly" name="start_date" id="start_date" class="datetimepicker form-control "data-format="Y-M-D hh:mm:ss TT" type="text" />
+                      <input  name="start_date" id="start_date" class="datetimepicker form-control "data-format="Y-M-D hh:mm:ss TT" type="text" />
                       <span class="add-on">
                         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                       </span>
@@ -138,15 +138,15 @@
 
       "use strict";
 
-      var evento = [];
-      $.ajax({
-        url       : '../get-events',
-        type      : "GET",
-        dataType  : "JSON",
-        async     : false
-      }).done(function(r){
-        evento  = r;
-      })
+      // var evento = [];
+      // $.ajax({
+      //   url       : '../get-events',
+      //   type      : "GET",
+      //   dataType  : "JSON",
+      //   async     : false
+      // }).done(function(r){
+      //   evento  = r;
+      // })
 
       $("#calendar").fullCalendar({
         header  : {
@@ -156,7 +156,7 @@
       },
       theme: 'true',
       themeSystem: 'jquery-ui',
-      defaultView: 'listWeek',
+      // defaultView: 'listWeek',
       buttonText: {
             today: 'Ahora',
             month: 'Mes',
@@ -168,7 +168,10 @@
           prevYear: 'left-double-arrow',
           nextYear: 'right-double-arrow'
         },
-        events  : evento,
+        // events  : evento,
+        eventSources: [
+          '../get-events',
+        ],
         hiddenDays: [ 0 ],
         minTime: '09:00:00',
         maxTime: '17:00:00',
@@ -235,12 +238,14 @@ $('#crear_evento').on('submit', function(e){
 					{
             document.getElementById("crear_evento").reset();
              $('#evento').modal('hide');
+              $('#calendar').fullCalendar('refetchEvents');
 						//getTeeth();
             toastr["success"]("Cita creada exitosamente!", "Guardado")
             $("#calendar").fullCalendar('render');
           }
         });
       });
+
 
 
 </script>
