@@ -16,14 +16,14 @@ class CreateClinicHistoriesTable extends Migration
         Schema::create('clinic_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->boolean('infectious_disease')->nullable();
+            $table->boolean('infectious_disease')->default(0)->nullable();
             $table->string('disease_name')->nullable();
-            $table->boolean('cardiac')->nullable();
-            $table->boolean('allergic')->nullable();
+            $table->boolean('cardiac')->default(0)->nullable();
+            $table->boolean('allergic')->default(0)->nullable();
             $table->string('what_you_allergy')->nullable();
-            $table->boolean('diabetic')->nullable();
-            $table->boolean('pregnant')->nullable();
-            $table->boolean('epileptic')->nullable();
+            $table->boolean('diabetic')->default(0)->nullable();
+            $table->boolean('pregnant')->default(0)->nullable();
+            $table->boolean('epileptic')->default(0)->nullable();
             $table->string('observations', 200)->nullable();
             $table->timestamps();
 

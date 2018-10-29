@@ -135,49 +135,14 @@ return [
         'submenu' => [
                 [
                 'text' => 'Pacientes',
-                'url'  => '#',
+                'url'  => '../patients',
                 'icon' => 'users',
-                'submenu' => [
-                    [
-                        'text' => 'Dientes',
-                        'url'  => '../teeth',
-                        'icon' => 'puzzle-piece',
-                    ],
-                    [
-                        'text' => 'Historiales médicos',
-                        'url'  => '#',
-                        'icon' => 'hospital-o',
-                        'submenu' => [
-                            [
-                                'text' => 'Historias Clínicas',
-                                'url'  => '#',
-                                'icon' => 'vcard',
-                            ],
-                            [
-                                'text' => 'Historias Odontológicas',
-                                'url'  => '#',
-                                'icon' => 'vcard-o',
-                            ],
-                        ],
-                    ],
-                    [
-                        'text' => 'Tratamientos',
-                        'url'  => '#',
-                        'icon' => 'medkit',
-                        'submenu' => [
-                            [
-                                'text' => 'Planes de tratamiento',
-                                'url'  => '#',
-                                'icon' => 'vcard-o',
-                            ],
-                        ],
-                    ],
+
                 ],
 
             ],
         ],
     ],
-],
 
     // 'menu' => [
     //     'MENU',

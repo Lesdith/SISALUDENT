@@ -37,6 +37,13 @@
                 <form id="form">
                   <div class="row">
                     <div class="col-md-6">
+                      @if ( $patient->file )
+                        <img src="{{asset( $patient->file)}}" class="img-responsiva" style="width: 200px; height: 200px;">
+                      @else
+                        <img src="{{asset('../images/nofoto.gif')}}" class="img-responsiva" style="width: 100px; height: 100px;">
+                      @endif
+                    </div>
+                    <div class="col-md-6">
                       <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
                       <p><strong>Género:</strong> {{ $patient->gender }}</p>
                       <p><strong>Fecha de nacimiento:</strong> {{ $patient->birth_date }}</p>
@@ -57,6 +64,13 @@
               <div class="container-fluid">
                 <form id="form">
                   <div class="row">
+                    <div class="col-md-6">
+                      @if ( $patient->file )
+                        <img src="{{asset( $patient->file)}}" class="img-responsiva" style="width: 200px; height: 200px;">
+                      @else
+                        <img src="{{asset('../images/nofoto.gif')}}" class="img-responsiva" style="width: 100px; height: 100px;">
+                      @endif
+                    </div>
                     <div class="col-md-6">
                       <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
                       <p><strong>Género:</strong> {{ $patient->gender }}</p>

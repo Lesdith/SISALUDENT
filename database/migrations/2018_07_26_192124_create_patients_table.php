@@ -23,7 +23,7 @@ class CreatePatientsTable extends Migration
             $table->string('address');
             $table->integer('municipality_id')->unsigned();
             $table->string('phone_number', 50);
-            $table->string('file')->nullable();
+            // $table->string('file')->nullable();
             $table->timestamps();
 
           $table->foreign('gender_id')->references('id')->on('genders')

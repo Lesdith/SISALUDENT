@@ -114,7 +114,7 @@
 							<select name="tooth_position_id" id="update_tooth_position" class="form-control"></select>
 	                	</div>
 
-					<input type="hidden" name="id" id="tooth_id">
+					<input type="hidden" name="id" id="tooth_id"/>
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

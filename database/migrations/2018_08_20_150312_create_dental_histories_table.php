@@ -17,12 +17,12 @@ class CreateDentalHistoriesTable extends Migration
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
             $table->date('last_medical_visit_date')->nullable();
-            $table->boolean('dental_hemorrhage')->nullable();
-            $table->boolean('mouth_infections')->nullable();
-            $table->boolean('mouth_ulcers')->nullable();
-            $table->boolean('reaction_anesthesia')->nullable();
+            $table->boolean('dental_hemorrhage')->default(0)->nullable();
+            $table->boolean('mouth_infections')->default(0)->nullable();
+            $table->boolean('mouth_ulcers')->default(0)->nullable();
+            $table->boolean('reaction_anesthesia')->default(0)->nullable();
             $table->string('what_reaction')->nullable();
-            $table->boolean('toothache')->nullable();
+            $table->boolean('toothache')->default(0)->nullable();
             $table->timestamps();
 
 

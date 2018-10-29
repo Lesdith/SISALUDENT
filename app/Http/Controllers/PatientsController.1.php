@@ -7,7 +7,6 @@ use IntelGUA\Sisaludent\Clinic_history;
 use IntelGUA\Sisaludent\Dental_history;
 use IntelGUA\Sisaludent\Location;
 use IntelGUA\Sisaludent\Gender;
-use IntelGUA\Sisaludent\Department;
 use IntelGUA\Sisaludent\Municipality;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -45,14 +44,9 @@ class PatientsController extends Controller
     }
 
 
-    public function getDepartment()
+    public function getMunicipality()
     {
-        $departments = Department::orderby('id', 'DESC')->get();
-        return $departments;
-    }
-     public function getMunicipality($id)
-    {
-        $municipalities = Municipality::Where('department_id', $id)->get();
+        $municipalities = Municipality::orderby('id', 'DESC')->get();
         return $municipalities;
     }
     /**
@@ -90,32 +84,45 @@ class PatientsController extends Controller
                 $patient->phone_number      = $request->input('phone_number');
                 $patient->save();
 
+
+                //Para cargar la Imagen y guardarla en la carpeta public/image
+                // if ($request->hasFile('file')) {
+                //     $destinationPath="image";
+                //     $file=$request->file;
+                //     $extension=$file->getClientOriginalExtension();
+                //     $fileName=rand(1111,9999).".".$extension;
+                //     $path = $file->move($destinationPath, $fileName);
+                //     $patient->file=$path;
+                //     $patient->file              = $request->input('file');
+                //     $patient->save();
+                // }
+
                 $clinic_history = new Clinic_history();
                 $clinic_history->patient_id            = $patient->id;
-                if($request->infectious_disease == 'on'){
+                if($request->infectious_disease = 'on'){
                     $clinic_history->infectious_disease = 1;
                 }
                 $clinic_history->disease_name          = $request->input('disease_name');
 
-                if($request->cardiac == 'on'){
+                if($request->cardiac = 'on'){
                     $clinic_history->cardiac = 1;
                 }
 
-                if($request->allergic == 'on'){
+                if($request->allergic = 'on'){
                     $clinic_history->allergic = 1;
                 }
 
                 $clinic_history->what_you_allergy      = $request->input('what_you_allergy');
 
-                if($request->diabetic == 'on'){
+                if($request->diabetic = 'on'){
                     $clinic_history->diabetic = 1;
                 }
 
-                if($request->pregnant == 'on'){
+                if($request->pregnant = 'on'){
                     $clinic_history->pregnant = 1;
                 }
 
-                if($request->epileptic == 'on'){
+                if($request->epileptic = 'on'){
                     $clinic_history->epileptic = 1;
                 }
                 $clinic_history->save();
@@ -126,25 +133,25 @@ class PatientsController extends Controller
                 $dental_history->patient_id            = $patient->id;
                 $dental_history->last_medical_visit_date    = $request->input('last_medical_visit_date');
 
-                if($request->dental_hemorrhage == 'on'){
+                if($request->dental_hemorrhage = 'on'){
                     $dental_history->dental_hemorrhage = 1;
                 }
 
-                if($request->mouth_infections == 'on'){
+                if($request->mouth_infections = 'on'){
                     $dental_history->mouth_infections = 1;
                 }
 
-                if($request->mouth_ulcers == 'on'){
+                if($request->mouth_ulcers = 'on'){
                     $dental_history->mouth_ulcers = 1;
                 }
 
-                if($request->reaction_anesthesia == 'on'){
+                if($request->reaction_anesthesia = 'on'){
                     $dental_history->reaction_anesthesia = 1;
                 }
 
                 $dental_history->what_reaction              = $request->input('what_reaction');
 
-                if($request->toothache == 'on'){
+                if($request->toothache = 'on'){
                     $dental_history->toothache = 1;
                 }
                 $dental_history->save();

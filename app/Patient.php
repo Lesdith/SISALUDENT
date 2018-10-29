@@ -15,7 +15,7 @@ class Patient extends Model
         'address',
         'municipality_id',
         'phone_number',
-        'file',
+        // 'file',
     ];
 
     public function gender()
