@@ -7,12 +7,12 @@
 	@endif
 @section('content')
 
-//Este container se utiliza para poder mostrar el calendario en la vista
+<!-- Este container se utiliza para poder mostrar el calendario en la vista -->
 <div class="container">
   <div id="calendar"></div>
     </div>
 
-//------Modal para crear una nueva cita-------
+<!-- ------Modal para crear una nueva cita------- -->
       <div class="modal" id="evento" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -218,20 +218,13 @@
       //Se activan los temas
       theme: 'true',
       themeSystem: 'jquery-ui',
-      // defaultView: 'listWeek',
       //Se personaliza el texto de los botones
       buttonText: {
             today: 'Ahora',
-            month: 'Mes',
-            week: 'Semana'
+            prev: 'Anterior',
+            next: 'Siguiente'
         },
-        //se aplican iconos a los botones
-        themeButtonIcons: {
-          prev: 'left-single-arrow',
-          next: 'right-single-arrow',
-          prevYear: 'left-double-arrow',
-          nextYear: 'right-double-arrow'
-        },
+
         // se muestran los eventos en el calendario
         eventSources: [
           '../get-events',

@@ -30,8 +30,8 @@
 
    @if(config('adminlte.plugins.fullcalendar'))
         <!-- Fullcalendar -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.css') }}" >
     <link rel="stylesheet" type="text/css"  media="print" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.print.min.css') }}" >
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/adminlte/vendor/fullcalendar/fullcalendar.min.css') }}" >
     <link rel="stylesheet" htype="text/css" ref="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery-ui.min.css') }}" >
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/theme.css') }}" >
 
