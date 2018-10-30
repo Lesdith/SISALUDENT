@@ -44,6 +44,12 @@ class EventsController extends Controller
 
         return response()->json($events);
     }
+
+    public function getEvent($id){
+
+        $event = Event::Where('id', $id)->get();
+        return $event;
+    }
     // Tenant::selectRaw('CONCAT(First_Name, " ", Last_Name) as TenantFullName, id')->orderBy('First_Name')->lists('TenantFullName', 'id'))
 
 
@@ -132,7 +138,13 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+
+            $event = Event::find($request->id);
+            $event->update($request->all());
+            return response($event);
+
+        }
     }
 
     /**
@@ -141,59 +153,13 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+            if ($request->ajax()) {
+        $event = Event::findOrFail($id);
+        $event->delete();
+        return redirect('events')->with('success', 'Cita eliminada exitosamente');
+        }
+        return redirect('events')->with('fail', 'Operación cancelada');
     }
-}
-
-
-
-
-
-
-// class EventsController extends Controller
-// {
-//     public function index(){
-//     	$events = Event::get();
-//     	$event_list = [];
-//     	foreach ($events as $key => $event) {
-//     		$event_list[] = Calendar::event(
-//                 $event->contacto,
-//                 true,
-//                 new \DateTime($event->start_date),
-//                 new \DateTime($event->end_date.' +1 day')
-//             );
-//     	}
-//     	$calendar_details = Calendar::addEvents($event_list);
-
-//         return view('events', compact('calendar_details') );
-//     }
-
-//     public function addEvent(Request $request)
-//     {
-//         $validator = Validator::make($request->all(), [
-//             'contacto'   => 'required',
-//             'telefono'   => 'required',
-//             'start_date' => 'required',
-//             'end_date'   => 'required'
-//         ]);
-
-//         if ($validator->fails()) {
-//         	\Session::flash('warnning','Please enter the valid details');
-//             return Redirect::to('/events')->withInput()->withErrors($validator);
-//         }
-
-//         $event = new Event;
-//         $event->contacto   = $request['contacto'];
-//         $event->telefono   = $request['telefono'];
-//         $event->start_date = $request['start_date'];
-//         $event->end_date   = $request['end_date'];
-//         $event->save();
-
-//         \Session::flash('success','Event added successfully.');
-//         return Redirect::to('/events.index');
-//     }
-
-
-// }
+ }

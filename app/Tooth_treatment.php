@@ -8,7 +8,7 @@ class Tooth_treatment extends Model
 {
     protected $fillable = [
         'name',
-        'cost',
+        // 'cost',
         'service_id',
     ];
 
@@ -22,5 +22,5 @@ class Tooth_treatment extends Model
         return $this->hasMany(Detail_treatment_plan::class);
     }
 
-   
+
 }

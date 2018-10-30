@@ -5,6 +5,7 @@ use IntelGUA\Generators\Generate;
 
 
 
+
 Auth::routes();
 // en las siguientes rutas si no esta logeado mandar a login
 Route::group(['middleware' => ['auth']], function () {
@@ -13,14 +14,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
     return view('home');
 });
-// Route::get('/register', function () {
-//     return view('home');
-// });
+
+Route::get('/register', function () {    return view('home');
+});
+
+Route::resource('users', 'UsersController');
+Route::get('get-users', 'UsersController@getUsers');
+
 
 //Rutas de la agenda
 Route::resource('events', 'EventsController');
 // Route::get('api', 'EventsController@api');
 Route::get('get-events', 'EventsController@get_events');
+Route::get('get-event/{id}', 'EventsController@getEvent');
 // Route::post('events', 'EventsController@addEvent');
 // Route::post('guardaEventos', array('as' => 'guardaEventos' ,'uses' => 'EventsController@create'));
 
@@ -61,6 +67,7 @@ Route::get('get-departments', 'PatientsController@getDepartment');
 
 //Ruta en pacientes para obtener municipio
 Route::get('get-municipalities/{id}', 'PatientsController@getMunicipality');
+
 
 //Ruta temporal para trabajar pacientes
 // Route::get('getExpedient/{id}', 'PatientsController@getExpedient');

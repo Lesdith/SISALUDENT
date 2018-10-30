@@ -9,13 +9,13 @@ class Treatment_plan extends Model
 {
     protected $fillable = [
         'patient_id',
-        'start_date',
-        'end_date',
+        // 'start_date',
+        // 'end_date',
         'subtotal',
         'discount',
         'total',
     ];
-   
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);
