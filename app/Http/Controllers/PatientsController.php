@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 
+
 class PatientsController extends Controller
 {
     /**
@@ -74,7 +75,7 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-         if ($request->ajax()) {
+        if ($request->ajax()) {
             // $patient = Patient::create ($request->all());
 
             DB::beginTransaction();
@@ -153,6 +154,7 @@ class PatientsController extends Controller
                 } catch (Exception $e) {
                     DB::rollBack();
                 }
+            return $request;
         }
     }
 
@@ -170,11 +172,13 @@ class PatientsController extends Controller
         ->join('municipalities'  , 'municipalities.id', '=', 'patients.municipality_id')
         ->join('clinic_histories', 'patients.id',       '=', 'clinic_histories.patient_id')
         ->join('dental_histories', 'patients.id',       '=', 'dental_histories.patient_id')
-        ->where('patients.id', '=', $id)
-        ->select('patients.*', 'clinic_histories.*', 'dental_histories.*', 'genders.name as gender', 'locations.name as location', 'municipalities.name as municipality')
+        ->where('patients.id', '=', $id)->orWhere('municipality_id', '=', 'null')
+        ->select('patients.*', 'clinic_histories.*', 'dental_histories.*',
+                 'genders.name as gender', 'locations.name as location',
+                 'municipalities.name as municipality')
         ->first();
-        return view('patients.show',compact('patient'));
-        //return (compact('patient'));
+        //return view('patients.show',compact('patient'));
+        return (compact('patient'));
 
      }
 

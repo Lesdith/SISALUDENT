@@ -17,7 +17,7 @@ class CreateTreatmentPlansTable extends Migration
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
             // $table->date('start_date');
-            // $table->date('end_date');
+            $table->date('date');
             $table->decimal('subtotal', 19, 4);
             $table->decimal('discount', 19, 4);
             $table->decimal('total', 19, 4);

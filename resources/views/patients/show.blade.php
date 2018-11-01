@@ -60,9 +60,21 @@
                     <div class="col-md-6">
                       <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
                       <p><strong>Género:</strong> {{ $patient->gender }}</p>
-                      <p><strong>Fecha de nacimiento:</strong> {{ $patient->birth_date }}</p>
+                      <p><strong>Fecha de nacimiento:</strong>
+                        @if($patient->birth_date == "" )
+                          No se acuerda
+                        @else
+                          {{ $patient->birth_date}}
+                        @endif
+                      </p>
                       <p><strong>Localidad:</strong> {{ $patient->location }}</p>
-                      <p><strong>Dirección:</strong> {{ $patient->address }}, {{ $patient->municipality}}</p>
+                      <p><strong>Dirección:</strong>
+                     @if($patient->municipality == " " )
+                            Ninguna
+                          @else
+                            {{ $patient->municipality }}
+                          @endif
+                      </p>
                       <p><strong>Teléfono:</strong> {{ $patient->phone_number }}</p>
                     </div>
                   </div>
@@ -164,7 +176,11 @@
                     <form id="form">
                       <div class="col-md-12">
                         <p><strong>¿Cuándo fue su última visita al dentista?</strong>
-                          {{ $patient->last_medical_visit_date }}
+                         @if($patient->observations == "" )
+                            No se acuerda
+                          @else
+                            {{  $patient->last_medical_visit_date }}
+                          @endif
                         </p>
                         <p><strong>¿Tiene hemorragia dentaria?</strong>
                            @if( $patient->dental_hemorrhage == 1 )

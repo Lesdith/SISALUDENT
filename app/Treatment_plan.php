@@ -10,7 +10,7 @@ class Treatment_plan extends Model
     protected $fillable = [
         'patient_id',
         // 'start_date',
-        // 'end_date',
+        'date',
         'subtotal',
         'discount',
         'total',

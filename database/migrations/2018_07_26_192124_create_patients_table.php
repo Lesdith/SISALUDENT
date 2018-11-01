@@ -21,7 +21,7 @@ class CreatePatientsTable extends Migration
             $table->date('birth_date')->nullable();
             $table->integer('location_id')->unsigned();
             $table->string('address');
-            $table->integer('municipality_id')->unsigned();
+            $table->integer('municipality_id')->nullable()->unsigned();
             $table->string('phone_number', 50);
             // $table->string('file')->nullable();
             $table->timestamps();

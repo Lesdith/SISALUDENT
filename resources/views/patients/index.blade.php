@@ -75,6 +75,7 @@
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
 											<select name="gender_id" id="gender_id" class="form-control"></select>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-4">
 										<div class="input-group">
@@ -82,8 +83,9 @@
 											<span class="input-group-addon">Nacimiento:   <i class="fa fa-calendar-o"></i></span>
 											<input name="birth_date" type="date" id="birth_date" placeholder="Ingrese la fecha de nacimiento" class="form-control"/>
 										</div>
+										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									<div class="col-sm-12 col-md-4">
 										<div class="input-group">
 											<!-- <label for="phone_number">Teléfono:</label> -->
 											<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
@@ -97,8 +99,9 @@
 										<div class="input-group">
 											<!-- <label for="location_id">Localidad:</label> -->
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
-											<select name="location_id" id="location_id"  placeholder="Selecciona la localidad"  class="form-control"></select>
+											<select name="location_id" id="location_id"  placeholder="Seleccione localidad"  class="form-control"></select>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<div class="input-group">
@@ -106,18 +109,20 @@
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 											<input name="address" type="text" id="address" placeholder="Ingrese una dirección" class="form-control"/>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
-											<select name="department_id" id="department_id"  placeholder="Selecciona el departamento" class="form-control"></select>
+											<select name="department_id" id="department_id"  placeholder="Seleccione el departamento" class="form-control"></select>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<div class="input-group">
 											<!-- <label for="municipality_id">Municipio:</label> -->
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
-											<select name="municipality_id" id="municipality_id"  placeholder="Selecciona el municipio" class="form-control"></select>
+											<select name="municipality_id" id="municipality_id"  placeholder="Seleccione el municipio" class="form-control"></select>
 										</div>
 									</div>
 								</div>
@@ -154,6 +159,7 @@
 											¿Es alérgico? <br/>
 											<center>Si:  <input type="radio" id="allergic" name="allergic"/><br /></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-6">
 										<div class="input-group">
@@ -170,18 +176,21 @@
 											¿Es cardíaco?<br/>
 											<center>Si:  <input type="radio" id="cardiac" name="cardiac"/></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-md-12 col-md-3">
 										<div class="input-group">
 											¿Es diabético?<br/>
 											<center>Si:  <input type="radio" id="diabetic" name="diabetic"/></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-md-12 col-md-3">
 										<div class="input-group">
 											¿Está embarazada?<br/>
 											<center>Si: <input type="radio" id="pregnant" name="pregnant"/></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-md-12 col-md-3">
 										<div class="input-group">
@@ -206,12 +215,14 @@
 											<span class="input-group-addon">Última visita:   <i class="fa fa-calendar-o"></i></span>
 											<input name="last_medical_visit_date" type="date" id="last_medical_visit_date" placeholder="Ingresar la fecha de la última visita al dentista" class="form-control"/>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-4">
 										<div class="input-group">
 											<center>¿Le provoca reacción la anestesia?<br/></center>
 											<center>Si:  <input type="radio" id="reaction_anesthesia" name="reaction_anesthesia"/></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-4">
 										<div class="input-group">
@@ -220,6 +231,7 @@
 										</div>
 									</div>
 								</div>
+								<br/>
 								<hr class="my-4">
 								<div class="row">
 									<div class="col-sm-12 col-md-3">
@@ -227,18 +239,21 @@
 											¿Tiene infección bucal?<br/>
 											<center>Si:  <input type="radio" id="mouth_infections" name="mouth_infections"/>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<div class="input-group">
 											¿Tiene úlceras bucales?<br/>
 											<center>Si:  <input type="radio" id="mouth_ulcers" name="mouth_ulcers"/></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<div class="input-group">
 											¿Tiene dolor dentario?<br/>
 											<center>Si:  <input type="radio" id="toothache" name="toothache"/></center>
 										</div>
+										<br/>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<div class="input-group">
@@ -246,6 +261,7 @@
 											<center>Si:  <input type="radio" name="dental_hemorrhage"  id="dental_hemorrhage"/></center>
 										</div>
 									</div>
+									<br/>
 								</div>
 								<input type="submit" class="btn btn-success" value="Guardar"/>
 							</form>
@@ -284,6 +300,7 @@
 		alergia();
 		embarazada();
 		check();
+		// getAge();
         });
 
 
@@ -370,12 +387,27 @@
 			//para cargar la lista de tipos de localidad
 			function getLocation(){
 			$.get('get-locations', function(data){
-					$('#location_id').append($('<option>', {value: "", text: 'Seleccionar Localidad'}));
+					$('#location_id').append($('<option>', {value: "0", text: 'Seleccionar Localidad'}));
 					$.each(data,	function(i, value){
 					$('#location_id').append($('<option>', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
+
+			function disabledDepartment(){
+					$('#department_id').prop('disabled', true);
+						$('#location_id').change(function() {
+							if($('#location_id').val() == '1'){
+								getDepartment();
+								$('#department_id').prop('disabled', false);
+							}else{
+								$('#department_id').prop('disabled', true);
+								$('#department_id').empty();
+								$('#municipality_id').prop('disabled', true);
+								$('#municipality_id').empty();
+							}
+						});
+				}
 
 
 				//para cargar la lista de los departamentos
@@ -388,27 +420,16 @@
 				});
 			}
 
-			function disabledDepartment(){
-					$('#department_id').prop('disabled', true);
-						$('#location_id').change(function() {
-							if($('#location_id').val() !== '1'){
-								$('#department_id').prop('disabled', true);
-								$('#department_id').empty();
-								filterMunicipality();
-							}else{
-								getDepartment();
-								$('#department_id').prop('disabled', false);
-							}
-						});
-				}
+
 
 			function filterMunicipality(){
 				$('#municipality_id').prop('disabled', true);
 				$('#municipality_id').empty();
 				$("#department_id").change(function() {
 					if($("#department_id").val() !== '0'){
-						$('#municipality_id').prop('disabled', false);
+						$('#municipality_id').empty();
 						getMunicipality();
+						$('#municipality_id').prop('disabled', false);
 					}else{
 						$('#municipality_id').prop('disabled', true);
 						$('#municipality_id').empty();
@@ -472,6 +493,7 @@
 				}
 			});
 	}
+
 
 
 
@@ -541,7 +563,7 @@ function check(){
 					dataType	: 'json',
 
 					success:function(data)
-					{console.log(file);
+					{
 						// document.getElementById("frm-insert").reset();
 						var t = $('#tbl-patients').DataTable();
 						t.ajax.reload()
@@ -873,5 +895,17 @@ $('body').delegate('#tbl-patients #show', 'click', function(e){
 					window.location.href = 'patients/' +vid;
 		 });
 	});
+
+
+ function getAge(dateString) {
+	 var today = new Date();
+	 var birthDate = new Date(dateString);
+	 var age = today.getFullYear() - birth_date.getFullYear();
+	 var m = today.getMonth() - birth_date.getMonth();
+	 if (m < 0 || (m === 0 && birth_date.getDate() < birth_date.getDate()))
+	 { age--; }
+	 return age;
+	}
+
 </script>
 @endpush

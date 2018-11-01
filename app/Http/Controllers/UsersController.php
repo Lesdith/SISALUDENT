@@ -4,6 +4,12 @@ namespace IntelGUA\Sisaludent\Http\Controllers;
 
 use IntelGUA\Sisaludent\User;
 use Illuminate\Http\Request;
+use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class UsersController extends Controller
 {
@@ -14,15 +20,27 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+           return view('users.index');
     }
 
 
      public function getUsers()
     {
-        $user = User::orderby('id','DESC')->get();
-        return $user;
+        $user = User::with("roles")->with("permissions")->orderby('id','DESC')->get();
+        return (compact('user'));
+        // return $user;
+    }
 
+     public function getRoles()
+    {
+        $role = Role::orderby('id','DESC')->get();
+        return $role;
+    }
+
+     public function getPermissions()
+    {
+        $permission = Permission::orderby('id','DESC')->get();
+        return $permission;
     }
     /**
      * Show the form for creating a new resource.
@@ -42,7 +60,30 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+             DB::beginTransaction();
+            try {
+                $user             = new User();
+                $user->name       = $request->input('name');
+                $user->email      = $request->input('email');
+                $user->password   = Hash::make(str_random(8));
+                $user->save();
+
+                $role_id          = $request->input('role_id');
+                $user->roles()->attach($role_id);
+
+                $permission_id    = $request->input('permission_id');
+                // $user->permissions()->attach($permission_id);
+                $user->permissions()->attach($permission_id);
+
+
+
+            DB::commit();
+                } catch (Exception $e) {
+                    DB::rollBack();
+                }
+                return $request;
+        }
     }
 
     /**
