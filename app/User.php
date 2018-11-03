@@ -4,13 +4,20 @@ namespace IntelGUA\Sisaludent;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Caffeinated\Shinobi\Models;
+use Caffeinated\Shinobi\Middleware;
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
+use Caffeinated\Shinobi\Traits\ShinobiTrait;
+
 
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use ShinobiTrait;
+    // use PermissionTrait;
+
 
 
     /**

@@ -8,6 +8,7 @@ use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 
 
@@ -103,9 +104,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+
+            $user = User::with("roles")->with("permissions")->find($request->id);
+            return response($user);
+
+        }
     }
 
     /**
@@ -117,7 +123,13 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+
+            $user = User::find($request->id);
+            $user->update($request->all());
+            return response($user);
+
+        }
     }
 
     /**

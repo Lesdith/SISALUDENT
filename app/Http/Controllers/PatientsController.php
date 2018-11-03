@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\DB;
 
 class PatientsController extends Controller
 {
+    // public function __construct(){
+    //     $this->middleware('permission:todos')->only(['create', 'store', 'index', 'edit', 'update']);
+    //     $this->middleware('permission:pacientes')->only(['create', 'store', 'index', 'edit', 'update']);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -155,6 +159,7 @@ class PatientsController extends Controller
                     DB::rollBack();
                 }
             return $request;
+
         }
     }
 
@@ -167,18 +172,19 @@ class PatientsController extends Controller
     public function show($id)
     {
         $patient = DB:: table('patients')
-        ->join('genders'         , 'genders.id' ,       '=', 'patients.gender_id')
-        ->join('locations'       , 'locations.id',      '=', 'patients.location_id')
-        ->join('municipalities'  , 'municipalities.id', '=', 'patients.municipality_id')
-        ->join('clinic_histories', 'patients.id',       '=', 'clinic_histories.patient_id')
-        ->join('dental_histories', 'patients.id',       '=', 'dental_histories.patient_id')
+        ->leftJoin('genders'         , 'genders.id' ,           '=', 'patients.gender_id')
+        ->leftJoin('locations'       , 'locations.id',          '=', 'patients.location_id')
+        ->leftJoin('municipalities'  , 'municipalities.id',     '=', 'patients.municipality_id')
+        ->leftJoin('departments'     , 'departments.id',        '=', 'municipalities.department_id')
+        ->leftJoin('clinic_histories', 'patients.id',           '=', 'clinic_histories.patient_id')
+        ->leftJoin('dental_histories', 'patients.id',           '=', 'dental_histories.patient_id')
         ->where('patients.id', '=', $id)->orWhere('municipality_id', '=', 'null')
         ->select('patients.*', 'clinic_histories.*', 'dental_histories.*',
                  'genders.name as gender', 'locations.name as location',
-                 'municipalities.name as municipality')
+                 'municipalities.name as municipality', 'departments.name as department')
         ->first();
-        //return view('patients.show',compact('patient'));
-        return (compact('patient'));
+        return view('patients.show',compact('patient'));
+        //return (compact('patient'));
 
      }
 

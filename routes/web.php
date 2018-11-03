@@ -6,41 +6,54 @@ use Caffeinated\Shinobi\Middleware;
 
 
 
+Route::get('/', function () {
+        return redirect('/login');
+    });
 
-Route::get('/register', function () {    return view('home');
-});
+// Route::group([
+//         'middleware' => ['permission:ninguno'],
+//     ], function () {
+//     Route::resource('errors',        'ErrorsController');
+//     Route::get('errors',        'ErrorsController@getErrors');
+// });
+
 Auth::routes();
+// Auth::user()->ability('admin', 'todos');
 // en las siguientes rutas si no esta logeado mandar a login
 Route::group(['middleware' => ['auth']], function () {
 
+
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function () {
-    return view('home');
-});
 
 
 
-Route::resource('users',        'UsersController');
-Route::get('get-users',         'UsersController@getUsers');
-Route::get('get-roles',         'UsersController@getRoles');
-Route::get('get-permissions',   'UsersController@getPermissions');
+//Grupo de rutas a las que puede acceder exclusivamente el administrador
+    Route::group([
+        'middleware' => ['permission:todos'],
+    ], function () {
+        Route::get('/register', function () {    return view('home');
+        });
+        //         //Rutas de usuarios
+            Route::resource('users',        'UsersController');
+            Route::get('get-users',         'UsersController@getUsers');
+            Route::get('get-roles',         'UsersController@getRoles');
+            Route::get('get-permissions',   'UsersController@getPermissions');
+    });
 
+//Grupo de rutas a las que puede acceder un asistente con permisos
+    Route::group([
+        'middleware' => ['role:asist'],
+    ], function () {
 
-// Route::group(['middleware' => ['permission:pacientes']], function () {
-
-    //Rutas de la agenda
+         //Rutas de la agenda
     Route::resource('events', 'EventsController');
-    // Route::get('api', 'EventsController@api');
     Route::get('get-events', 'EventsController@get_events');
     Route::get('get-event/{id}', 'EventsController@getEvent');
-    // Route::post('events', 'EventsController@addEvent');
-    // Route::post('guardaEventos', array('as' => 'guardaEventos' ,'uses' => 'EventsController@create'));
 
-    //Rutas de  Tooth
+        //Rutas de  Tooth
     Route::resource('teeth', 'TeethController');
     Route::get('get-teeth', 'TeethController@getTeeth');
     Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
-    //Route::get('show', 'TeethController@show');
 
 
     //Rutas del modelo Tooth_position
@@ -57,12 +70,7 @@ Route::get('get-permissions',   'UsersController@getPermissions');
 
     //Rutas del paciente
     Route::resource('patients', 'PatientsController');
-
-    // Route::resource('patients', 'PatientsController', ['except' => ['show']]);
     Route::get('get-patients',  'PatientsController@getPatients');
-
-    // Route::get('get-age',  'PatientsController@getAge()');
-    // Route::get('patients/{id}', 'PatientsController@show')->name('patients.show');
 
     //Ruta en pacientes para obtener género
     Route::get('get-genders', 'PatientsController@getGender');
@@ -76,13 +84,12 @@ Route::get('get-permissions',   'UsersController@getPermissions');
     //Ruta en pacientes para obtener municipio
     Route::get('get-municipalities/{id}', 'PatientsController@getMunicipality');
 
-
-    //Ruta temporal para trabajar pacientes
-    // Route::get('getExpedient/{id}', 'PatientsController@getExpedient');
-
     //Rutas para el plan de tratamiento y presupuesto
     Route::resource('plans', 'TreatmentPlansController');
 
+    });
 
-    // });
+
+        // Route::group(['prefix' => 'asist', 'middleware' => ['role:asist']], function() {
+        // });
 });

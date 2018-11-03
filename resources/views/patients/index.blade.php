@@ -47,7 +47,7 @@
 					<!-- Paso #1 Crear un paciente -->
 					<div class="row hide" data-step="1" data-title="Información del paciente 1 de 3">
 						<div class="container-fluid">
-							<form  id="frm-patient" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="return validaCampos();">
+							<form  id="frm-patient" accept-charset="UTF-8" onsubmit="return validaCampos();">
 								<!-- Token para proteger contra la falsificación de solicitudes entre sitios-->
 									{{ csrf_field() }}
 								<div class="row">
@@ -300,7 +300,7 @@
 		alergia();
 		embarazada();
 		check();
-		// getAge();
+		calculaEdad();
         });
 
 
@@ -564,11 +564,9 @@ function check(){
 
 					success:function(data)
 					{
-						// document.getElementById("frm-insert").reset();
 						var t = $('#tbl-patients').DataTable();
 						t.ajax.reload()
 						$('#add_patient_modal').modal('hide');
-						//getTeeth();
 						toastr["success"]("¡Paciente creado exitosamente!", "Guardado")
 					},
 					error: function(xr, exception){
@@ -892,20 +890,10 @@ $('body').delegate('#tbl-patients #show', 'click', function(e){
 					var vid = rowData.id;
 					console.log(vid);
 				$.get('patients/' + vid , {id:vid}, function(data){
-					window.location.href = 'patients/' +vid;
+					window.location.href = 'patients/' + vid;
 		 });
 	});
 
-
- function getAge(dateString) {
-	 var today = new Date();
-	 var birthDate = new Date(dateString);
-	 var age = today.getFullYear() - birth_date.getFullYear();
-	 var m = today.getMonth() - birth_date.getMonth();
-	 if (m < 0 || (m === 0 && birth_date.getDate() < birth_date.getDate()))
-	 { age--; }
-	 return age;
-	}
 
 </script>
 @endpush

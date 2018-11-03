@@ -40,8 +40,16 @@
                       <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
                       <p><strong>Género:</strong> {{ $patient->gender }}</p>
                       <p><strong>Fecha de nacimiento:</strong> {{ $patient->birth_date }}</p>
+                      <p><label id="edad">
+                      </label></p>
                       <p><strong>Localidad:</strong> {{ $patient->location }}</p>
-                      <p><strong>Dirección:</strong> {{ $patient->address }}, {{ $patient->municipality}}</p>
+                      <p><strong>Dirección:</strong>
+                        @if($patient->municipality == "" )
+                          {{ $patient->address }}.
+                          @else
+                            {{ $patient->address }},  {{ $patient->municipality }},  {{ $patient->department}}.
+                        @endif
+                      </p>
                       <p><strong>Teléfono:</strong> {{ $patient->phone_number }}</p>
                     </div>
                   </div>
@@ -58,24 +66,7 @@
                 <form id="form">
                   <div class="row">
                     <div class="col-md-6">
-                      <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
-                      <p><strong>Género:</strong> {{ $patient->gender }}</p>
-                      <p><strong>Fecha de nacimiento:</strong>
-                        @if($patient->birth_date == "" )
-                          No se acuerda
-                        @else
-                          {{ $patient->birth_date}}
-                        @endif
-                      </p>
-                      <p><strong>Localidad:</strong> {{ $patient->location }}</p>
-                      <p><strong>Dirección:</strong>
-                     @if($patient->municipality == " " )
-                            Ninguna
-                          @else
-                            {{ $patient->municipality }}
-                          @endif
-                      </p>
-                      <p><strong>Teléfono:</strong> {{ $patient->phone_number }}</p>
+
                     </div>
                   </div>
                 </form>
@@ -241,5 +232,82 @@
 
 @push('js')
   <script>
+
+  	$(document).ready(function() {
+var noseque = {{$patient->birth_date}};
+      console.log(noseque);
+
+		  calcularEdad();
+      $("#edad").append(edad);
+      console.log(edad);
+
+    });
+
+
+
+function calcularEdad(fecha) {
+    var hoy = new Date();
+    var cumpleanos = new Date(fecha);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+      console.log(edad);
+
+    var m = hoy.getMonth() - cumpleanos.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    return edad;
+}
+
+		// // (fecha dada , fecha nacimiento)
+		// calculaEdad(
+		// moment('11/04/2020','DD/MM/YYYY').format('YYYY-MM-DD'),
+		// moment('11/04/1990 11:30', 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD')
+		// );
+
+		// // (fecha actual , fecha nacimiento)
+		// calculaEdad(
+		// moment(),
+		// moment('birth_date', 'DD-MM-YYYY').format('YYYY-MM-DD')
+		// );
+
+		// // recibe fecha actual y fecha de nacimiento
+		// function calculaEdad(fecha,birth_date){
+		// 	var a = moment(fecha);
+		// 	var b = moment(birth_date);
+
+		// 	var years = a.diff(b, 'year');
+		// 	b.add(years, 'years');
+
+		// 	var months = a.diff(b, 'months');
+		// 	b.add(months, 'months');
+
+		// 	var days = a.diff(b, 'days');
+
+		// 	if(years==0){
+		// 		if(months<=1){
+		// 			if(days<=1){
+		// 				console.log(months + ' mes ' + days + ' dia');
+		// 			}else{
+		// 				console.log( months + ' mes ' + days + ' dias');
+		// 			}
+		// 	}else{
+		// 			if(days<=1){
+		// 			console.log( months + ' meses ' + days + ' dia');
+		// 			}else{
+		// 			console.log( months + ' meses ' + days + ' dias');
+		// 			}
+		// 	}
+
+		// 	}else{
+		// 		if(years==1){
+		// 			console.log( years + ' año');
+		// 		}else{
+		// 			console.log( years + ' años');
+		// 		}
+		// 	}
+		// }
+
   </script>
 @endpush

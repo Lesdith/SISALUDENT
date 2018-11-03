@@ -339,12 +339,13 @@
 		e.preventDefault();
 			var $tr = $(this).closest('li').length ?
 					$(this).closest('li'):
-					$(this).closest('tr');;
+					$(this).closest('tr');
     				var rowData = $('#tbl-teeth').DataTable().row($tr).data();
    						//console.log(rowData);
 					var vid = rowData.id;
 		$.get('teeth/' + vid + '/edit', {id:vid}, function(data){
-			$('#frm-update').find('#update_name').val(data.name)
+
+			$('#frm-update').find('#update_name').val(d)
 			$('#frm-update').find('#update_tooth_type').val(data.tooth_type_id)
 			$('#frm-update').find('#update_tooth_stage').val(data.tooth_stage_id)
 			$('#frm-update').find('#update_tooth_position').val(data.tooth_position_id)

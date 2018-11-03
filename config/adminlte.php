@@ -116,7 +116,20 @@ return [
             'icon'        => 'home',
 
         ],
-        'Secciones',
+        'Módulos',
+         [
+            'text' => 'Administración',
+            'url'  => '#',
+            'icon' => 'laptop',
+            'submenu' => [
+                [
+                    'text' => 'User',
+                    'url'  => '../users',
+                    'icon' => 'users',
+                ],
+            ],
+        ],
+
          [
             'text' => 'Agenda',
             'url'  => '#',
