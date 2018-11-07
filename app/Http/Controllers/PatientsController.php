@@ -199,7 +199,7 @@ class PatientsController extends Controller
     {
          if ($request->ajax()) {
 
-            $patient = Patient::find($request->id);
+            $patient = Patient::with('municipality')->find($request->id);
             return response($patient);
 
         }
@@ -230,21 +230,21 @@ class PatientsController extends Controller
 
             $patient = Patient::find($request->id);
 
-             if ($request->hasFile('file')) {
-                    $destinationPath="image";
-                    $file=$request->file;
-                    $extension=$file->getClientOriginalExtension();
-                    $fileName=rand(1111,9999).".".$extension;
-                    $path = $file->move($destinationPath, $fileName);
-                    $patient->file=$path;
-                    $patient->update();
+            //  if ($request->hasFile('file')) {
+            //         $destinationPath="image";
+            //         $file=$request->file;
+            //         $extension=$file->getClientOriginalExtension();
+            //         $fileName=rand(1111,9999).".".$extension;
+            //         $path = $file->move($destinationPath, $fileName);
+            //         $patient->file=$path;
+            //         $patient->update();
 
             }
             $patient->update($request->all());
             return response($patient);
-        }
-
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -262,5 +262,4 @@ class PatientsController extends Controller
         }
             return redirect('patients')->with('fail', 'Operación cancelada');
     }
-
 }

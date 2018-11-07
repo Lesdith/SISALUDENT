@@ -37,11 +37,12 @@
                 <form id="form">
                   <div class="row">
                     <div class="col-md-6">
+                    <input type="hidden" id="patient_id" value="{{$patient->id}}"/>
                       <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
                       <p><strong>Género:</strong> {{ $patient->gender }}</p>
                       <p><strong>Fecha de nacimiento:</strong> {{ $patient->birth_date }}</p>
-                      <p><label id="edad">
-                      </label></p>
+                      <!-- <p><label id="edad">
+                      </label></p> -->
                       <p><strong>Localidad:</strong> {{ $patient->location }}</p>
                       <p><strong>Dirección:</strong>
                         @if($patient->municipality == "" )
@@ -54,6 +55,7 @@
                     </div>
                   </div>
                 </form>
+                	<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>
               </div>
             </div>
           </div>
@@ -227,19 +229,96 @@
     </div>
   </div>
 
+	<!-- Modal - Actualizar registro -->
+
+	<div class="modal fade" id="update_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+	            </div>
+					<div class="modal-body">
+	 				<form  action="{{ URL::to('patients')}}" method="POST" id="frm-update_patient">
+            <input type="hidden" name="_method" value="PUT"/>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+              <div class="form-group">
+                <label for="names">Nombres</label>
+                <input name="names" type="text" id="update_names" placeholder="Nombres" class="form-control"/>
+              </div>
+              <div class="form-group">
+                <label for="surnames">Apellidos</label>
+                <input name="surnames" id="update_surnames" placeholder="Apellidos" class="form-control"/>
+              </div>
+              <div class="form-group">
+                <label for="gender_id">Género</label>
+                <select name="gender_id" id="update_gender_id" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="birth_date">Fecha nacimiento</label>
+                <input name="birth_date" type="date" id="update_birth_date"class="form-control"/>
+              </div>
+              <div class="form-group">
+                <label for="phone_number">Teléfono</label>
+                <input name="phone_number" id="update_phone_number"class="form-control"/>
+              </div>
+              <div class="form-group">
+                <label for="location_id">Localidad</label>
+                <select name="location_id" id="update_location_id"class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="address">Dirección</label>
+                <input name="address"id="update_address"class="form-control"/>
+              </div>
+              <div class="form-group">
+                <label for="department_id">Departamento</label>
+                <select name="department_id" id="update_department_id"class="form-control"></select>
+              </div>
+               <div class="form-group">
+                <label for="municipality_id">Municipio</label>
+                <select name="municipality_id"  id="update_municipality_id"class="form-control"></select>
+              </div>
+              <input type="hidden" name="id" id="update_patient_id"/>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-success" value="Actualizar" />
+              </div>
+          </form>
+				</div>
+	    </div>
+	  </div>
+	</div>
+	<!-- // Modal actualizar registro -->
+
+
 
 @stop
 
 @push('js')
   <script>
 
-  	$(document).ready(function() {
-var noseque = {{$patient->birth_date}};
-      console.log(noseque);
+//   	$(document).ready(function() {
+// // var noseque = {{$patient->birth_date}};
+// //       console.log(noseque);
 
-		  calcularEdad();
-      $("#edad").append(edad);
-      console.log(edad);
+// // 		  calcularEdad();
+// //       $("#edad").append(edad);
+// //       console.log(edad);
+
+//      getGenderEdit();
+// 		 getLocationEdit();
+// 		getMunicipalityEdit();
+//     });
+
+
+    $(document).ready(function() {
+      getGenderEdit();
+      getLocationEdit();
+      getDepartmentEdit();
+      //disabledDepartmentEdit()
+      //filterMunicipalityEdit();
+
 
     });
 
@@ -259,6 +338,136 @@ function calcularEdad(fecha) {
 
     return edad;
 }
+
+//-------------Editar paciente-------------
+
+	$('body').delegate('#edit', 'click', function(e){
+		e.preventDefault();
+		  var vid = $('#patient_id').val();
+        //console.log(vid);
+
+		$.get('../patients/' + vid + '/edit', {id:vid}, function(data){
+
+			$('#frm-update_patient').find('#update_names').val(data.names)
+			$('#frm-update_patient').find('#update_surnames').val(data.surnames)
+			$('#frm-update_patient').find('#update_birth_date').val(data.birth_date)
+			$('#frm-update_patient').find('#update_gender_id').val(data.gender_id)
+			$('#frm-update_patient').find('#update_phone_number').val(data.phone_number)
+			$('#frm-update_patient').find('#update_location_id').val(data.location_id)
+			$('#frm-update_patient').find('#update_address').val(data.address)
+			$('#frm-update_patient').find('#update_department_id').val(data.municipality.department_id)
+			$('#frm-update_patient').find('#update_municipality_id').val(data.municipality_id)
+			$('#frm-update_patient').find('#update_patient_id').val(data.id)
+			$('#update_patient_modal').modal('show');
+		});
+
+	});
+
+
+	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
+			function getLocationEdit(vid){
+        $('#update_location_id').empty();
+				$.get('../get-locations', function(data){
+					$.each(data,	function(i, value){
+						if(value.id === vid ){
+							$('#update_location_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+						}
+						$('#update_location_id').append($('<option >', {value: value.id, text: `${value.name}`}));
+					});
+				});
+			}
+	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
+			function getGenderEdit(vid){
+
+				$('#update_gender_id').empty();
+			    $.get('../get-genders', function(data){
+					$.each(data,	function(i, value){
+						if(value.id === vid ){
+
+							$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+
+						}
+						$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
+					});
+
+				});
+			}
+
+
+      function getDepartmentEdit(vid){
+
+         $('#update_department_id').empty();
+			$.get('../get-departments', function(data){
+
+					$.each(data,	function(i, value){
+
+            if(value.id === vid){
+                $('#update_department_id').append($('<option selected>', {value: value.id, text: `${value.name}`}));
+            }
+					$('#update_department_id').append($('<option>', {value: value.id, text: `${value.name}`}));
+					});
+				});
+
+			}
+
+      // function filterMunicipalityEdit(){
+
+			// 	$("#update_department_id").change(function() {
+			// 		if($("#update_department_id").val() !== '0'){
+			// 			$('#update_municipality_id').empty();
+			// 			getMunicipalityEdit();
+			// 			$('#update_municipality_id').prop('disabled', false);
+			// 		}else{
+			// 			$('#update_municipality_id').prop('disabled', true);
+			// 			$('#update_municipality_id').empty();
+			// 		}
+			// 	});
+			// }
+
+        $('#update_patient_modal').on('show.bs.modal', function (e) {
+          getMunicipalityEdit();
+        });
+	        //Esta función se utiliza para cargar los datos del dropdown list de los municipios
+			function getMunicipalityEdit(vid){
+         $('#update_municipality_id').empty();
+         $id = $('#update_department_id').val();
+			$.get('../get-municipalities/'+ $id, function(data){
+
+					$.each(data,	function(i, value){
+
+            if(value.id === vid){
+                $('#update_municipality_id').append($('<option selected>', {value: value.id, text: `${value.name}`}));
+            }
+					$('#update_municipality_id').append($('<option>', {value: value.id, text: `${value.name}`}));
+					});
+				});
+			}
+	//-------------Actualizar Paciente------------
+
+	$('#frm-update_patient').on('submit', function(e){
+				e.preventDefault();
+				var data 	= $('#frm-update_patient').serializeArray();
+				var id 		= $("#update_patient_id").val();
+				// console.log(data);
+				// console.log(id);
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url 	: 'patients/' + id ,
+					dataType: 'json',
+					type 	: 'POST',
+					data 	: data,
+					success:function(data)
+					{
+						// var $t = $('#form').DataTable();
+						// $t.ajax.reload();
+					console.log(data);
+						$('#update_patient_modal').modal('hide');
+
+					}
+					});
+				});
 
 		// // (fecha dada , fecha nacimiento)
 		// calculaEdad(

@@ -10,12 +10,19 @@ Route::get('/', function () {
         return redirect('/login');
     });
 
+    Route::get('/register', function () {    return view('home');
+        });
 // Route::group([
 //         'middleware' => ['permission:ninguno'],
 //     ], function () {
 //     Route::resource('errors',        'ErrorsController');
 //     Route::get('errors',        'ErrorsController@getErrors');
 // });
+Route::resource('plans', 'TreatmentPlansController');
+Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
+Route::get('get-diente', 'TreatmentPlansController@getDiente');
+Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
+Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
 
 Auth::routes();
 // Auth::user()->ability('admin', 'todos');
@@ -31,8 +38,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::group([
         'middleware' => ['permission:todos'],
     ], function () {
-        Route::get('/register', function () {    return view('home');
-        });
+
         //         //Rutas de usuarios
             Route::resource('users',        'UsersController');
             Route::get('get-users',         'UsersController@getUsers');
@@ -84,8 +90,10 @@ Route::get('/home', 'HomeController@index')->name('home');
     //Ruta en pacientes para obtener municipio
     Route::get('get-municipalities/{id}', 'PatientsController@getMunicipality');
 
+
     //Rutas para el plan de tratamiento y presupuesto
-    Route::resource('plans', 'TreatmentPlansController');
+
+
 
     });
 

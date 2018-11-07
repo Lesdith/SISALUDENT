@@ -24,6 +24,7 @@
 						<th data-priority="1" class="text-center">Nombre</th>
 						<th class="text-center">Correo</th>
 						<th class="text-center">Rol</th>
+						<th class="text-center">Estado</th>
 						<th class="text-center">Permiso</th>
 						<th class="text-center">Acciones</th>
 					</tr>
@@ -58,6 +59,11 @@
 							<br/>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+	                    	<input type="text" name="password" id="password" placeholder="Contraseña" class="form-control"/>
+						</div>
+							<br/>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-list"></i></span>
 							<select name="role_id" id="role_id" placeholder="Rol"  class="form-control"></select>
 	                	</div>
 							<br/>
@@ -65,6 +71,11 @@
 							<span class="input-group-addon"><i class="fa fa-list"></i></span>
 							<select name="permission_id" id="permission_id" placeholder="Permiso"  class="form-control"></select>
 	                	</div>
+							<br/>
+						<div class="input-group">
+							Estado<br/>
+							<center>Activo:  <input type="radio" id="status" name="status"/></center>
+						</div>
 							<br/>
 						<div class="modal-footer">
 	                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -100,6 +111,11 @@
 	                    	<input type="email" name="email" id="update_email" placeholder="Correo electrónico" class="form-control"/>
 						</div>
 							<br/>
+							<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+	                    	<input type="text" name="password" id="update_password" placeholder="Contraseña" class="form-control"/>
+						</div>
+							<br/>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-list"></i></span>
 							<select name="role_id" id="update_role_id" placeholder="Rol"  class="form-control"></select>
@@ -133,6 +149,7 @@
 			getPermissions();
 			getRolesEdit();
 			getPermissionsEdit();
+			check();
         });
 
 
@@ -170,6 +187,19 @@
 						{"data":	"name"},
 						{"data":	"email"},
 						{"data":	"roles.0.name"},
+						{"data":	"status",
+
+							"render": function (data, type, row) {
+								if( row.status == '1' ){
+										return 'Activo';
+								}
+								else{
+									return 'Inactivo';
+								}
+							}
+
+						},
+
 						{"data":	"permissions.0.description"},
 						{"defaultContent":
 
@@ -244,6 +274,42 @@
 			}
 
 
+// Función para poder seleccionar y deseleccionar el botón radio
+function check(){
+	// Necesitamos también enlazar click handler
+	// como el botón FF establece el botón después de la eliminación, pero antes de hacer clic
+	$('input:radio').bind('click mousedown', (function() {
+		// Capturar el estado del botón de radio dentro de su alcance del controlador,
+		// por lo que no usamos ninguna vars global y cada botón de radio mantiene su propio estado.
+		// Esto es necesario para desmarcarlos más tarde.
+		// Necesitamos almacenar el estado por separado cuando se verifique el estado de las actualizaciones del navegador antes de hacer clic en el controlador,
+		// entonces el botón de radio siempre estará marcado.
+
+		var isChecked;
+
+		return function(event) {
+			if(event.type == 'click') {
+				if(isChecked) {
+					// Desmarcar y actualizar el estado
+
+					isChecked = this.checked = false;
+
+				}else {
+						//Estado de actualización
+						// El navegador comprobará el botón por sí mismo
+						isChecked = true;
+
+				}
+			}
+			else {
+
+				// Obtener el estado correcto antes de que el navegador lo configure
+				// Necesitamos usar el evento onmousedown aquí, ya que es el único evento compatible con varios navegadores para botones de radio
+				isChecked = this.checked;
+			}
+
+	}})());
+}
 
 				// Editar usuario
 	$('body').delegate('#tbl-users #edit', 'click', function(e){

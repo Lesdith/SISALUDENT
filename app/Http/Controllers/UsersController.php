@@ -68,6 +68,10 @@ class UsersController extends Controller
                 $user->name       = $request->input('name');
                 $user->email      = $request->input('email');
                 $user->password   = Hash::make(str_random(8));
+                $user->status      = $request->input('status');
+                if($request->status == 'on'){
+                    $user->status = 1;
+                }
                 $user->save();
 
                 $role_id          = $request->input('role_id');

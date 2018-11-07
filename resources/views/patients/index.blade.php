@@ -709,105 +709,105 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 		}
 
 
-	//-------------Editar paciente-------------
+	// //-------------Editar paciente-------------
 
-	$('body').delegate('#tbl-patients #edit', 'click', function(e){
-		e.preventDefault();
-			var $tr = $(this).closest('li').length ?
-					$(this).closest('li'):
-					$(this).closest('tr');;
-					var rowData = $('#tbl-patients').DataTable().row($tr).data();
-					var vid = rowData.id;
+	// $('body').delegate('#tbl-patients #edit', 'click', function(e){
+	// 	e.preventDefault();
+	// 		var $tr = $(this).closest('li').length ?
+	// 				$(this).closest('li'):
+	// 				$(this).closest('tr');;
+	// 				var rowData = $('#tbl-patients').DataTable().row($tr).data();
+	// 				var vid = rowData.id;
 
-		$.get('patients/' + vid + '/edit', {id:vid}, function(data){
-				let preview = data.file;
-				// preview.replace(/\\/g, "//");
-							console.log(preview)
-			$('#frm-update').find('#update_names').val(data.names)
-			$('#frm-update').find('#update_surnames').val(data.surnames)
-			$('#frm-update').find('#update_birth_date').val(data.birth_date)
-			$('#frm-update').find('#update_gender_id').val(data.gender_id)
-			$('#frm-update').find('#update_phone_number').val(data.phone_number)
-			$('#frm-update').find('#update_location_id').val(data.location_id)
-			$('#frm-update').find('#update_address').val(data.address)
-			$('#frm-update').find('#update_municipality_id').val(data.municipality_id)
-			$('#frm-update').find('#update_file').val(preview)
-			$('#frm-update').find('#update_id').val(data.id)
-			$('#update_patient_modal').modal('show');
-		});
+	// 	$.get('patients/' + vid + '/edit', {id:vid}, function(data){
+	// 			let preview = data.file;
+	// 			// preview.replace(/\\/g, "//");
+	// 						console.log(preview)
+	// 		$('#frm-update').find('#update_names').val(data.names)
+	// 		$('#frm-update').find('#update_surnames').val(data.surnames)
+	// 		$('#frm-update').find('#update_birth_date').val(data.birth_date)
+	// 		$('#frm-update').find('#update_gender_id').val(data.gender_id)
+	// 		$('#frm-update').find('#update_phone_number').val(data.phone_number)
+	// 		$('#frm-update').find('#update_location_id').val(data.location_id)
+	// 		$('#frm-update').find('#update_address').val(data.address)
+	// 		$('#frm-update').find('#update_municipality_id').val(data.municipality_id)
+	// 		$('#frm-update').find('#update_file').val(preview)
+	// 		$('#frm-update').find('#update_id').val(data.id)
+	// 		$('#update_patient_modal').modal('show');
+	// 	});
 
-	});
+	// });
 
-	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
-			function getLocationEdit(vid){
-				$('#update_location_id').empty();
-				$.get('get-locations', function(data){
-					$.each(data,	function(i, value){
+	//         //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
+	// 		function getLocationEdit(vid){
+	// 			$('#update_location_id').empty();
+	// 			$.get('get-locations', function(data){
+	// 				$.each(data,	function(i, value){
 
-						if(value.id === vid ){
-							$('#update_location_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
-						}
-						$('#update_location_id').append($('<option >', {value: value.id, text: `${value.name}`}));
-					});
-				});
-			}
-	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
-			function getGenderEdit(vid){
-				$('#update_gender_id').empty();
-			    $.get('get-genders', function(data){
-					$.each(data,	function(i, value){
+	// 					if(value.id === vid ){
+	// 						$('#update_location_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+	// 					}
+	// 					$('#update_location_id').append($('<option >', {value: value.id, text: `${value.name}`}));
+	// 				});
+	// 			});
+	// 		}
+	//         //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
+	// 		function getGenderEdit(vid){
+	// 			$('#update_gender_id').empty();
+	// 		    $.get('get-genders', function(data){
+	// 				$.each(data,	function(i, value){
 
-						if(value.id === vid ){
-							$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
-						}
-						$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
-					});
-				});
-			}
+	// 					if(value.id === vid ){
+	// 						$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+	// 					}
+	// 					$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
+	// 				});
+	// 			});
+	// 		}
 
-	        //Esta función se utiliza para cargar los datos del dropdown list de los municipios
-			function getMunicipalityEdit(vid){
-				$('#update_municipality_id').empty();
-				$.get('get-municipalities', function(data){
-					$.each(data,	function(i, value){
+	//         //Esta función se utiliza para cargar los datos del dropdown list de los municipios
+	// 		function getMunicipalityEdit(vid){
+	// 			$('#update_municipality_id').empty();
+	// 			$.get('get-municipalities', function(data){
+	// 				$.each(data,	function(i, value){
 
-						if(value.id === vid ){
-							$('#update_municipality_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
-						}
-						$('#update_municipality_id').append($('<option >', {value: value.id, text: `${value.name}`}));
-					});
-				});
-			}
-	//-------------Actualizar Paciente------------
+	// 					if(value.id === vid ){
+	// 						$('#update_municipality_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+	// 					}
+	// 					$('#update_municipality_id').append($('<option >', {value: value.id, text: `${value.name}`}));
+	// 				});
+	// 			});
+	// 		}
+	// //-------------Actualizar Paciente------------
 
-	$('#frm-update').on('submit', function(e){
-				e.preventDefault();
-				var data 	= $('#frm-update').serializeArray();
-				var id 		= $("#update_id").val();
-				console.log(data);
-				console.log(id);
-				$.ajax({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
-					url 	: 'patients/' + id ,
-					dataType: 'json',
-					type 	: 'POST',
-					data 	: data,
-					processData: false,
-					contentType: false,
-					async		: true,
-					processData: false,
-					success:function(data)
-					{
-						var $t = $('#tbl-patients').DataTable();
-						$t.ajax.reload();
-					console.log(data);
-						$('#update_patient_modal').modal('hide');
+	// $('#frm-update').on('submit', function(e){
+	// 			e.preventDefault();
+	// 			var data 	= $('#frm-update').serializeArray();
+	// 			var id 		= $("#update_id").val();
+	// 			console.log(data);
+	// 			console.log(id);
+	// 			$.ajax({
+	// 				headers: {
+	// 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	// 				},
+	// 				url 	: 'patients/' + id ,
+	// 				dataType: 'json',
+	// 				type 	: 'POST',
+	// 				data 	: data,
+	// 				processData: false,
+	// 				contentType: false,
+	// 				async		: true,
+	// 				processData: false,
+	// 				success:function(data)
+	// 				{
+	// 					var $t = $('#tbl-patients').DataTable();
+	// 					$t.ajax.reload();
+	// 				console.log(data);
+	// 					$('#update_patient_modal').modal('hide');
 
-					}
-					});
-				});
+	// 				}
+	// 				});
+	// 			});
 
 
 

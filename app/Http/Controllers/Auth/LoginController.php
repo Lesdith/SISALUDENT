@@ -4,6 +4,8 @@ namespace IntelGUA\Sisaludent\Http\Controllers\Auth;
 
 use IntelGUA\Sisaludent\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
@@ -20,12 +22,18 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+     protected function credentials(Request $request)
+    {
+        $request['status'] = 1;
+        return $request->only($this->username(), 'password', 'status');
+    }
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
