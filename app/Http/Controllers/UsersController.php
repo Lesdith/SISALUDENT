@@ -112,9 +112,8 @@ class UsersController extends Controller
     {
         if ($request->ajax()) {
 
-            $user = User::with("roles")->with("permissions")->find($request->id);
+            $user = User::with('roles')->with('permissions')->find($request->id);
             return response($user);
-
         }
     }
 
@@ -130,7 +129,8 @@ class UsersController extends Controller
         if ($request->ajax()) {
 
             $user = User::find($request->id);
-            $user->update($request->all());
+            $user->name = $request->input('name');
+            $user->save();
             return response($user);
 
         }

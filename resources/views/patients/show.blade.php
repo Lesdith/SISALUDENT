@@ -356,7 +356,8 @@ function calcularEdad(fecha) {
 			$('#frm-update_patient').find('#update_location_id').val(data.location_id)
 			$('#frm-update_patient').find('#update_address').val(data.address)
 			$('#frm-update_patient').find('#update_department_id').val(data.municipality.department_id)
-			$('#frm-update_patient').find('#update_municipality_id').val(data.municipality_id)
+			$('#frm-update_patient').find('#update_municipality_id').val(data.municipality.id)
+
 			$('#frm-update_patient').find('#update_patient_id').val(data.id)
 			$('#update_patient_modal').modal('show');
 		});
@@ -430,8 +431,8 @@ function calcularEdad(fecha) {
 	        //Esta función se utiliza para cargar los datos del dropdown list de los municipios
 			function getMunicipalityEdit(vid){
          $('#update_municipality_id').empty();
-         $id = $('#update_department_id').val();
-			$.get('../get-municipalities/'+ $id, function(data){
+         var department = $('#update_department_id').val();
+			$.get('../get-municipalities/'+ department, function(data){
 
 					$.each(data,	function(i, value){
 

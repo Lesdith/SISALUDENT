@@ -325,13 +325,13 @@ function check(){
     				var rowData = $('#tbl-users').DataTable().row($tr).data();
 					var vid = rowData.id;
 		$.get('users/' + vid + '/edit', {id:vid}, function(data){
-			var rol=data.roles;
-			console.log([[0,0]]);
+			console.log(data);
+			// var rol=data.roles;
 			$('#frm-update_user').find('#update_name').val(data.name)
 			$('#frm-update_user').find('#update_email').val(data.email)
-			$('#frm-update_user').find('#update_password').val(data.password)
-			$('#frm-update_user').find('#update_role_id').val(data.permission_id)
-			$('#frm-update_user').find('#update_permission_id').val(data.permission_id)
+			// $('#frm-update_user').find('#update_password').val(data.password)
+			$('#frm-update_user').find('#update_role_id').val(data.roles[0].id)
+			$('#frm-update_user').find('#update_permission_id').val(data.permissions[0].id)
 			$('#frm-update_user').find('#update_user_id').val(data.id)
 			$('#update_user_modal').modal('show');
 		});
@@ -342,7 +342,7 @@ function check(){
 				$('#update_role_id').empty();
 				$.get('get-roles', function(data){
 					$.each(data,	function(i, value){
-						console.info(value);
+						//console.info(value);
 						if(value.id === vid ){
 							$('#update_role_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
@@ -356,7 +356,7 @@ function check(){
 				$('#update_permission_id').empty();
 				$.get('get-permissions', function(data){
 					$.each(data,	function(i, value){
-						console.info(value);
+						//console.info(value);
 						if(value.id === vid ){
 							$('#update_permission_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
 						}
@@ -367,26 +367,26 @@ function check(){
 
 		//-------------Actualizar Usuario-------------
 
-	$('#frm-update').on('submit', function(e){
+	$('#frm-update_user').on('submit', function(e){
 				e.preventDefault();
-				var data 	= $('#frm-update').serializeArray();
-				var id 		= $("#tooth_id").val();
-				//console.log(data);
+				var data 	= $('#frm-update_user').serializeArray();
+				var id 		= $("#update_user_id").val();
+				console.log(data);
 				//console.log(id);
 				$.ajax({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
-					url 	: 'teeth/' + id ,
+					url 	: 'users/' + id ,
 					dataType: 'json',
 					type 	: 'POST',
 					data 	: data,
 					success:function(data)
 					{
-						var $t = $('#tbl-teeth').DataTable();
+						var $t = $('#tbl-users').DataTable();
 						$t.ajax.reload();
 					//console.log(data);
-						$('#update_tooth_modal').modal('hide');
+						$('#update_user_modal').modal('hide');
 
 					}
 					});
