@@ -67,7 +67,7 @@ class UsersController extends Controller
                 $user             = new User();
                 $user->name       = $request->input('name');
                 $user->email      = $request->input('email');
-                $user->password   = Hash::make(str_random(8));
+                $user->password   = Hash::make($request->input('password'));
                 $user->status      = $request->input('status');
                 if($request->status == 'on'){
                     $user->status = 1;

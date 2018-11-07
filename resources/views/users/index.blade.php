@@ -125,7 +125,12 @@
 							<span class="input-group-addon"><i class="fa fa-list"></i></span>
 							<select name="permission_id" id="update_permission_id" placeholder="Permiso"  class="form-control"></select>
 	                	</div>
-								<input type="hidden" name="id" id="update_user_id"/>
+						<div class="input-group">
+							Estado<br/>
+							<center>Activo:  <input type="radio" id="update_status" name="status"/></center>
+						</div>
+						<br/>
+						<input type="hidden" name="id" id="update_user_id"/>
 
 						<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -324,7 +329,8 @@ function check(){
 			console.log([[0,0]]);
 			$('#frm-update_user').find('#update_name').val(data.name)
 			$('#frm-update_user').find('#update_email').val(data.email)
-			$('#frm-update_user').find('#update_role_id').val(data.roles)
+			$('#frm-update_user').find('#update_password').val(data.password)
+			$('#frm-update_user').find('#update_role_id').val(data.permission_id)
 			$('#frm-update_user').find('#update_permission_id').val(data.permission_id)
 			$('#frm-update_user').find('#update_user_id').val(data.id)
 			$('#update_user_modal').modal('show');
