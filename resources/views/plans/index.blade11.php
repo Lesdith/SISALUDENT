@@ -38,80 +38,28 @@
                     </div>
                     <h5 style="margin-top:10px;color:#ff6347">Detalles</h5>
                     <hr />
-                    <div class="form-horizontal">
-                        <input type="hidden" id="OrderId" />
+                    <div class="container">
+                        <br />
+                        <br />
+                        <h2 align="center">Dynamically Add or Remove input fields in PHP with JQuery</h2>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
-                               Diente
-                            </label>
-                            <div class="col-md-4">
-                                <select  id="tooth_id" name="tooth_id" class="form-control" >
-                                </select>
-                            </div>
-                            <label class="control-label col-md-2">
-                                Diagnostico
-                            </label>
-                            <div class="col-md-4">
-                                <select type="text" id="diagnosis_id" name="diagnosis_id"  class="form-control" ></select>
-                            </div>
-                            <label class="control-label col-md-2">
-                                Tratamiento
-                            </label>
-                            <div class="col-md-4">
-                                <select type="text" id="tooth_treatment_id" name="tooth_treatment_id" class="form-control" ></select>
-                            </div>
-                            <label class="control-label col-md-2">
-                                Precio
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="cost" name="cost"  class="form-control" />
-                            </div>
-                             <label class="control-label col-md-2">
-                                Descripción
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="description" name="description" class="form-control" />
-                            </div>
-                        </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dynamic_field">
+                                            <tr>
+                                                <!-- <td><select type="text"  id= "tooth_id" name="tooth_id[]" placeholder="Enter your Name" class="form-control " > </select></td>
+                                                <td><select type="text"  id= "diagnosis_id" name="diagnosis_id[]" placeholder="Enter your Name" class="form-control " > </select></td>
+                                                <td><select type="text" id= "tooth_treatment_id"  name="tooth_treatment_id[]" placeholder="Enter your Name" class="form-control " > </select></td>
+                                                <td><input type="text" name="cost[]" placeholder="Enter your Name" class="form-control "/> </td>
+                                                <td><input type="text" name="description[]" placeholder="Enter your Name" class="form-control "/> </td> -->
+                                                <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
+                                            </tr>
+                                    </table>
+                                    <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
+                                </div>
 
-                        <div class="form-group">
-                            <div class="col-md-2 col-lg-offset-4">
-                                <a id="addToList" class="btn btn-primary">Agregar</a>
-                            </div>
                         </div>
-
-                        <table id="detalles" class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width:30%">Diente</th>
-                                    <th style="width:20%">Diagnóstico</th>
-                                    <th style="width:15%">Tratamiento</th>
-                                    <th style="width:25%">Precio</th>
-                                    <th style="width:25%">Descripción</th>
-                                    <th style="width:10%"></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                            <label class="control-label col-md-2">
-                                Subtotal
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="subtotal" name="subtotal" class="form-control" value="0" readonly="readonly"/>
-                            </div>
-                             <label class="control-label col-md-2">
-                                Descuento
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="discount" name="discount" class="form-control" value="0" />
-                            </div>
-                             <label class="control-label col-md-2">
-                                Total
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="total" name="total" class="form-control" value="0" readonly="readonly"/>
-                            </div>
                     </div>
+
                 </div>
                 <div>
                     <button type="reset" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -127,14 +75,57 @@
 
       $(document).ready(function() {
             Today();
-            getDiente();
+            //fillSelect();
+            //getDiente();
             getDiagnostico();
             getTratamiento();
-            //calcularDescuento();
-            $("#discount").keyup(function(){
-                    sumaTotal();
-                });
+            addInput();
         });
+        function addInput(){
+            var i=0;
+            $('#add').click(function(){
+                i++;
+                $('#dynamic_field').append('<tr id="row'+i+'">'+
+                                            '<td><select type="text" id = "tooth_id'+i+'" name="tooth_id[]" placeholder="Enter your Name" class="form-control"></select> </td>'+
+                                            '<td><select type="text" id = "diagnosis_id'+i+'" name="diagnosis_id[]" placeholder="Enter your Name" class="form-control"></select> </td>'+
+                                            '<td><select type="text" id = "tooth_treatment_id'+i+'" name="tooth_treatment_id[]" placeholder="Enter your Name" class="form-control"></select> </td>'+
+                                            '<td><input type="text" name="cost[]" placeholder="Precio" class="form-control" /> </td>'+
+                                            '<td><input type="text" name="description[]" placeholder="Descripción" class="form-control" /> </td>'+
+                                            '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td>'+
+                                            '</tr>');
+
+                $.get('../get-diagnostico', function(data){
+					$('#diagnosis_id'+i+'').append($('<option>', {value: "", text: 'Seleccionar diagnostico'}));
+					$.each(data,	function(i, value){
+						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
+					$('#diagnosis_id'+i+'').append($('<option>', {value: value.id, text: `${value.name}`}));
+					});
+				});
+                // $.get('../get-diente', function(data){
+				// 	$('#tooth_id'+i+'').append($('<option>', {value: "", text: 'Seleccionar diente'}));
+				// 	$.each(data,	function(i, value){
+				// 		//posiciones.append($('<option value="' + value.id + '">').text = value.name;
+				// 	$('#tooth_id'+i+'').append($('<option>', {value: value.id, text: `${value.name}`}));
+				// 	});
+				// });
+            });
+            $(document).on('click', '.btn_remove', function(){
+                var button_id = $(this).attr("id");
+                $('#row'+button_id+'').remove();
+            });
+            $('#submit').click(function(){
+                $.ajax({
+                        url:"name.php",
+                        method:"POST",
+                        data:$('#nuevo_presupuesto').serialize(),
+                        success:function(data)
+                        {
+                            alert(data);
+                            $('#add_name')[0].reset();
+                        }
+                });
+            });
+        }
 
         function Today(){
             var fullDate = new Date();console.log(fullDate);
@@ -164,21 +155,12 @@
             sumaTotal()
             clearItem();
         });
-        //permite eliminar de la tabla temporal registro por registro
+        //remove elements of table
         $(document).on('click', 'a.deleteItem', function (e) {
             e.preventDefault();
             var $self = $(this);
             if ($(this).attr('data-itemId') == "0") {
                 $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
-
-                    var costoItem = $(this).find('td:eq(3)').html();
-                    console.log(costoItem)
-                    var subTotalDelete = $('#subtotal').val();
-                    console.log(subTotalDelete)
-                    var Recalcular = parseFloat(subTotalDelete)-parseFloat(costoItem);
-                    console.log(Recalcular)
-                    $('#subtotal').val(Recalcular);
-                    sumaTotal();
                     $(this).remove();
                 });
             }
@@ -193,11 +175,7 @@
             $("#description").val('');
         }
 
-        $.ajaxSetup({
-			headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-		});
+
 
         $.ajaxSetup({
 			headers: {
@@ -326,18 +304,18 @@
 
 	//para cargar la lista de
 			function getDiente(){
-			$('#tooth_id').empty();
+			//$('#diagnosis_id').empty();
 			$.get('../get-diente', function(data){
 					$('#tooth_id').append($('<option>', {value: "", text: 'Seleccionar diente'}));
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
-					$('#tooth_id').append($('<option>', {value: value.id, text: `${value.name +" "+value.tooth_type.name +" " +value.tooth_stage.name+ " "+ value.tooth_position.name}`}));
+					$('#tooth_id').append($('<option>', {value: value.id, text: `${value.name}`}));
 					});
 				});
 			}
 
             function getDiagnostico(){
-			$('#diagnosis_id').empty();
+			//$('#diagnosis_id').empty();
 			$.get('../get-diagnostico', function(data){
 					$('#diagnosis_id').append($('<option>', {value: "", text: 'Seleccionar diagnostico'}));
 					$.each(data,	function(i, value){
@@ -348,7 +326,7 @@
 			}
 
             function getTratamiento(){
-			$('#tooth_treatment_id').empty();
+			//$('#tooth_treatment_id[]').empty();
 			$.get('../get-tratamiento', function(data){
 					$('#tooth_treatment_id').append($('<option>', {value: "", text: 'Seleccionar tratamiento'}));
 					$.each(data,	function(i, value){
@@ -367,22 +345,11 @@
             }
 
             function sumaTotal(){
-                if($('#discount').val()== ""){
-                    var subtotal = $('#subtotal').val();
-                    var descuento = 0;
-                    var total = parseFloat(subtotal)-parseFloat(descuento);
-                    $('#total').val(total);
-                }else{
-                    var subtotal = $('#subtotal').val();
-                    var descuento = $('#discount').val();
-                    var total = parseFloat(subtotal)-parseFloat(descuento);
-                    $('#total').val(total);
-                }
+                var subtotal = $('#subtotal').val();
+                var descuento = $('#discount').val();
+                var total = parseFloat(subtotal)-parseFloat(descuento);
+                $('#total').val(total);
             }
-            function calcularDescuento(){
-
-            }
-
 
 
   </script>

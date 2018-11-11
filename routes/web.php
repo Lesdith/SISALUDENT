@@ -7,17 +7,11 @@ use Caffeinated\Shinobi\Middleware;
 
 
 Route::get('/', function () {
-        return redirect('/login');
-    });
+    return view('welcome');
 
-    Route::get('/register', function () {    return view('home');
-        });
-// Route::group([
-//         'middleware' => ['permission:ninguno'],
-//     ], function () {
-//     Route::resource('errors',        'ErrorsController');
-//     Route::get('errors',        'ErrorsController@getErrors');
-// });
+});
+
+
 Route::resource('plans', 'TreatmentPlansController');
 Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
 Route::get('get-diente', 'TreatmentPlansController@getDiente');
@@ -25,7 +19,7 @@ Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
 Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
 
 Auth::routes();
-// Auth::user()->ability('admin', 'todos');
+
 // en las siguientes rutas si no esta logeado mandar a login
 Route::group(['middleware' => ['auth']], function () {
 
@@ -92,8 +86,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
     //Rutas para el plan de tratamiento y presupuesto
-
-
 
     });
 

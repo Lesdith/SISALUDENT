@@ -82,19 +82,45 @@ class TreatmentPlansController extends Controller
             $treatment_plan->total        = $request->total;
             $treatment_plan->save();
 
+            // $detail_plan = new Detail_treatment_plan();
+//if (isset($request->order) && is_array($request->order)) {
+        //    foreach ((array)$request->order as $key=> $detail){
 
-            foreach ($request->order as $detail){
-                $detail_plan = new Detail_treatment_plan;
+        //         $detail_plan->treatment_plan_id     = $treatment_plan->id;
+        //         $detail_plan->tooth_id              = $detail['tooth_id_array'];
+        //         $detail_plan->diagnosis_id          = $detail['diagnosis_id_array'];
+        //         $detail_plan->tooth_treatment_id    = $detail['tooth_treatment_id_array'];
+        //         $detail_plan->cost                  = $detail['cost_array'];
+        //         $detail_plan->description           = $detail['description_array'];
+        //         $detail_plan->save();
 
-                $detail_plan->treatment_plan_id     = $treatment_plan->id;
-                $detail_plan->tooth_id              = $detail['tooth_id_array'];
-                $detail_plan->diagnosis_id          = $detail['diagnosis_id_array'];
-                $detail_plan->tooth_treatment_id    = $detail['tooth_treatment_id_array'];
-                $detail_plan->cost                  = $detail['cost_array'];
-                $detail_plan->description           = $detail['description_array'];
-                $detail_plan->save();
+        //    }
+        //    $dataSet = [];
+            // foreach ($checkBox as $safety) {
+            //     $dataSet[] = [
+            //         'offer_id'  => $id,
+            //         'car_id'    => $safety,
+            //         'car'       => 15,
+            //     ];
+            // }
 
+           $dataSet = [];
+            foreach ((array)$request->order as $detail) {
+                $dataSet[] = [
+                    'treatment_plan_id'     => $treatment_plan->id,
+                    'tooth_id'              => $detail,
+                    'diagnosis_id'          => $detail,
+                    'tooth_treatment_id'    => $detail,
+                    'cost'                  => $detail,
+                    'description'           => $detail,
+                ];
             }
+
+
+        DB::table('detail_treatment_plans')->insert($dataSet);
+
+           // DB::table('extra')->insert($dataSet);
+        //}
             DB::commit();
                 } catch (Exception $e) {
                     DB::rollBack();
