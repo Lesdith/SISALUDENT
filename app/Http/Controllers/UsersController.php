@@ -14,48 +14,31 @@ use Carbon\Carbon;
 
 class UsersController extends Controller
 {
-     /**
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-<<<<<<< HEAD
-
         return view('users.index');
     }
-=======
-        return view('users.index');
-    }
-
-
->>>>>>> 99e2fe1a582d662846a66703c7be3e460c2d08e8
     public function getUsers()
     {
         $user = User::with("roles")->with("permissions")->orderby('id', 'DESC')->get();
         return (compact('user'));
         //return $user;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 99e2fe1a582d662846a66703c7be3e460c2d08e8
     public function getRoles()
     {
         $role = Role::orderby('id', 'DESC')->get();
         return $role;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 99e2fe1a582d662846a66703c7be3e460c2d08e8
     public function getPermissions()
     {
         $permission = Permission::orderby('id', 'DESC')->get();
         return $permission;
     }
-
     public function getStatus()
     {
         $status = User::select('status', 'id')->get();
@@ -70,7 +53,6 @@ class UsersController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -91,22 +73,11 @@ class UsersController extends Controller
                     $user->status = 1;
                 }
                 $user->save();
-
                 $role_id = $request->input('role_id');
                 $user->roles()->attach($role_id);
-<<<<<<< HEAD
                 $permission_id = $request->input('permission_id');
                 // $user->permissions()->attach($permission_id);
                 $user->permissions()->attach($permission_id);
-=======
-
-                $permission_id = $request->input('permission_id');
-                // $user->permissions()->attach($permission_id);
-                $user->permissions()->attach($permission_id);
-
-
-
->>>>>>> 99e2fe1a582d662846a66703c7be3e460c2d08e8
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollBack();
@@ -114,7 +85,6 @@ class UsersController extends Controller
             return $request;
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -125,7 +95,6 @@ class UsersController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -139,7 +108,6 @@ class UsersController extends Controller
             return response($user);
         }
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -151,7 +119,6 @@ class UsersController extends Controller
     {
         if ($request->ajax()) {
             $user = User::find($request->id);
-            $user->update($request->all());
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->save();
@@ -162,7 +129,6 @@ class UsersController extends Controller
             return response($user);
         }
     }
-
     public function Status(Request $request, $id)
     {
         if ($request->ajax()) {
@@ -172,7 +138,6 @@ class UsersController extends Controller
             return response($status);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      *
