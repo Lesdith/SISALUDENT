@@ -104,17 +104,19 @@ class TreatmentPlansController extends Controller
             //     ];
             // }
 
-           $dataSet = [];
-            foreach ((array)$request->order as $detail) {
-                $dataSet[] = [
-                    'treatment_plan_id'     => $treatment_plan->id,
-                    'tooth_id'              => $detail,
-                    'diagnosis_id'          => $detail,
-                    'tooth_treatment_id'    => $detail,
-                    'cost'                  => $detail,
-                    'description'           => $detail,
-                ];
-            }
+
+        //    $dataSet = [];
+        //             foreach ((array)$request->order as $detail) {
+        //         $dataSet[] = [
+        //             'treatment_plan_id'     = $treatment_plan->id;
+        //             'tooth_id'              = $detail['tooth_id_array'];
+        //             'diagnosis_id'          = $detail['diagnosis_id_array'];
+        //             'tooth_treatment_id'    = $detail['tooth_treatment_id_array'];
+        //             'cost'                  = $detail['cost_array'];
+        //             'description'           = $detail['description_array'];
+        //             }
+        //         ];
+
 
 
         DB::table('detail_treatment_plans')->insert($dataSet);
@@ -140,6 +142,7 @@ class TreatmentPlansController extends Controller
      */
     public function show($id)
     {
+
         //
     }
 
