@@ -21,26 +21,26 @@ class UsersController extends Controller
      */
     public function index()
     {
-           return view('users.index');
+        return view('users.index');
     }
 
 
-     public function getUsers()
+    public function getUsers()
     {
-        $user = User::with("roles")->with("permissions")->orderby('id','DESC')->get();
+        $user = User::with("roles")->with("permissions")->orderby('id', 'DESC')->get();
         return (compact('user'));
         // return $user;
     }
 
-     public function getRoles()
+    public function getRoles()
     {
-        $role = Role::orderby('id','DESC')->get();
+        $role = Role::orderby('id', 'DESC')->get();
         return $role;
     }
 
-     public function getPermissions()
+    public function getPermissions()
     {
-        $permission = Permission::orderby('id','DESC')->get();
+        $permission = Permission::orderby('id', 'DESC')->get();
         return $permission;
     }
     /**
@@ -62,32 +62,32 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-             DB::beginTransaction();
+            DB::beginTransaction();
             try {
-                $user             = new User();
-                $user->name       = $request->input('name');
-                $user->email      = $request->input('email');
-                $user->password   = Hash::make($request->input('password'));
-                $user->status      = $request->input('status');
-                if($request->status == 'on'){
+                $user = new User();
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->password = Hash::make($request->input('password'));
+                $user->status = $request->input('status');
+                if ($request->status == 'on') {
                     $user->status = 1;
                 }
                 $user->save();
 
-                $role_id          = $request->input('role_id');
+                $role_id = $request->input('role_id');
                 $user->roles()->attach($role_id);
 
-                $permission_id    = $request->input('permission_id');
+                $permission_id = $request->input('permission_id');
                 // $user->permissions()->attach($permission_id);
                 $user->permissions()->attach($permission_id);
 
 
 
-            DB::commit();
-                } catch (Exception $e) {
-                    DB::rollBack();
-                }
-                return $request;
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+            }
+            return $request;
         }
     }
 
@@ -129,8 +129,14 @@ class UsersController extends Controller
         if ($request->ajax()) {
 
             $user = User::find($request->id);
+            $user->update($request->all());
             $user->name = $request->input('name');
+            $user->name = $request->input('email');
             $user->save();
+            $role_id = $request->input('role_id');
+            $user->roles()->sync($role_id);
+            $permission_id = $request->input('permission_id');
+            $user->permissions()->sync($permission_id);
             return response($user);
 
         }
