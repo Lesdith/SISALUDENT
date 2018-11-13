@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('get-users', 'UsersController@getUsers');
         Route::get('get-roles', 'UsersController@getRoles');
         Route::get('get-permissions', 'UsersController@getPermissions');
+        Route::put('status/{id}', 'UsersController@Status');
+        Route::get('get-status', 'UsersController@getStatus');
     });
 
 //Grupo de rutas a las que puede acceder un asistente con permisos

@@ -2,7 +2,7 @@
 @section('title', 'SISALUDENT')
 
 @section('content_header')
-    <h3>Presupuesto de plan de tratamiento</h3>
+    <h3>Plan de tratamiento</h3>
 @stop
 
 	@if (session('status'))

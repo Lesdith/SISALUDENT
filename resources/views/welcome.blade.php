@@ -50,36 +50,56 @@
             }
 
             .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
+                background-color: #3c8dbc;
+                border-radius: 15px;
+                color: #000000;
+                padding: 14px 25px;
+                font-size: 20px;
+                font-weight: 800;
                 letter-spacing: .1rem;
+                text-align: center;
                 text-decoration: none;
-                text-transform: uppercase;
+                display: inline-block;
+            }
+                a:hover, a:active {
+                    background-color: #337ab7;
+                }
+
+               .m-b-md {
+                margin-bottom: -06%;
+               text-shadow: 3px 3px 5px #F6D8CE, 6px 6px 5px #2E9AFE , 9px 9px 5px #58FAD0;
+            }
+            h1{
+                margin-bottom: -22%;
+               text-shadow: 1px 1px 2px #000000 , 2px 2px 4px #F8E6E0;
             }
 
-            .m-b-md {
-                margin-bottom: 30px;
+            .fondo{
+            background: url('../images/fondo.png') no-repeat center center fixed;
+            -webkit-background-size: 780px;
+            -moz-background-size:780px;
+            -o-background-size:780px;
             }
+
         </style>
     </head>
-    <body>
+    <body class="fondo" >
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Inicio</a>
+                        <a role="button" class="btn btn-primary" href="{{ url('/home') }}">Inicio</a>
                     @else
-                        <a href="{{ route('login') }}">Iniciar sesión</a>
+                        <a role="button" class="btn btn-primary" href="{{ route('login') }}">Iniciar sesión</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    SISALUDENT
+                    <b>SISALUDENT</b>
                 </div>
+                <h1> Sistema de Salud Dental</h1>
             </div>
         </div>
     </body>
