@@ -13,7 +13,7 @@ class Detail_treatment_plan extends Model
         'tooth_treatment_id',
         'cost',
         'description',
-       
+
     ];
 
     public function treatment_plan()
@@ -35,7 +35,7 @@ class Detail_treatment_plan extends Model
     {
         return $this->belongsTo(Tooth_treatment::class);
     }
-   
+
     public function perform_treatments()
     {
         return $this->hasMany(Perform_treatment::class);

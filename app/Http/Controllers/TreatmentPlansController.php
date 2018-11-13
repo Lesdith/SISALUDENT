@@ -30,9 +30,10 @@ class TreatmentPlansController extends Controller
 
     }
 
-    public function crearPlan($id){
-            $patient = Patient::where('id', $id)->first();
-            return view('plans.index', compact('patient'));
+    public function crearPlan($id)
+    {
+        $patient = Patient::where('id', $id)->first();
+        return view('plans.index', compact('patient'));
             //return(compact('patient'));
     }
 
@@ -43,12 +44,14 @@ class TreatmentPlansController extends Controller
         return $diente;
     }
 
-    public function getDiagnostico(){
+    public function getDiagnostico()
+    {
         $diagnostico = Diagnosis::orderby('id', 'DESC')->get();
         return $diagnostico;
     }
 
-    public function getTratamiento(){
+    public function getTratamiento()
+    {
         $tratamiento = Tooth_treatment::orderby('id', 'DESC')->get();
         return $tratamiento;
     }
@@ -74,60 +77,29 @@ class TreatmentPlansController extends Controller
             DB::beginTransaction();
 
             try {
-            $treatment_plan = new Treatment_plan();
-            $treatment_plan->patient_id    = $request->patient_id;
-            $treatment_plan->date          = $request->date;
-            $treatment_plan->subtotal      = $request->subtotal;
-            $treatment_plan->discount     = $request->discount;
-            $treatment_plan->total        = $request->total;
-            $treatment_plan->save();
+                $treatment_plan = new Treatment_plan();
+                $treatment_plan->patient_id = $request->patient_id;
+                $treatment_plan->date = $request->date;
+                $treatment_plan->subtotal = $request->subtotal;
+                $treatment_plan->discount = $request->discount;
+                $treatment_plan->total = $request->total;
+                $treatment_plan->save();
 
-            // $detail_plan = new Detail_treatment_plan();
-//if (isset($request->order) && is_array($request->order)) {
-        //    foreach ((array)$request->order as $key=> $detail){
+                $data = $request->order;
+                DB::table('detail_treatment_plans')->insert([
+                    'treatment_plan_id'     => $treatment_plan->id,
+                    'tooth_id'              => $data['tooth_id'],
+                    'diagnosis_id'          => $data['diagnosis_id'],
+                    'tooth_treatment_id'    => $data['tooth_treatment_id'],
+                    'cost'                  => $data['cost'],
+                    'description'           => $data['description']
+                ]);
 
-        //         $detail_plan->treatment_plan_id     = $treatment_plan->id;
-        //         $detail_plan->tooth_id              = $detail['tooth_id_array'];
-        //         $detail_plan->diagnosis_id          = $detail['diagnosis_id_array'];
-        //         $detail_plan->tooth_treatment_id    = $detail['tooth_treatment_id_array'];
-        //         $detail_plan->cost                  = $detail['cost_array'];
-        //         $detail_plan->description           = $detail['description_array'];
-        //         $detail_plan->save();
-
-        //    }
-        //    $dataSet = [];
-            // foreach ($checkBox as $safety) {
-            //     $dataSet[] = [
-            //         'offer_id'  => $id,
-            //         'car_id'    => $safety,
-            //         'car'       => 15,
-            //     ];
-            // }
-
-
-        //    $dataSet = [];
-        //             foreach ((array)$request->order as $detail) {
-        //         $dataSet[] = [
-        //             'treatment_plan_id'     = $treatment_plan->id;
-        //             'tooth_id'              = $detail['tooth_id_array'];
-        //             'diagnosis_id'          = $detail['diagnosis_id_array'];
-        //             'tooth_treatment_id'    = $detail['tooth_treatment_id_array'];
-        //             'cost'                  = $detail['cost_array'];
-        //             'description'           = $detail['description_array'];
-        //             }
-        //         ];
-
-
-
-        DB::table('detail_treatment_plans')->insert($dataSet);
-
-           // DB::table('extra')->insert($dataSet);
-        //}
-            DB::commit();
-                } catch (Exception $e) {
-                    DB::rollBack();
-                }
-         return $request;
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+            }
+            return $request;
          //return Response::json(['data'=>$treatment_plan->id]);
             // return Json($result, JsonRequestBehavior.AllowGet);
         }

@@ -210,11 +210,11 @@
 				var orderArr = [];
 				$.each($('#detalles tbody tr'), function(){
 					orderArr.push({
-						tooth_id_array: $(this).find('td:eq(0)').html(),
-						diagnosis_id_array: $(this).find('td:eq(1)').html(),
-						tooth_treatment_id_array: $(this).find('td:eq(2)').html(),
-						cost_array: $(this).find('td:eq(3)').html(),
-						description_array: $(this).find('td:eq(4)').html()
+						tooth_id: $(this).find('td:eq(0)').html(),
+						diagnosis_id: $(this).find('td:eq(1)').html(),
+						tooth_treatment_id: $(this).find('td:eq(2)').html(),
+						cost: $(this).find('td:eq(3)').html(),
+						description: $(this).find('td:eq(4)').html()
                 	});
 				});
 
