@@ -1,8 +1,19 @@
 @extends('adminlte::page')
-@section('title', 'SISALUDENT')
+@section('title', 'Pacientes')
 
 @section('content_header')
-<h3>Pacientes</h3>
+  <h1>
+    Pacientes
+    </h1>
+	<!--
+		Migas de pan con icono
+	 -->
+    <ol class="breadcrumb">
+        <li class="active"><i class="fa  fa-users"></i>  Pacientes</li>
+    </ol>
+	<style type="text/css">
+
+</style>
 @stop
 
 	@if (session('status'))
@@ -12,23 +23,56 @@
 	@endif
 
 @section('content')
-	<button data-toggle="modal" data-target="#add_patient_modal" class="btn btn-success pull-right" style="margin-bottom:10px;">
-		<i class="fa fa-plus"></i> Nuevo Registro</button>
+		<!--Comienzo de la caja donde se mostrará el datatable-->
+	<div class="box">
+		<!-- Encabezado de la caja -->
+		<div class="box-header with-border">
+			<h3 class="box-title">Listado de pacientes</h3>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+						title="Collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+			</div>
+		</div>
+			<div class="box-body">
+				<!-- Cuerpo de la caja-->
 
-			<table id="tbl-patients" style="width:100%" class="table table-stripped table-bordered table-responsive">
-				<thead>
-					<tr >
-						<th class="text-center">No.</th>
-						<th data-priority="1" class="text-center">Nombre</th>
-						<th class="text-center">Teléfono</th>
-						<th class="text-center">Localidad</th>
-						<th class="text-center">Dirección</th>
-						<th class="text-center">Acciones</th>
+				<div class="row">
+					<!-- Botón que invoca el Modal #add_new_fee_modal para agregar registros -->
+					<div class="col-xs-12">
+					<button data-toggle="modal" data-target="#add_patient_modal" class="btn btn-success pull-right" style="margin-bottom:10px;">
+						<i class="fa fa-plus"></i> Nuevo Registro</button>
+						<br/>
+					</div>
+				</div>
 
-					</tr>
-				</thead>
-			</table>
-	<div class="text-right"></div>
+				<!-- DataTable -->
+				<div class="row">
+					<div class="col-md-12">
+						<table id="tbl-patients" class="display responsive no-wrap" width="100%">
+							<thead>
+								<tr >
+									<th class="text-center">No.</th>
+									<th data-priority="1" class="text-center">Nombre</th>
+									<th class="text-center">Teléfono</th>
+									<th class="text-center">Localidad</th>
+									<th class="text-center">Dirección</th>
+									<th class="text-center">Acciones</th>
+
+								</tr>
+							</thead>
+						</table>
+						<!-- fin del DataTable-->
+					</div>
+				</div>
+			</div>
+			<!-- Fin de la caja -->
+		<div class="box-footer">
+				<!-- Comiezo del footer -->
+		</div>
+			<!-- fin del footer de la caja-->
+	</div>
 
 	<!--Area de Modales por pasos de Bootstrap -->
 	<!-- Modal-->

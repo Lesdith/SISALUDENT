@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1>
-    Usuarios - <small>Listado de usuarios</small>
+    Usuarios
     </h1>
 	<!--
 		Migas de pan con icono
@@ -12,9 +12,6 @@
     <ol class="breadcrumb">
         <li class="active"><i class="fa  fa-users"></i>  Usuarios</li>
     </ol>
-	<style type="text/css">
-
-</style>
 @stop
 
 @section('content')
@@ -263,19 +260,14 @@
 						{"data":	"status",
 							"render": function (data, type, row) {
 								if( row.status == '1' ){
-										return 'Activo';
+									 return '<span class="label label-success">   Activo  </span>';
 								}
 								else{
-									return 'Inactivo';
-								}
-							},
-							 "rowCallback": function( row, data ) {
-								if (row.status == "1" ) {
-								$('td:eq(4)', row).html( '<b>A</b>' );
+									 return '<span class="label label-danger">Inactivo</span>';
 								}
 							}
-						},
 
+						},
 						{"data":	"permissions.0.description"},
 						{"defaultContent":
 							"<div class='btn-group btn-group-xs' > " +
@@ -490,7 +482,5 @@ function check(){
 					}
 					});
 				});
-
-
 </script>
 @endpush

@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'SISALUDENT')
+@section('title', 'Citas')
 	@if (session('status'))
 		<div class="alert alert-success">
 			{{ session('status') }}
@@ -8,7 +8,8 @@
 @section('content')
 
 <!-- Este container se utiliza para poder mostrar el calendario en la vista -->
-<div class="container">
+<div class="container" style="background-color: #ffffff;">
+<h2><u><b><center>CONTROL DE CITAS</center></b></u></h2>
   <div id="calendar"></div>
     </div>
 
@@ -172,7 +173,7 @@
     border-bottom: 1px solid #ddd;
     padding: 0 10px;
     line-height: 40px;
-    font-size: 12px;
+    font-size: 10px;
     color: #000;
   }
 
@@ -190,9 +191,9 @@
   .clear { clear: both }
 
   #calendar {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 10px;
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 0 2%;
   }
 
 </style>
@@ -208,7 +209,8 @@
       "use strict";
       // inicializa el calendario
       $("#calendar").fullCalendar({
-
+         height: 'get_calendar_height',
+         handleWindowResize: 'true',
         //se crea el encabezado del calendario
         header  : {
         left    : 'prev,next today',
