@@ -17,6 +17,7 @@ return [
     'alpha'                => ':attribute sólo debe contener letras.',
     'alpha_dash'           => ':attribute sólo debe contener letras, números y guiones.',
     'alpha_num'            => ':attribute sólo debe contener letras y números.',
+    'alpha_spaces'         => ':attribute sólo debe contener letras y espacios..',
     'array'                => ':attribute debe ser un conjunto.',
     'before'               => ':attribute debe ser una fecha anterior a :date.',
     'before_or_equal'      => ':attribute debe ser una fecha anterior o igual a :date.',

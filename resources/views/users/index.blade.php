@@ -226,7 +226,38 @@
 			getPermissionsEdit();
 			check();
 
-        });
+    // $('#frm-user').validate({
+    //     event: "blur",rules: {'name': "required",'email': "required email",'password': "required",'role_id': "required",'permission_id': "required"},
+    //     messages: {'name': "Por favor, ind&iacute;ca un nombre",'email': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",'password': "Por favor, escr&iacute;ba una contraseña v&aacute;lida", 'role_id': "Por favor, asigna un rol",'permission_id': "Por favor, asigna el permiso"},
+    //     debug: true,errorElement: "label",
+    //     submitHandler: function(form){
+    //         $("#alert").show();
+    //         // $("#alert").html("<img src='images/ajax-loader.gif' style='vertical-align:middle;margin:0 10px 0 0' /><strong>Enviando mensaje...</strong>");
+    //         setTimeout(function() {
+    //             $('#alert').fadeOut('slow');
+    //         }, 5000);
+    //         $.ajax({
+    //             type: "POST",
+    //             url:"send.php",
+    //             data: "name="+escape($('#name').val())+"&email="+escape($('#email').val())+"&password="+escape($('#password').val())+"&role_id="+escape($('#role_id').val())+"&permission_id="+escape($('#permission_id').val()),
+    //             success: function(msg){
+    //                 $("#alert").html(msg);
+    //                 document.getElementById("name").value="";
+    //                 document.getElementById("email").value="";
+    //                 document.getElementById("password").value="";
+    //                 document.getElementById("role_id").value="";
+    //                 document.getElementById("permission_id").value="";
+    //                 setTimeout(function() {
+    //                     $('#alert').fadeOut('slow');
+    //                 }, 5000);
+
+    //             }
+    //         });
+    //     }
+    // });
+});
+
+
 		function dataTableUsers()
 			{
 				var t = $('#tbl-users').DataTable({

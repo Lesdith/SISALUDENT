@@ -149,6 +149,7 @@ return [
 
 
 
+
         /*
          * Package Service Providers...
          */
@@ -171,6 +172,7 @@ return [
         IntelGUA\Sisaludent\Providers\BroadcastServiceProvider::class,
         IntelGUA\Sisaludent\Providers\EventServiceProvider::class,
         IntelGUA\Sisaludent\Providers\RouteServiceProvider::class,
+        IntelGUA\Sisaludent\Providers\CustomValidationRulesProvider::class,
     ],
 
     /*

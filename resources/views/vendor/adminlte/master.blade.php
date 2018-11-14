@@ -14,6 +14,8 @@
     <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/bootstrap/jasny/jasny-bootstrap.min.css') }}">
     <!-- Jquery inputmask -->
     <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/jquery/dist/inputmask.min.css') }}">
+    <!-- Jquery Smoke -->
+    <link rel="stylesheet" media="screen" href="{{ asset('vendor/adminlte/vendor/jquery/dist/smoke.min.css') }}">
     <!-- Bootstrap Wisyhtml5 -->
     <link rel="stylesheet"  href="{{ asset('vendor/adminlte/vendor/bootstrap/wysi/bootstrap-wysihtml5.css') }}">
     <!-- Bootstrap datetimepicker -->
@@ -24,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
+
     <!-- sweetalert -->
     <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/sweetalert/sweetalert2.min.css') }}"> -->
     <!-- <link href="https://libraries.cdnhttps.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"> -->
@@ -105,6 +108,8 @@
  @if(config('adminlte.plugins.fullcalendar'))
         <!-- Fullcalendar -->
     <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/jquery-ui.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/smoke.min.js') }}" ></script>
+    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/es.js') }}" ></script>
     <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment.js') }}" ></script>
     <!-- <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment-with-locales.js') }}" ></script> -->
     <script src="{{ asset('vendor/adminlte/vendor/fullcalendar/lib/moment-timezone.js') }}" ></script>

@@ -254,21 +254,14 @@
 								<!-- Token para proteger contra la falsificación de solicitudes entre sitios-->
 								{{ csrf_field() }}
 								<div class="row">
-									<div class="col-sm-12 col-md-4">
-										<div class="input-group">
-											<span class="input-group-addon">Última visita:   <i class="fa fa-calendar-o"></i></span>
-											<input name="last_medical_visit_date" type="date" id="last_medical_visit_date" placeholder="Ingresar la fecha de la última visita al dentista" class="form-control"/>
-										</div>
-										<br/>
-									</div>
-									<div class="col-sm-12 col-md-4">
+									<div class="col-sm-12 col-md-6">
 										<div class="input-group">
 											<center>¿Le provoca reacción la anestesia?<br/></center>
 											<center>Si:  <input type="radio" id="reaction_anesthesia" name="reaction_anesthesia"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-4">
+									<div class="col-sm-12 col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 											<input name="what_reaction" type="text" id="what_reaction" placeholder="¿Qué reacción le provoca?" class="form-control"/>

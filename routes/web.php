@@ -74,6 +74,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('patients', 'PatientsController');
         Route::get('get-patients', 'PatientsController@getPatients');
 
+        Route::get('get-clinics/{id}', 'PatientsController@editClinic');
+        Route::put('clinics/{id}',     'PatientsController@updateClinic');
+
+        Route::get('get-dentals/{id}', 'PatientsController@editDental');
+        Route::put('dentals/{id}',     'PatientsController@updateDental');
+
+
     //Ruta en pacientes para obtener género
         Route::get('get-genders', 'PatientsController@getGender');
 

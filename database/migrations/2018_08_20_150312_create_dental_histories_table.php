@@ -16,7 +16,6 @@ class CreateDentalHistoriesTable extends Migration
         Schema::create('dental_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->date('last_medical_visit_date')->nullable();
             $table->boolean('dental_hemorrhage')->default(0)->nullable();
             $table->boolean('mouth_infections')->default(0)->nullable();
             $table->boolean('mouth_ulcers')->default(0)->nullable();

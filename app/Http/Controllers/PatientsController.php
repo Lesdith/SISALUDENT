@@ -181,7 +181,7 @@ class PatientsController extends Controller
         ->where('patients.id', '=', $id)->orWhere('municipality_id', '=', 'null')
         ->select('patients.*', 'clinic_histories.*', 'dental_histories.*',
                  'genders.name as gender', 'locations.name as location',
-                 'municipalities.name as municipality', 'departments.name as department')
+                 'municipalities.name as municipality', 'departments.name as department', 'clinic_histories.id as clinic_history', 'dental_histories.id as dental_history')
         ->first();
         return view('patients.show',compact('patient'));
         //return (compact('patient'));
@@ -205,7 +205,27 @@ class PatientsController extends Controller
         }
     }
 
+    public function editClinic(Request $request, $id)
+    {
+         if ($request->ajax()) {
 
+            $clinic = Clinic_history::find($request->id);
+             return response($clinic);
+
+            //return $clinic;
+
+        }
+    }
+
+     public function editDental(Request $request, $id)
+    {
+         if ($request->ajax()) {
+
+            $dental = Dental_history::find($request->id);
+             return response($dental);
+           // return $dental;
+        }
+    }
     //  public function editar(Request $request, $id)
     // {
     //      if ($request->ajax()) {
@@ -242,6 +262,31 @@ class PatientsController extends Controller
             }
             $patient->update($request->all());
             return response($patient);
+    }
+
+     public function updateDental(Request $request, $id)
+    {
+
+        if ($request->ajax()) {
+
+            $dental = Dental_history::find($request->id);
+
+            }
+            $dental->update($request->all());
+            return response($dental);
+    }
+
+
+    public function updateClinic(Request $request, $id)
+    {
+
+        if ($request->ajax()) {
+
+            $clinic = Clinic_history::find($request->id);
+
+            }
+            $clinic->update($request->all());
+            return response($clinic);
     }
 
 

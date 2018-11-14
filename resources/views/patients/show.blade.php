@@ -87,6 +87,7 @@
                   <form id="form">
                     <div class="row">
                       <div class="col-md-12">
+                       <input id="clinic_history" type="hidden" value="{{$patient->clinic_history}}">
                         <p><strong>¿Ha tenido alguna enfermedad infecciosa?:</strong>
                           @if($patient->infectious_disease == 1 )
                             Si
@@ -156,6 +157,7 @@
                       </div>
                     </div>
                   </form>
+                    <button type='button' id='edita' class='edit btn btn-warning' title='Modificar' data-id='patient_id'><i class='fa fa-pencil-square-o'></i></button>
                 </div>
               </div>
             </div>
@@ -168,13 +170,7 @@
                   <div class="row">
                     <form id="form">
                       <div class="col-md-12">
-                        <p><strong>¿Cuándo fue su última visita al dentista?</strong>
-                         @if($patient->observations == "" )
-                            No se acuerda
-                          @else
-                            {{  $patient->last_medical_visit_date }}
-                          @endif
-                        </p>
+                      <input id="dental_history" type="hidden" value="{{$patient->dental_history}}">
                         <p><strong>¿Tiene hemorragia dentaria?</strong>
                            @if( $patient->dental_hemorrhage == 1 )
                             Si
@@ -220,6 +216,7 @@
                       </div>
                     </div>
                   </form>
+                    <button type='button' id='editar' class='edit btn btn-warning' title='Modificar' data-id='patients_id'><i class='fa fa-pencil-square-o'></i></button>
                 </div>
               </div>
             </div>
@@ -229,7 +226,7 @@
     </div>
   </div>
 
-	<!-- Modal - Actualizar registro -->
+	<!-- Modal - Actualizar registro  de paciente-->
 
 	<div class="modal fade" id="update_patient_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 	    <div class="modal-dialog" role="document">
@@ -242,43 +239,69 @@
 	 				<form  action="{{ URL::to('patients')}}" method="POST" id="frm-update_patient">
             <input type="hidden" name="_method" value="PUT"/>
             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-              <div class="form-group">
-                <label for="names">Nombres</label>
-                <input name="names" type="text" id="update_names" placeholder="Nombres" class="form-control"/>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="names">Nombres</label>
+                    <input name="names" type="text" id="update_names" placeholder="Nombres" class="form-control"/>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="surnames">Apellidos</label>
+                    <input name="surnames" id="update_surnames" placeholder="Apellidos" class="form-control"/>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="surnames">Apellidos</label>
-                <input name="surnames" id="update_surnames" placeholder="Apellidos" class="form-control"/>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="gender_id">Género</label>
+                    <select name="gender_id" id="update_gender_id" class="form-control"></select>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="birth_date">Fecha nacimiento</label>
+                    <input name="birth_date" type="date" id="update_birth_date"class="form-control"/>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="gender_id">Género</label>
-                <select name="gender_id" id="update_gender_id" class="form-control"></select>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="phone_number">Teléfono</label>
+                    <input name="phone_number" id="update_phone_number"class="form-control"/>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="location_id">Localidad</label>
+                    <select name="location_id" id="update_location_id"class="form-control"></select>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="birth_date">Fecha nacimiento</label>
-                <input name="birth_date" type="date" id="update_birth_date"class="form-control"/>
+              <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input name="address"id="update_address"class="form-control"/>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="department_id">Departamento</label>
+                    <select name="department_id" id="update_department_id"class="form-control"></select>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="municipality_id">Municipio</label>
+                    <select name="municipality_id"  id="update_municipality_id"class="form-control"></select>
+                  </div>
+                  <input type="hidden" name="id" id="update_patient_id"/>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="phone_number">Teléfono</label>
-                <input name="phone_number" id="update_phone_number"class="form-control"/>
-              </div>
-              <div class="form-group">
-                <label for="location_id">Localidad</label>
-                <select name="location_id" id="update_location_id"class="form-control"></select>
-              </div>
-              <div class="form-group">
-                <label for="address">Dirección</label>
-                <input name="address"id="update_address"class="form-control"/>
-              </div>
-              <div class="form-group">
-                <label for="department_id">Departamento</label>
-                <select name="department_id" id="update_department_id"class="form-control"></select>
-              </div>
-               <div class="form-group">
-                <label for="municipality_id">Municipio</label>
-                <select name="municipality_id"  id="update_municipality_id"class="form-control"></select>
-              </div>
-              <input type="hidden" name="id" id="update_patient_id"/>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -289,12 +312,168 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- // Modal actualizar registro -->
+	<!-- // Modal actualizar registro de paciente-->
+
+	<!-- Modal - Actualizar historia odontológica-->
+
+	<div class="modal fade" id="update_history_dental_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" id="myModalLabel">Actualizar historia odontológica</h4>
+	            </div>
+					<div class="modal-body">
+            <form  action="{{ URL::to('patients')}}" method="POST" id="frm-update_history_dental">
+              <input type="hidden" name="_method" value="PUT"/>
+              <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="mouth_infections">¿Tiene hemorragia dentaria?</label>
+                      <!--
+                         <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                      <select name="dental_hemorrhage" id="dental_hemorrhage" placeholder="Apellidos" class="form-control"></select>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="mouth_infections">¿Tiene infección bucal?</label>
+                      <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                      <select name="mouth_infections" id="mouth_infections" placeholder="Apellidos" class="form-control"></select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="reaction_anesthesia">¿Le provoca alguna reacción la anestesia?</label>
+                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                      <select name="reaction_anesthesia" id="reaction_anesthesia"class="form-control"></select>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="what_reaction">¿Qué reacción le provoca?</label>
+                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                      <input name="what_reaction" id="what_reaction"class="form-control"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                   <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="mouth_ulcers">¿Tiene úlceras bucales?</label>
+                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                      <select name="mouth_ulcers" id="mouth_ulcers" class="form-control"></select>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="toothache">¿Tiene dolor dentario?</label>
+                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                      <select name="toothache"id="toothache"class="form-control"></select>
+                    </div>
+                  </div>
+                    <input type="text" name="id" id="dental_patient_id"/>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                  <input type="submit" class="btn btn-success" value="Actualizar" />
+                </div>
+            </form>
+				</div>
+	    </div>
+	  </div>
+	</div>
+	<!-- // Modal actualizar registro de historia odontológica -->
 
 
+	<!-- Modal - Actualizar historia dental-->
+
+	<div class="modal fade" id="update_history_clinic_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" id="myModalLabel">Actualizar historia clínica</h4>
+	            </div>
+            <div class="modal-body">
+              <form  action="{{ URL::to('patients')}}" method="POST" id="frm-update_history_clinic">
+                <input type="hidden" name="_method" value="PUT"/>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                  <div class="form-group">
+                    <label for="infectious_disease">¿Ha tenido alguna enfermedad infecciosa?</label>
+                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <select name="infectious_disease" id="infectious_disease" placeholder="Apellidos" class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="disease_name">¿Que enfermedad?</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <input name="disease_name" id="disease_name"class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="cardiac">¿Es cardíaco?</label>
+                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <select name="cardiac" id="cardiac" placeholder="Apellidos" class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="allergic">¿Es alérgico?</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <select name="allergic" id="allergic" class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="what_you_allergy">¿Qué le dá alergia?</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <input name="what_you_allergy" id="what_you_allergy"class="form-control"/>
+                  </div>
+                    <div class="form-group">
+                    <label for="diabetic">¿Es diabético</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <select name="diabetic" id="diabetic"class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="pregnant">¿Está embarazada?</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <select name="pregnant"id="pregnant"class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="epileptic">¿Padece Epilepsia?</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <select name="epileptic"id="epileptic"class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="observations">Observaciones:</label>
+                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                    <input name="observations"id="observations"class="form-control"/>
+                  </div>
+                </div>
+                  <input type="hidden" name="id" id="clinic_patient_id"/>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" class="btn btn-success" value="Actualizar" />
+                  </div>
+              </form>
+            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- // Modal actualizar registro de historia clínica-->
 
 @stop
 
+@push('css')
+<style>
+.modal-header{
+          border-radius: 15px;
+}
+.modal-content{
+   border-radius: 15px;
+}
+
+</style>
+@endpush
 @push('js')
   <script>
 
@@ -443,6 +622,13 @@ function calcularEdad(fecha) {
 					});
 				});
 			}
+
+
+
+
+
+
+
 	//-------------Actualizar Paciente------------
 
 	$('#frm-update_patient').on('submit', function(e){
@@ -518,6 +704,204 @@ function calcularEdad(fecha) {
 		// 		}
 		// 	}
 		// }
+
+
+	//-------------Editar Historia odontológica-------------
+	$('body').delegate('#editar', 'click', function(e){
+	e.preventDefault();
+		  var vid = $('#dental_history').val();
+        //console.log(vid);
+
+		$.get('../get-dentals/' + vid , {id:vid}, function(data){
+
+      	var hemorrhage=data.dental_hemorrhage;
+			if(hemorrhage == 1 ){
+				$('#dental_hemorrhage').append($('<option>', {value: 1, text: 'Si'}));
+				$('#dental_hemorrhage').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#dental_hemorrhage').append($('<option>', {value: 0, text: 'No'}));
+				$('#dental_hemorrhage').append($('<option>', {value: 1, text: 'Si'}));
+			}
+			//console.log(data);
+			var infection=data.mouth_infections;
+			if(infection == 1 ){
+				$('#mouth_infections').append($('<option>', {value: 1, text: 'Si'}));
+				$('#mouth_infections').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#mouth_infections').append($('<option>', {value: 0, text: 'No'}));
+				$('#mouth_infections').append($('<option>', {value: 1, text: 'Si'}));
+			}
+       var ulceras=data.mouth_ulcers;
+			if(ulceras == 1 ){
+				$('#mouth_ulcers').append($('<option>', {value: 1, text: 'Si'}));
+				$('#mouth_ulcers').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#mouth_ulcers').append($('<option>', {value: 0, text: 'No'}));
+				$('#mouth_ulcers').append($('<option>', {value: 1, text: 'Si'}));
+			}
+       var reaction=data.reaction_anesthesia;
+			if(reaction == 1 ){
+				$('#reaction_anesthesia').append($('<option>', {value: 1, text: 'Si'}));
+				$('#reaction_anesthesia').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#reaction_anesthesia').append($('<option>', {value: 0, text: 'No'}));
+				$('#reaction_anesthesia').append($('<option>', {value: 1, text: 'Si'}));
+			}
+
+      if($('#frm-update_history_dental').find('#what_reaction').val() == ""){
+      $('#frm-update_history_dental').find('#what_reaction').val('No tiene ninguna reacción')
+      }
+      else{
+      $('#frm-update_history_dental').find('#what_reaction').val(data.what_reaction)
+      }
+			  var dolor=data.toothache;
+			if(dolor == 1 ){
+				$('#toothache').append($('<option>', {value: 1, text: 'Si'}));
+				$('#toothache').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#toothache').append($('<option>', {value: 0, text: 'No'}));
+				$('#toothache').append($('<option>', {value: 1, text: 'Si'}));
+			}
+      //$('#frm-update_status').find('#update_status').val(status)
+			$('#frm-update_history_dental').find('#dental_patient_id').val(data.id)
+			$('#update_history_dental_modal').modal('show');
+		});
+	});
+
+	//-------------Actualizar Historia odontologica------------
+
+
+	$('#frm-update_history_dental').on('submit', function(e){
+				e.preventDefault();
+				var data 	= $('#frm-update_history_dental').serializeArray();
+				var id 		= $("#dental_patient_id").val();
+				 console.log(data);
+				 console.log(id);
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url 	: '../dentals/' + id ,
+					dataType: 'json',
+					type 	: 'POST',
+					data 	: data,
+					success:function(data)
+					{
+            window.location.reload();
+					console.log(data);
+						$('#update_history_dental_modal').modal('hide');
+					}
+					});
+				});
+
+
+	//-------------Editar Historia clínica-------------
+	$('body').delegate('#edita', 'click', function(e){
+	e.preventDefault();
+		  var vid = $('#clinic_history').val();
+        //console.log(vid);
+
+		$.get('../get-clinics/' + vid , {id:vid}, function(data){
+
+      	var infeccion=data.infectious_disease;
+			if(infeccion == 1 ){
+				$('#infectious_disease').append($('<option>', {value: 1, text: 'Si'}));
+				$('#infectious_disease').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#infectious_disease').append($('<option>', {value: 0, text: 'No'}));
+				$('#infectious_disease').append($('<option>', {value: 1, text: 'Si'}));
+			}
+       if($('#frm-update_history_clinic').find('#disease_name').val() == ""){
+      $('#frm-update_history_clinic').find('#disease_name').val('No tiene ninguna enfermedad')
+      }
+      else{
+      $('#frm-update_history_clinic').find('#disease_name').val(data.what_reaction)
+      }
+			//console.log(data);
+			var infeccion=data.cardiac;
+			if(infeccion == 1 ){
+				$('#cardiac').append($('<option>', {value: 1, text: 'Si'}));
+				$('#cardiac').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#cardiac').append($('<option>', {value: 0, text: 'No'}));
+				$('#cardiac').append($('<option>', {value: 1, text: 'Si'}));
+			}
+       var ulceras=data.allergic;
+			if(ulceras == 1 ){
+				$('#allergic').append($('<option>', {value: 1, text: 'Si'}));
+				$('#allergic').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#allergic').append($('<option>', {value: 0, text: 'No'}));
+				$('#allergic').append($('<option>', {value: 1, text: 'Si'}));
+			}
+
+      if($('#frm-update_history_clinic').find('#what_you_allergy').val() == ""){
+      $('#frm-update_history_clinic').find('#what_you_allergy').val('No le da ninguna reacción')
+      }
+      else{
+      $('#frm-update_history_clinic').find('#what_you_allergy').val(data.what_you_allergy)
+      }
+			  var diabetes=data.diabetic;
+			if(diabetes == 1 ){
+				$('#diabetic').append($('<option>', {value: 1, text: 'Si'}));
+				$('#diabetic').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#diabetic').append($('<option>', {value: 0, text: 'No'}));
+				$('#diabetic').append($('<option>', {value: 1, text: 'Si'}));
+			}
+
+       var pregnant=data.pregnant;
+			if(pregnant == 1 ){
+				$('#pregnant').append($('<option>', {value: 1, text: 'Si'}));
+				$('#pregnant').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#pregnant').append($('<option>', {value: 0, text: 'No'}));
+				$('#pregnant').append($('<option>', {value: 1, text: 'Si'}));
+			}
+       var epilepsia=data.epileptic;
+			if(epilepsia == 1 ){
+				$('#epileptic').append($('<option>', {value: 1, text: 'Si'}));
+				$('#epileptic').append($('<option>', {value: 0, text: 'No'}));
+			} else{
+				$('#epileptic').append($('<option>', {value: 0, text: 'No'}));
+				$('#epileptic').append($('<option>', {value: 1, text: 'Si'}));
+			}
+      if($('#frm-update_history_clinic').find('#observations').val() == ""){
+      $('#frm-update_history_clinic').find('#observations').val('No  hay observaciones')
+      }
+      else{
+      $('#frm-update_history_clinic').find('#observations').val(data.observations)
+      }
+      //$('#frm-update_status').find('#update_status').val(status)
+			$('#clinic_patient_id').val(data.id)
+			$('#update_history_clinic_modal').modal('show');
+		});
+	});
+
+	//-------------Actualizar Historia clínica------------
+
+	$('#frm-update_history_clinic').on('submit', function(e){
+				e.preventDefault();
+				var data 	= $('#frm-update_history_clinic').serializeArray();
+				var id 		= $("#clinic_patient_id").val();
+				 console.log(data);
+				 console.log(id);
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url 	: '../clinics/' + id ,
+					dataType: 'json',
+					type 	: 'POST',
+					data 	: data,
+					success:function(data)
+					{
+            window.location.reload();
+					console.log(data);
+						$('#update_history_clinic_modal').modal('hide');
+					}
+					});
+				});
 
   </script>
 @endpush

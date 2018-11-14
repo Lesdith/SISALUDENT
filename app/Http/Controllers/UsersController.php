@@ -3,18 +3,24 @@
 namespace IntelGUA\Sisaludent\Http\Controllers;
 
 use IntelGUA\Sisaludent\User;
+use IntelGUA\Sisaludent\http\Requests\CrearUsuariosRequest;
 use Illuminate\Http\Request;
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+// use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
+use IntelGUA\Sisaludent\Providers\CustomValidationRulesProvider;
 
 
 
 class UsersController extends Controller
 {
-      /**
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -82,6 +88,8 @@ class UsersController extends Controller
             } catch (Exception $e) {
                 DB::rollBack();
             }
+        //  $validated = $request->validated();
+            // $user = User::create($request->all());
             return $request;
         }
     }
