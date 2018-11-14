@@ -123,7 +123,7 @@ return [
             'icon' => 'laptop',
             'submenu' => [
                 [
-                    'text' => 'User',
+                    'text' => 'Usuarios',
                     'url'  => '../users',
                     'icon' => 'users',
                 ],

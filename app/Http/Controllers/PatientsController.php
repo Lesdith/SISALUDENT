@@ -129,7 +129,7 @@ class PatientsController extends Controller
 
                 $dental_history = new Dental_history();
                 $dental_history->patient_id            = $patient->id;
-                $dental_history->last_medical_visit_date    = $request->input('last_medical_visit_date');
+
 
                 if($request->dental_hemorrhage == 'on'){
                     $dental_history->dental_hemorrhage = 1;

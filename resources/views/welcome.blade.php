@@ -50,7 +50,7 @@
             }
 
             .links > a {
-                background-color: #3c8dbc;
+                background-color:#057deb;
                 border-radius: 15px;
                 color: #000000;
                 padding: 14px 25px;
@@ -62,7 +62,7 @@
                 display: inline-block;
             }
                 a:hover, a:active {
-                    background-color: #337ab7;
+                    background-color: #ffb3c0;
                 }
 
                .m-b-md {

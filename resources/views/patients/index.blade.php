@@ -321,6 +321,8 @@
 	<script>
 
       	$(document).ready(function() {
+
+
 		dataTableTeeth();
 		getGender();
 		getLocation();
@@ -338,7 +340,6 @@
 		embarazada();
 		check();
 		calculaEdad();
-        });
 
 
 		function dataTableTeeth()
@@ -499,7 +500,9 @@
 			btnNextHtml: "Next",
 			btnLastStepHtml: "Complete",
 			disableNextButton: false,
-			completeCallback: function() {},
+			completeCallback: function() {
+				crearPaciente();
+			},
 			callbacks: {},
 			getTitleAndStep: function() {}
 			});
@@ -582,14 +585,15 @@ function check(){
 
 	//-----------Crear Paciente --------
 
+	function crearPaciente(){
 		$.ajaxSetup({
 			headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 		});
 
-			$('#frm-dental').on('submit', function(e){
-				e.preventDefault();
+			// $('#frm-dental').on('submit', function(e){
+			// 	e.preventDefault();
 				var datos 	= $('#frm-patient, #frm-clinic, #frm-dental').serializeArray();
 
 				console.info(datos);
@@ -610,9 +614,9 @@ function check(){
 					console.log(xr.responseText);
 					}
 				});
-			});
+			// });
 
-
+	}
 		//Esta función se creó para validar los campos vacíos al crear un registro
 		function validaCampos(){
 			var nombre	 		 = $("#names").val();
@@ -668,7 +672,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 			jQuery.validator.addMethod("phoneguion", function(value, element) {
 				return this.optional(element) || /^[0-9\-]+$/i.test(value);
 			}, );
-			$('#frm-insert').validate({
+			$('#frm-patient').validate({
 				keyup: true,
 				rules: {
 					names: {
@@ -704,6 +708,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						minlength: 		9,
 						maxlength: 		9,
 					}
+
 
 				},
 				messages: {

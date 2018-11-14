@@ -402,54 +402,79 @@
               <form  action="{{ URL::to('patients')}}" method="POST" id="frm-update_history_clinic">
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                  <div class="form-group">
-                    <label for="infectious_disease">¿Ha tenido alguna enfermedad infecciosa?</label>
-                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <select name="infectious_disease" id="infectious_disease" placeholder="Apellidos" class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="disease_name">¿Que enfermedad?</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <input name="disease_name" id="disease_name"class="form-control"/>
-                  </div>
-                  <div class="form-group">
-                    <label for="cardiac">¿Es cardíaco?</label>
-                    <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <select name="cardiac" id="cardiac" placeholder="Apellidos" class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="allergic">¿Es alérgico?</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <select name="allergic" id="allergic" class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="what_you_allergy">¿Qué le dá alergia?</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <input name="what_you_allergy" id="what_you_allergy"class="form-control"/>
-                  </div>
-                    <div class="form-group">
-                    <label for="diabetic">¿Es diabético</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <select name="diabetic" id="diabetic"class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="pregnant">¿Está embarazada?</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <select name="pregnant"id="pregnant"class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="epileptic">¿Padece Epilepsia?</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <select name="epileptic"id="epileptic"class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="observations">Observaciones:</label>
-                  <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
-                    <input name="observations"id="observations"class="form-control"/>
-                  </div>
-                </div>
-                  <input type="hidden" name="id" id="clinic_patient_id"/>
-
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                          <label for="infectious_disease">¿Ha tenido alguna enfermedad infecciosa?</label>
+                          <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <select name="infectious_disease" id="infectious_disease" placeholder="Apellidos" class="form-control"></select>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                          <label for="disease_name">¿Que enfermedad?</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <input name="disease_name" id="disease_name"class="form-control"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                          <label for="allergic">¿Es alérgico?</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <select name="allergic" id="allergic" class="form-control"></select>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                          <label for="what_you_allergy">¿Qué le dá alergia?</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <input name="what_you_allergy" id="what_you_allergy"class="form-control"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                          <label for="cardiac">¿Es cardíaco?</label>
+                          <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <select name="cardiac" id="cardiac" placeholder="Apellidos" class="form-control"></select>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-4">
+                          <div class="form-group">
+                          <label for="diabetic">¿Es diabético</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <select name="diabetic" id="diabetic"class="form-control"></select>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="pregnant">¿Está embarazada?</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <select name="pregnant"id="pregnant"class="form-control"></select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="form-group">
+                          <label for="epileptic">¿Padece Epilepsia?</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <select name="epileptic"id="epileptic"class="form-control"></select>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-8 col-md-8">
+                        <div class="form-group">
+                          <label for="observations">Observaciones:</label>
+                        <!-- <span class="input-group-addon"><i class="fa fa-list"></i></span> -->
+                          <input name="observations"id="observations"class="form-control"/>
+                        </div>
+                      </div>
+                      </div>
+                        <input type="hidden" name="id" id="clinic_patient_id"/>
+                    </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <input type="submit" class="btn btn-success" value="Actualizar" />
@@ -497,11 +522,20 @@
       getDepartmentEdit();
       //disabledDepartmentEdit()
       //filterMunicipalityEdit();
-
+      embarazada();
 
     });
 
-
+function embarazada(){
+		$('#pregnant').attr('disabled', true);
+			$('#gender_id').change(function() {
+				if($('#gender_id').val() !== '1'){
+					$('#pregnant').attr('disabled', false);
+				}else{
+					$('#pregnant').attr('disabled', true);
+				}
+			});
+	}
 
 function calcularEdad(fecha) {
     var hoy = new Date();
