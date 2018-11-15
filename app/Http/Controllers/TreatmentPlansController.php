@@ -30,6 +30,13 @@ class TreatmentPlansController extends Controller
 
     }
 
+    public function getPlans($id)
+    {
+        $plans = Treatment_plan::where('patient_id', '=', $id)->orderby('id', 'DESC')->get();
+        return (compact('plans'));
+
+    }
+
     public function crearPlan($id)
     {
         $patient = Patient::where('id', $id)->first();
@@ -126,31 +133,6 @@ class TreatmentPlansController extends Controller
                 $treatment_plan->detail_treatment_plans()->saveMany($detail);
                 $return->response = true;
 
-
-                // $dataSet = [];
-                // foreach ((array)$request->order as $detail) {
-
-                //     $dataSet[] = [
-                //         'tooth_id' => $detail['tooth_id'],
-                //         'diagnosis_id' => $detail['diagnosis_id'],
-                //         'tooth_treatment_id' => $detail['tooth_treatment_id'],
-                //         'cost' => $detail['cost'],
-                //         'description' => $detail['description'],
-                //     ];
-
-                // }
-        
-                
-               // $this->output->enable_profiler(true);
-                // DB::table('detail_treatment_plans')->insert([
-                //     'treatment_plan_id' => 4,
-                //     'tooth_id' => $request->orderArr['tooth_id'],
-                //     'diagnosis_id' => $request->orderArr['diagnosis_id'],
-                //     'tooth_treatment_id' => $request->orderAr['tooth_treatment_id'],
-                //     'cost' => $request->orderAr['cost'],
-                //     'description' => $request->orderAr['description']
-                // ]);
-
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollBack();
@@ -182,7 +164,9 @@ class TreatmentPlansController extends Controller
      */
     public function edit($id)
     {
-        //
+        $plan = Treatment_plan::with('detail_treatment_plans', 'patient')->where('id', '=', $id)->get();
+       // return view('plans.edit', compact('plan'));
+        return (compact('plan'));
     }
 
     /**

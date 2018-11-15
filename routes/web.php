@@ -17,6 +17,7 @@ Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
 Route::get('get-diente', 'TreatmentPlansController@getDiente');
 Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
 Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
+Route::get('get-plans/{id}', 'TreatmentPlansController@getPlans');
 
 Auth::routes();
 
@@ -75,10 +76,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('get-patients', 'PatientsController@getPatients');
 
         Route::get('get-clinics/{id}', 'PatientsController@editClinic');
-        Route::put('clinics/{id}',     'PatientsController@updateClinic');
+        Route::put('clinics/{id}', 'PatientsController@updateClinic');
 
         Route::get('get-dentals/{id}', 'PatientsController@editDental');
-        Route::put('dentals/{id}',     'PatientsController@updateDental');
+        Route::put('dentals/{id}', 'PatientsController@updateDental');
 
 
     //Ruta en pacientes para obtener género

@@ -10,10 +10,6 @@
   </div>
   <div class="col-md-4">
         <center><h4><b>Expediente odontológico</b></h4></center>
-
-  </div>
-  <div class="col-md-4">
-
   </div>
 
 </div>
@@ -26,202 +22,194 @@
     @endif
 
 @section('content')
-  <div class="container">
-    <div class="panel-group">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="panel panel-info">
-            <div class="panel-heading"><b>Datos del paciente</b></div>
-            <div class="panel-body">
-              <div class="container-fluid">
-                <form id="form">
-                  <div class="row">
-                    <div class="col-md-6">
-                    <input type="hidden" id="patient_id" value="{{$patient->id}}"/>
-                      <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
-                      <p><strong>Género:</strong> {{ $patient->gender }}</p>
-                      <p><strong>Fecha de nacimiento:</strong> {{ $patient->birth_date }}</p>
-                      <!-- <p><label id="edad">
-                      </label></p> -->
-                      <p><strong>Localidad:</strong> {{ $patient->location }}</p>
-                      <p><strong>Dirección:</strong>
-                        @if($patient->municipality == "" )
-                          {{ $patient->address }}.
-                          @else
-                            {{ $patient->address }},  {{ $patient->municipality }},  {{ $patient->department}}.
-                        @endif
-                      </p>
-                      <p><strong>Teléfono:</strong> {{ $patient->phone_number }}</p>
-                    </div>
-                  </div>
-                </form>
-                	<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="panel panel-info">
-            <div class="panel-heading"><b>Datos del paciente</b></div>
-            <div class="panel-body">
-              <div class="container-fluid">
-                <form id="form">
-                  <div class="row">
-                    <div class="col-md-6">
 
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="panel panel-info">
-            <div class="panel-heading"><b>Historia clínica</b></div>
-              <div class="panel-body">
-                <div class="container-fluid">
-                  <form id="form">
-                    <div class="row">
-                      <div class="col-md-12">
-                       <input id="clinic_history" type="hidden" value="{{$patient->clinic_history}}">
-                        <p><strong>¿Ha tenido alguna enfermedad infecciosa?:</strong>
-                          @if($patient->infectious_disease == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Que enfermedad?:</strong>
-                          @if( $patient->disease_name == "" )
-                            No tiene ninguna enfermedad infecciosa.
-                          @else
-                          {{ $patient->disease_name }}
-                          @endif
-                        </p>
-                        <p><strong>¿Es alérgico?:</strong>
-                          @if( $patient->allergic == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Qué le dá alergia?:</strong>
-                          @if( $patient->what_you_allergy == "")
-                            No tiene alergias.
-                          @else
-                          {{ $patient->what_you_allergy }}
-                          @endif
-                        </p>
-                        <p><strong>¿Es cardíaco?:</strong>
-                          @if( $patient->cardiac == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Es diabético?:</strong>
-                          @if( $patient->diabetic == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                          @if( $patient->gender == 'Masculino')
-                          @else
-                            <p><strong>¿Está embarazada?:</strong>
-                              @if( $patient->pregnant == 1 )
+      <div class="container">
+        <div class="panel-group">
+         <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="panel panel-info">
+                <div class="panel-heading"><b>Datos del paciente</b></div>
+                <div class="panel-body">
+                  <div class="container-fluid">
+                    <form id="form">
+                        <input type="hidden" id="patient_id" value="{{$patient->id}}"/>
+                          <p><strong>Nombre:</strong> {{ $patient->names }} {{ $patient->surnames }}</p>
+                          <p><strong>Género:</strong> {{ $patient->gender }}</p>
+                          <p><strong>Fecha de nacimiento:</strong> {{ $patient->birth_date }}</p>
+                          <!-- <p><label id="edad">
+                          </label></p> -->
+                          <p><strong>Localidad:</strong> {{ $patient->location }}</p>
+                          <p><strong>Dirección:</strong>
+                            @if($patient->municipality == "" )
+                              {{ $patient->address }}.
+                              @else
+                                {{ $patient->address }},  {{ $patient->municipality }},  {{ $patient->department}}.
+                            @endif
+                          </p>
+                          <p><strong>Teléfono:</strong> {{ $patient->phone_number }}</p>
+                        </div>
+                      </div>
+                    </form>
+                      <button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>
+                  </div><br/>
+            <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="panel panel-info">
+                <div class="panel-heading"><b>Historia clínica</b></div>
+                  <div class="panel-body">
+                    <div class="container-fluid">
+                      <form id="form">
+  
+                          <input id="clinic_history" type="hidden" value="{{$patient->clinic_history}}">
+                            <p><strong>¿Ha tenido alguna enfermedad infecciosa?:</strong>
+                              @if($patient->infectious_disease == 1 )
                                 Si
                               @else
                                 No
                               @endif
                             </p>
-                          @endif
-                        <p><strong>¿Padece Epilepsia?:</strong>
-                          @if( $patient->epileptic == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>Observaciones:</strong>
-                          @if($patient->observations == "" )
-                            Ninguna
-                          @else
-                            {{ $patient->observations }}
-                          @endif
-                        </p>
-                      </div>
+                            <p><strong>¿Que enfermedad?:</strong>
+                              @if( $patient->disease_name == "" )
+                                No tiene ninguna enfermedad infecciosa.
+                              @else
+                              {{ $patient->disease_name }}
+                              @endif
+                            </p>
+                            <p><strong>¿Es alérgico?:</strong>
+                              @if( $patient->allergic == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>¿Qué le dá alergia?:</strong>
+                              @if( $patient->what_you_allergy == "")
+                                No tiene alergias.
+                              @else
+                              {{ $patient->what_you_allergy }}
+                              @endif
+                            </p>
+                            <p><strong>¿Es cardíaco?:</strong>
+                              @if( $patient->cardiac == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>¿Es diabético?:</strong>
+                              @if( $patient->diabetic == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                              @if( $patient->gender == 'Masculino')
+                              @else
+                                <p><strong>¿Está embarazada?:</strong>
+                                  @if( $patient->pregnant == 1 )
+                                    Si
+                                  @else
+                                    No
+                                  @endif
+                                </p>
+                              @endif
+                            <p><strong>¿Padece Epilepsia?:</strong>
+                              @if( $patient->epileptic == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>Observaciones:</strong>
+                              @if($patient->observations == "" )
+                                Ninguna
+                              @else
+                                {{ $patient->observations }}
+                              @endif
+                            </p>
+                          </div>
+                        </div>
+                      </form>
+                        <button type='button' id='edita' class='edit btn btn-warning' title='Modificar' data-id='patient_id'><i class='fa fa-pencil-square-o'></i></button>
                     </div>
-                  </form>
-                    <button type='button' id='edita' class='edit btn btn-warning' title='Modificar' data-id='patient_id'><i class='fa fa-pencil-square-o'></i></button>
+                  </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="panel panel-info">
+                <div class="panel-heading"><b>Historia odontológica</b></div>
+                  <div class="panel-body">
+                    <div class="container-fluid">
+                        <form id="form">
+                          <input id="dental_history" type="hidden" value="{{$patient->dental_history}}">
+                            <p><strong>¿Tiene hemorragia dentaria?</strong>
+                              @if( $patient->dental_hemorrhage == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>¿Tiene alguna infección bucal?:</strong>
+                              @if( $patient->mouth_infections == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>¿Tiene úlceras bucales?</strong>
+                            @if( $patient->mouth_ulcers == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>¿Le provoca alguna reacción la anestesia?</strong>
+                              @if( $patient->reaction_anesthesia == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                            <p><strong>¿Qué reacción le provoca?</strong>
+                              @if( $patient->what_reaction == "")
+                                No le da ninguna reacción.
+                              @else
+                              {{ $patient->what_reaction }}
+                              @endif
+                            </p>
+                            <p><strong>¿Tiene dolor dentario?:</strong>
+                              @if( $patient->toothache == 1 )
+                                Si
+                              @else
+                                No
+                              @endif
+                            </p>
+                          </div>
+                        </div>
+                      </form>
+                        <button type='button' id='editar' class='edit btn btn-warning' title='Modificar' data-id='patients_id'><i class='fa fa-pencil-square-o'></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="panel panel-info">
+                <div class="panel-heading"><b>Planes de tratamiento</b></div>
+                <div class="panel-body">
+                  <div class="container-fluid">
+                        <table id="tbl-plans" class="display responsive no-wrap" width="100%">
+                          <thead>
+                            <tr >
+                              <th class="text-center">No.</th>
+                              <th data-priority="1" class="text-center">Fecha</th>
+                              <th class="text-center">Acciones</th>
+                            </tr>
+                          </thead>
+                        </table>
+                        <!-- fin del DataTable-->
+                      </div>
                 </div>
               </div>
             </div>
-          </div>
-        <div class="col-md-3">
-          <div class="panel panel-info">
-            <div class="panel-heading"><b>Historia odontológica</b></div>
-              <div class="panel-body">
-                <div class="container-fluid">
-                  <div class="row">
-                    <form id="form">
-                      <div class="col-md-12">
-                      <input id="dental_history" type="hidden" value="{{$patient->dental_history}}">
-                        <p><strong>¿Tiene hemorragia dentaria?</strong>
-                           @if( $patient->dental_hemorrhage == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Tiene alguna infección bucal?:</strong>
-                          @if( $patient->mouth_infections == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Tiene úlceras bucales?</strong>
-                         @if( $patient->mouth_ulcers == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Le provoca alguna reacción la anestesia?</strong>
-                          @if( $patient->reaction_anesthesia == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                        <p><strong>¿Qué reacción le provoca?</strong>
-                          @if( $patient->what_reaction == "")
-                            No le da ninguna reacción.
-                          @else
-                          {{ $patient->what_reaction }}
-                          @endif
-                        </p>
-                        <p><strong>¿Tiene dolor dentario?:</strong>
-                          @if( $patient->toothache == 1 )
-                            Si
-                          @else
-                            No
-                          @endif
-                        </p>
-                      </div>
-                    </div>
-                  </form>
-                    <button type='button' id='editar' class='edit btn btn-warning' title='Modificar' data-id='patients_id'><i class='fa fa-pencil-square-o'></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -524,6 +512,7 @@
       //filterMunicipalityEdit();
       embarazada();
       updatePaciente ();
+      dataTablePlans()
     });
 
 function embarazada(){
@@ -1039,7 +1028,61 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						$('#update_history_clinic_modal').modal('hide');
 					}
 					});
-				});
+        });
+        
+        function dataTablePlans()
+        {
+          var id = {{$patient->id}};
+          var dt = $('#tbl-plans').DataTable({
+            "serverside":	true,
+            "autoWidth": 	true,
+            "responsive":	true,
+            "columnDefs":	[
+              {responsivePriority: 1, targets: 0},
+              {responsivePriority: 2, targets: -2},
+              {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+              }
+            ],
+
+            "order": [[ 1, 'asc' ]],
+            "fixedColumns":	true,
+
+            "language":
+                      {
+                          "url":'//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
+                      },
+
+            "ajax": {
+              "url": 		"../get-plans/"+id,
+              "type":		'GET',
+              "dataSrc":	'plans',
+            },
+
+            "columns" : [
+              {"data":	"id"},
+              {"data":	"date"},
+              {"defaultContent":
+
+                "<div class='btn-group btn-group-xs' > " +
+                "<button type='button' id='show'  class='show btn btn-info'   title='Mostrar'   data-id='id'><i class='fa fa-eye'></i></button>"+
+                //"<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>"+
+                //"<button type='button' id='del' class='delete btn btn-danger' title='Eliminar'><i class='fa fa-trash-o'></i></button>"+
+                "</div>"
+
+              }
+
+            ]
+          });
+          dt.on( 'order.dt search.dt', function () {
+                dt.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                });
+            }).draw();
+        }
+
 
   </script>
 @endpush
