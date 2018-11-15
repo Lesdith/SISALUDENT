@@ -125,7 +125,13 @@
             @endif
         </div>
         <!-- /.content-wrapper -->
-
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+        <b>Version</b> 0.1- alpha
+        </div>
+        <strong>Copyright © 2018
+        <a href="">IntelGuaSoft</a>.</strong> Todos los derechos reservados.
+  </footer>
     </div>
     <!-- ./wrapper -->
 @stop

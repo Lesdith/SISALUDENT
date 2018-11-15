@@ -72,34 +72,30 @@
     </div> <!--FIN DEL CARRUSEL -->
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Clínica Salud Dental</h2>
             <p align="justify">
                Clínica odontológica comprometida con la salud dentaria, se encuentra ubicada en el segundo nivel del Centro Comercial El Sol, frente a la terminal de buses del  municipio de Morales del departamento de Izabal.
             </p>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>SiSaluDent</h2>
             <p align="justify">
             Es un sistema automatizado para la gestión de pacientes de la clínica odontológica Salud Dental del municipio de Morales del departamento de Izabal.
+            <br>
+            Permite realizar:
+            <br>
+                * Control de usuarios.<br>
+                * Control de citas.<br>
+                * Registro de pacientes.<br>
+                * Asignar historia clínica y odontológica.<br>
+                * Generar presupuesto.
             </p>
-        </div>
-
-        <div class="col-md-4">
-            <h2>Servicios</h2>
-            <p align="justify">
-                Para el manejo adecuado de la información, SiSaluDent cuenta con.
-                <br>
-                <br>
-                * Listar todos los equipos.<br>
-            <p>
         </div>
     </div>
 </div>
-
 @stop
-
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
