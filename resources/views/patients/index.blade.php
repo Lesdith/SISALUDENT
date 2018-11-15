@@ -91,11 +91,11 @@
 					<!-- Paso #1 Crear un paciente -->
 					<div class="row hide" data-step="1" data-title="Información del paciente 1 de 3">
 						<div class="container-fluid">
-							<form  id="frm-patient" accept-charset="UTF-8" onsubmit="return validaCampos();">
+							<form  id="frm-patient" accept-charset="UTF-8" >
 								<!-- Token para proteger contra la falsificación de solicitudes entre sitios-->
 									{{ csrf_field() }}
 								<div class="row">
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="input-group">
 											<!-- <label for="names">Nombres:</label> -->
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
@@ -103,7 +103,7 @@
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="input-group">
 											<!-- <label for="surnames">Apellidos:</label> -->
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
@@ -113,7 +113,7 @@
 								</div>
 								<br/>
 								<div class="row">
-									<div class="col-sm-12 col-md-4">
+									<div class="col-xs-12 col-sm-6 col-md-4">
 										<div class="input-group">
 											<!-- <label for="gender_id">Género:</label> -->
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
@@ -121,7 +121,7 @@
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-4">
+									<div class="col-xs-12 col-sm-6 col-md-4">
 										<div class="input-group">
 											<!-- <label for="birth_date">Fecha de nacimiento:</label> -->
 											<span class="input-group-addon">Nacimiento:   <i class="fa fa-calendar-o"></i></span>
@@ -129,7 +129,7 @@
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-4">
+									<div class="col-xs-12 col-sm-6 col-md-4">
 										<div class="input-group">
 											<!-- <label for="phone_number">Teléfono:</label> -->
 											<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
@@ -139,7 +139,7 @@
 								</div>
 								<br/>
 								<div class="row">
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="input-group">
 											<!-- <label for="location_id">Localidad:</label> -->
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
@@ -147,7 +147,7 @@
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="input-group">
 											<!-- <label for="address">Dirección:</label> -->
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
@@ -155,14 +155,16 @@
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									</div>
+									<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
 											<select name="department_id" id="department_id"  placeholder="Seleccione el departamento" class="form-control"></select>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="input-group">
 											<!-- <label for="municipality_id">Municipio:</label> -->
 											<span class="input-group-addon"><i class="fa fa-list"></i></span>
@@ -182,13 +184,13 @@
 								<!-- Token para proteger contra la falsificación de solicitudes entre sitios-->
 									{{ csrf_field() }}
 								<div class="row">
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-4 col-md-4">
 										<div class="input-group">
 											¿Ha tenido alguna enfermedad infecciosa? <br/>
 											<center>Si: <input type="radio" name="infectious_disease"  id="infectious_disease"/><br /></center>
 										</div>
 									</div>
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-8 col-md-8">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 											<input name="disease_name" type="text" id="disease_name" placeholder="Ingrese el nombre de la enfermedad" class="form-control"/>
@@ -198,14 +200,14 @@
 								<hr class="my-4">
 								<br/>
 								<div class="row">
-									<div class="col-md-12 col-md-6">
+									<div class="col-xs-12 col-sm-4 col-md-4">
 										<div class="input-group">
 											¿Es alérgico? <br/>
 											<center>Si:  <input type="radio" id="allergic" name="allergic"/><br /></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-8 col-md-8">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 											<input name="what_you_allergy" type="text" id="what_you_allergy" placeholder="¿Qué le da alergia?" class="form-control"/>
@@ -215,28 +217,28 @@
 								<hr class="my-4">
 								<br/>
 								<div class="row">
-									<div class="col-md-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Es cardíaco?<br/>
 											<center>Si:  <input type="radio" id="cardiac" name="cardiac"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-md-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Es diabético?<br/>
 											<center>Si:  <input type="radio" id="diabetic" name="diabetic"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-md-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Está embarazada?<br/>
 											<center>Si: <input type="radio" id="pregnant" name="pregnant"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-md-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Padece epilepsia?<br/>
 											<center>Si:  <input type="radio" id="epileptic" name="epileptic"/></center>
@@ -254,14 +256,14 @@
 								<!-- Token para proteger contra la falsificación de solicitudes entre sitios-->
 								{{ csrf_field() }}
 								<div class="row">
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-4 col-md-4">
 										<div class="input-group">
 											<center>¿Le provoca reacción la anestesia?<br/></center>
 											<center>Si:  <input type="radio" id="reaction_anesthesia" name="reaction_anesthesia"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-6">
+									<div class="col-xs-12 col-sm-8 col-md-8">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 											<input name="what_reaction" type="text" id="what_reaction" placeholder="¿Qué reacción le provoca?" class="form-control"/>
@@ -271,28 +273,28 @@
 								<br/>
 								<hr class="my-4">
 								<div class="row">
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Tiene infección bucal?<br/>
 											<center>Si:  <input type="radio" id="mouth_infections" name="mouth_infections"/>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Tiene úlceras bucales?<br/>
 											<center>Si:  <input type="radio" id="mouth_ulcers" name="mouth_ulcers"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Tiene dolor dentario?<br/>
 											<center>Si:  <input type="radio" id="toothache" name="toothache"/></center>
 										</div>
 										<br/>
 									</div>
-									<div class="col-sm-12 col-md-3">
+									<div class="col-xs-12 col-sm-6 col-md-3">
 										<div class="input-group">
 											¿Tiene hemorragia dental?<br/>
 											<center>Si:  <input type="radio" name="dental_hemorrhage"  id="dental_hemorrhage"/></center>
@@ -300,15 +302,15 @@
 									</div>
 									<br/>
 								</div>
-								<input type="submit" class="btn btn-success" value="Guardar"/>
+								<!-- <input type="submit" class="btn btn-success" value="Guardar"/> -->
 							</form>
 						</div>
 					</div>
 				</div>
 					<div class="modal-footer">
-							<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
+							<button type="button" id="cancel" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
 							<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
-							<button type="button" class="btn btn-success js-btn-step" data-orientation="next"></button>
+							<button  aria-disabled="true" type="button"class="btn btn-success js-btn-step" data-orientation="next"></button>
 					</div>
 			</div>
 		</div>
@@ -317,13 +319,33 @@
 
 @stop
 <!-- /Content Section -->
+@push('css')
+<style>
+
+.help-block {
+  display: run-in;
+  color: #ff0000;
+}
+
+input.error {
+   border:1px dotted red;
+}
+
+
+.modal-header{
+          border-radius: 15px;
+}
+.modal-content{
+   border-radius: 15px;
+}
+</style>
+@endpush
+
 @push('js')
 	<script>
 
       	$(document).ready(function() {
-
-
-		dataTableTeeth();
+		dataTablePatient();
 		getGender();
 		getLocation();
 		// getDepartment();
@@ -334,15 +356,24 @@
 		// getLocationEdit();
 		// getMunicipalityEdit();
 		validar ();
+		// odontologica();
 		modalSteps();
 		enfermedadInfecciosa();
 		alergia();
 		embarazada();
 		check();
 		calculaEdad();
+		var validator;
 
+	});
 
-		function dataTableTeeth()
+$("#cancel").on("click",function(e){
+     e.preventDefault();
+	 validator.resetForm();
+    $('#frm-patient').trigger("reset");
+});
+
+		function dataTablePatient()
 			{
 				var dt = $('#tbl-patients').DataTable({
 					"serverside":	true,
@@ -486,12 +517,6 @@
 				});
 			}
 
-
-
-
-
-
-
 //Modal con pasos función, se debe de llamar en el document ready
 	function modalSteps(){
 		$('#add_patient_modal').modalSteps({
@@ -591,9 +616,6 @@ function check(){
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 		});
-
-			// $('#frm-dental').on('submit', function(e){
-			// 	e.preventDefault();
 				var datos 	= $('#frm-patient, #frm-clinic, #frm-dental').serializeArray();
 
 				console.info(datos);
@@ -614,77 +636,38 @@ function check(){
 					console.log(xr.responseText);
 					}
 				});
-			// });
 
 	}
-		//Esta función se creó para validar los campos vacíos al crear un registro
-		function validaCampos(){
-			var nombre	 		 = $("#names").val();
-			var apellido		 = $("#surnames").val();
-			var genero			 = $("#gender_id").val();
-			var cumpleanios 	 = $("#birth_date").val();
-			var localidad		 = $("#location_id").val();
-			var direccion		 = $("#address").val();
-			var municipio		 = $("#municipality_id").val();
-			var telefono		 = $("#phone_number").val();
-			//validamos campos
-			if($.trim(nombre) == ""){
-				toastr.error("Debe ingresar al menos un nombre","Aviso!");
-					return false;
-			}
-			if($.trim(apellido) == ""){
-				toastr.error("Debe ingresar al menos un apellido","Aviso!");
-					return false;
-			}
-			if($.trim(genero) == ""){
-				toastr.error("Debe seleccionar el género","Aviso!");
-					return false;
-			}
-			if($.trim(cumpleanios) == ""){
-				toastr.error("No ha ingresado la fecha de cumpleaños","Aviso!");
-					return false;
-			}
-			if($.trim(localidad) == ""){
-				toastr.error("Debe seleccionar la localidad","Aviso!");
-					return false;
-			}
-			if($.trim(direccion) == ""){
-				toastr.error("Debe ingresar una dirección","Aviso!");
-					return false;
-			}
-			if($.trim(municipio) == ""){
-				toastr.error("Debe seleccionar el municipio","Aviso!");
-					return false;
-			}
-			if($.trim(telefono) == ""){
-				toastr.error("Debe ingresar un número de teléfono","Aviso!");
-					return false;
-			}
-		}
+
 
 /* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
 para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
 
 		function validar () {
-			jQuery.validator.addMethod("lettersonly", function(value, element) {
+				jQuery.validator.addMethod("lettersonly", function(value, element) {
 				return this.optional(element) || /^[a-z\sÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]+$/i.test(value);
-			}, );
-			jQuery.validator.addMethod("phoneguion", function(value, element) {
-				return this.optional(element) || /^[0-9\-]+$/i.test(value);
-			}, );
-			$('#frm-patient').validate({
+				}, );
+				jQuery.validator.addMethod("phoneguion", function(value, element) {
+					return this.optional(element) || /^[0-9\-]+$/i.test(value);
+				}, );
+				jQuery.validator.addMethod("pwcheck", function(value) {
+						return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+						&& /[a-z]/.test(value) // has a lowercase letter
+						&& /\d/.test(value) // has a digit
+				});
+			validator = $('#frm-patient').validate({
 				keyup: true,
 				rules: {
 					names: {
-						// required: 		true,
+						required: 		true,
 						lettersonly: 	true,
-						minlength: 		2,
+						minlength: 		3,
 						maxlength: 		35,
 					},
 					surnames: {
-						// required: 		true,
+					required: 		true,
 						lettersonly: 	true,
-						minlength: 		2,
+						minlength: 		3,
 						maxlength: 		35,
 					},
 					gender_id: {
@@ -711,40 +694,68 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 
 
 				},
+				debug: true,
+				errorClass: 'help-block',
+				validClass: 'success',
+				errorElement: "span",
+				highlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           			 	$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        			}
+				},
+				unhighlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        			}
+				},
+				errorPlacement: function (error, element) {
+					if (element.parent('.input-group').length) {
+						error.insertAfter(element.parent());
+					}
+					else if (element.prop('type') === 'radio' && element.parent('.radio-inline').length) {
+						error.insertAfter(element.parent().parent());
+					}
+					else if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+						error.appendTo(element.parent().parent());
+					}
+					else {
+						error.insertAfter(element);
+					}
+				},
 				messages: {
 					names: {
-						// required: 		function () {toastr.error('Por favor ingrese al menos un nombre')},
-						lettersonly: 	function () {toastr.error('Los nombres solo pueden contener letras')},
-						minlength: 		function () {toastr.error('Ingrese un nombre válido')},
-						maxlength: 		function () {toastr.error('Ingrese un nombre válido')},
+						required: 		'Por favor ingrese al menos un nombre',
+						lettersonly: 	'Los nombres solo pueden contener letras',
+						minlength: 		'Ingrese un nombre válido',
+						maxlength: 		'Ingrese un nombre válido',
 					},
 					surnames: {
-						// required: 		function () {toastr.error('Por favor ingrese al menos un apellido')},
-						lettersonly: 	function () {toastr.error('Los apellidos solo pueden contener letras')},
-						minlength: 		function () {toastr.error('Ingrese un apellido válido')},
-						maxlength: 		function () {toastr.error('Ingrese un apellido válido')},
+						required: 		'Por favor ingrese al menos un apellido',
+						lettersonly: 	'Los apellidos solo pueden contener letras',
+						minlength: 		'Ingrese un apellido válido',
+						maxlength: 		'Ingrese un apellido válido',
 					},
 					gender_id: {
-						required: 		function () {toastr.error('Debe elegir un género')}
+						required: 		'Debe elegir un género'
 					},
 					birth_date: {
-						required: 		function () {toastr.error('Debe ingresa fecha de nacimiento')},
-						date: 			function () {toastr.error('Ingrese una fecha válida')}
+						required: 		'Debe ingresa fecha de nacimiento',
+						date: 			'Ingrese una fecha válida'
 					},
 					location_id: {
-						required: 		function () {toastr.error('Debe elegir localidad')},
+						required: 		'Debe elegir localidad',
 					},
 					municipality_id: {
-						required: 		function () {toastr.error('Debe elegir un municipio')}
+						required: 		'Debe elegir un municipio'
 					},
 					address: {
-						required: 		function () {toastr.error('La dirección es requerida')},
-						minlength: 		function () {toastr.error('Ingrese una dirección válida')},
+						required: 		'La dirección es requerida',
+						minlength: 		'Ingrese una dirección válida',
 					},
 					phone_number: {
-						phoneguion: 		function () {toastr.error('Ingrese un número de teléfono válido')},
-						minlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
-						maxlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
+						phoneguion: 		'Ingrese un número de teléfono válido',
+						minlength: 		'El número de teléfono debe tener 8 dígitos',
+						maxlength: 		'El número de teléfono debe tener 8 dígitos',
 					}
 				},
 			});
@@ -916,8 +927,8 @@ $('body').delegate('#tbl-patients #del', 'click', function(e){
 						type	:"error",
 					});
 				}
-			});
 		});
+});
 
 //--------- Se creo para poder mostrar el detalle de una fila
 

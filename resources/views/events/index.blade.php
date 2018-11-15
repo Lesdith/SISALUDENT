@@ -68,7 +68,7 @@
               </div>
             </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" id="cancelar" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <input type="submit" class="btn btn-success" value="Guardar" />
           </div>
           </form>
@@ -137,7 +137,7 @@
               </form>
             </div>
           <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="button" id="verCancel" class="btn btn-default" data-dismiss="modal">Cancelar</button>
           <button type='button' id='del' class='delete btn btn-danger' title='Eliminar'>
             <i class='fa fa-trash-o'>  Eliminar</i>
           </button>
@@ -195,6 +195,22 @@
     margin: 0 auto;
     padding: 0 2%;
   }
+.help-block {
+  display: run-in;
+  color: #ff0000;
+}
+
+input.error {
+   border:1px dotted red;
+}
+
+
+.modal-header{
+          border-radius: 15px;
+}
+.modal-content{
+   border-radius: 15px;
+}
 
 </style>
 @endpush
@@ -203,6 +219,25 @@
 <!-- inicia el scrip para la funcionalidad del calendario  -->
 @push('js')
 <script >
+	$(document).ready(function() {
+
+			validar();
+      var validator;
+      var validatorVer;
+});
+
+
+$("#cancelar").on("click",function(e){
+     e.preventDefault();
+	 validator.resetForm();
+    $('#crear_evento').trigger("reset");
+});
+
+$("#verCancel").on("click",function(e){
+     e.preventDefault();
+	   validatorVer.resetForm();
+    $('#ver_evento').trigger("reset");
+});
 
     $(function(){
 
@@ -328,6 +363,182 @@ $('#crear_evento').on('submit', function(e){
           }
         });
       });
+
+
+
+/* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
+para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
+
+		function validar () {
+			jQuery.validator.addMethod("lettersonly", function(value, element) {
+				return this.optional(element) || /^[a-z\sÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]+$/i.test(value);
+			}, );
+			jQuery.validator.addMethod("phoneguion", function(value, element) {
+				return this.optional(element) || /^[0-9\-]+$/i.test(value);
+			}, );
+			jQuery.validator.addMethod("pwcheck", function(value) {
+   					return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+					&& /[a-z]/.test(value) // has a lowercase letter
+					&& /\d/.test(value) // has a digit
+				});
+
+		validator = $('#crear_evento').validate({
+			 keyup: true,
+				rules: {
+					contact: {
+						required: 		true,
+						lettersonly: 	true,
+						minlength: 		5,
+						maxlength: 		50,
+					},
+				  phone: {
+            required: 		true,
+						phoneguion: 	true,
+						minlength: 		8,
+						maxlength: 		8,
+
+					},
+			  	start_date:{
+						required: 	true,
+						date: 			true,
+					},
+          end_date:{
+						required: 	true,
+						date: 			true,
+					}
+				},
+				debug: true,
+				errorClass: 'help-block',
+				validClass: 'success',
+				errorElement: "span",
+				highlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           			 	$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        			}
+				},
+				unhighlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        			}
+				},
+				errorPlacement: function (error, element) {
+					if (element.parent('.input-group').length) {
+						error.insertAfter(element.parent());
+					}
+					else if (element.prop('type') === 'radio' && element.parent('.radio-inline').length) {
+						error.insertAfter(element.parent().parent());
+					}
+					else if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+						error.appendTo(element.parent().parent());
+					}
+					else {
+						error.insertAfter(element);
+					}
+				},
+				messages: {
+					contact: {
+						required: 		'Debe ingresar al menos un nombre y un apellido',
+						lettersonly: 	'Los nombres solo pueden contener letras',
+						minlength: 		'Un nombre válido tiene como mínimo 5 letras',
+						maxlength: 		'Un nombre válido tiene como máximo 50 letras',
+					},
+					phone: {
+            required: 		'Debe ingresar un  número telefónico',
+						phoneguion:		    'Ingrese un número de teléfono válido',
+						minlength: 		'El número de teléfono debe tener 8 dígitos',
+						maxlength: 		'El número de teléfono debe tener 8 dígitos',
+					},
+					start_date: {
+						required: 		'Debe ingresa fecha de inicio',
+						minlength: 		'Debe ingresar una fecha válida',
+					},
+					end_date: {
+						required: 		'Debe ingresa fecha de final',
+						minlength: 		'Debe ingresar una fecha válida',
+					}
+
+				 },
+			});
+
+      validatorVer = $('#ver_evento').validate({
+			 keyup: true,
+				rules: {
+					contact: {
+						required: 		true,
+						lettersonly: 	true,
+						minlength: 		5,
+						maxlength: 		50,
+					},
+				  phone: {
+            required: 		true,
+						phoneguion: 	true,
+						minlength: 		8,
+						maxlength: 		8,
+
+					},
+			  	start_date:{
+						required: 	true,
+						date: 			true,
+					},
+          end_date:{
+						required: 	true,
+						date: 			true,
+					}
+				},
+				debug: true,
+				errorClass: 'help-block',
+				validClass: 'success',
+				errorElement: "span",
+				highlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           			 	$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        			}
+				},
+				unhighlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        			}
+				},
+				errorPlacement: function (error, element) {
+					if (element.parent('.input-group').length) {
+						error.insertAfter(element.parent());
+					}
+					else if (element.prop('type') === 'radio' && element.parent('.radio-inline').length) {
+						error.insertAfter(element.parent().parent());
+					}
+					else if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+						error.appendTo(element.parent().parent());
+					}
+					else {
+						error.insertAfter(element);
+					}
+				},
+				messages: {
+					contact: {
+						required: 		'Debe ingresar al menos un nombre y un apellido',
+						lettersonly: 	'Los nombres solo pueden contener letras',
+						minlength: 		'Un nombre válido tiene como mínimo 5 letras',
+						maxlength: 		'Un nombre válido tiene como máximo 50 letras',
+					},
+					phone: {
+						phoneguion:		'Ingrese un número de teléfono válido',
+						minlength: 		'El número de teléfono debe tener 8 dígitos',
+						maxlength: 		'El número de teléfono debe tener 8 dígitos',
+            required: 		'Debe ingresar un  número telefónico',
+					},
+					start_date: {
+						required: 		'Debe ingresa fecha de inicio',
+						minlength: 		'Debe ingresar una fecha válida',
+					},
+					end_date: {
+						required: 		'Debe ingresa fecha de final',
+						minlength: 		'Debe ingresar una fecha válida',
+					}
+
+				 },
+			});
+  }
+
 
 //Para eliminar cita seleccionada
       $('body').delegate('#show_cita_modal #del', 'click', function(e){

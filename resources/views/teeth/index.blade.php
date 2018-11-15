@@ -308,8 +308,7 @@
 
 
 		//Esta función se creó para validar los campos al crear un registro
-		function validaCampos(){
-
+	function validaCampos(){
 		var nombre	 = $("#name").val();
 		var tipo 	 = $("#tooth_type_id").val();
 		var etapa 	 = $("#tooth_stage_id").val();

@@ -40,7 +40,7 @@
 				<!-- Botón que invoca el Modal #add_new_fee_modal para agregar registros -->
 				<div class="col-xs-12">
 						<button style="margin-bottom:10px;" type="button" data-toggle="modal" data-target="#add_new_user_modal" class="btn btn-success pull-right">
-						<i class="fa fa-plus"></i> Nuevo Registro</button>
+						<i class="fa fa-plus"></i> Nuevo usuario</button>
 					<br/>
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span></button>
-	                	<h4 class="modal-title" id="myModalLabel">Agregar registro</h4>
+	                	<h4 class="modal-title" id="myModalLabel">Registrar usuario</h4>
 
 	            </div>
 	            <div class="modal-body">
@@ -89,37 +89,43 @@
 						{{ csrf_field() }}
 
 	                	<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+							<span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
 	                    	<input name="name" type="text" id="name" placeholder="Nombre completo" class="form-control"/>
 	                	</div>
 							<br/>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 	                    	<input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control"/>
 						</div>
 							<br/>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 	                    	<input type="text" name="password" id="password" placeholder="Contraseña" class="form-control"/>
 						</div>
 							<br/>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-user-md"></i></span>
 							<select name="role_id" id="role_id" placeholder="Rol"  class="form-control"></select>
 	                	</div>
 							<br/>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-key"></i></span>
 							<select name="permission_id" id="permission_id" placeholder="Permiso"  class="form-control"></select>
 	                	</div>
 							<br/>
-						<div class="input-group">
-							Estado<br/>
-							<center>Activo:  <input type="radio" id="status" name="status"/></center>
-						</div>
+						<!-- <div class="row">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-xs-offset-4 col-sm-offset-4 col-md-offset-4"> -->
+								<div class="form-check">
+									<span>
+									<label class="form-check-label"> Marcar estado activo</label>
+									<input type="radio" id="status" name="status"/></span>
+								</div>
 							<br/>
+							<!-- </div>
+						</div> -->
+
 						<div class="modal-footer">
-	                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	                		<button type="button" id="btnCancelar" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 							<input type="submit" class="btn btn-success" value="Guardar" />
 						</div>
 					</form>
@@ -136,45 +142,36 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+	                <h4 class="modal-title" id="myModalLabel">Actualizar información</h4>
 	            </div>
 					<div class="modal-body">
 	 				<form  action="{{ URL::to('users')}}" method="POST" id="frm-update_user">
 					<input type="hidden" name="_method" value="PUT">
     				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	                	<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+							<span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
 	                    	<input name="name" type="text" id="update_name" placeholder="Nombre completo" class="form-control"/>
 	                	</div>
 							<br/>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 	                    	<input type="email" name="email" id="update_email" placeholder="Correo electrónico" class="form-control"/>
 						</div>
 							<br/>
-							<!-- <div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
-	                    	<input type="text" name="password" id="update_password" placeholder="Contraseña" class="form-control"/>
-						</div>
-							<br/> -->
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-user-md"></i></span>
 							<select name="role_id" id="update_role_id" placeholder="Rol"  class="form-control"></select>
 	                	</div>
 							<br/>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa fa-key"></i></span>
 							<select name="permission_id" id="update_permission_id" placeholder="Permiso"  class="form-control"></select>
 	                	</div>
-						<!-- <div class="input-group">
-							Estado<br/>
-							<center>Activo:  <input type="radio" id="update_status" name="status"/></center>
-						</div>
-						<br/> -->
+
 						<input type="hidden" name="id" id="update_user_id"/>
 
 						<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="button" id="btnUpdateCancelar" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						<input type="submit" class="btn btn-success" value="Actualizar" />
 					</div>
 				</form>
@@ -191,7 +188,7 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+	                <h4 class="modal-title" id="myModalLabel">Actualizar estado</h4>
 	            </div>
 					<div class="modal-body">
 	 				<form  action="{{ URL::to('status')}}" method="POST" id="frm-update_status">
@@ -199,7 +196,7 @@
     				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-list"></i></span>
+							<span class="input-group-addon"><i class="fa  fa-toggle-off"></i></span>
 							<select name="status" id="update_status" placeholder="Estado"  class="form-control"></select>
 	                	</div>
 						<input type="hidden" name="id" id="update_userstatus_id"/>
@@ -216,6 +213,37 @@
 @stop
 <!-- /Content Section -->
 
+
+@push('js')
+<style>
+/* Make the help displayed horizontally and set with same color with help-block */
+.help-block {
+  display: run-in;
+  color: #ff0000;
+}
+
+input.error {
+   border:1px dotted red;
+}
+
+
+.modal-header{
+          border-radius: 15px;
+}
+.modal-content{
+   border-radius: 15px;
+}
+.radiobtn {
+content: '';
+border: 2px solid #fff;
+position: absolute;
+width: 14px;
+height: 14px;
+background-color: #c3e3fc;
+}
+</style>
+@endpush
+
 @push('js')
 	<script>
       	$(document).ready(function() {
@@ -225,38 +253,24 @@
 			getRolesEdit();
 			getPermissionsEdit();
 			check();
+			validar();
+var validator;
+var validatorUpdate;
 
-    // $('#frm-user').validate({
-    //     event: "blur",rules: {'name': "required",'email': "required email",'password': "required",'role_id': "required",'permission_id': "required"},
-    //     messages: {'name': "Por favor, ind&iacute;ca un nombre",'email': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",'password': "Por favor, escr&iacute;ba una contraseña v&aacute;lida", 'role_id': "Por favor, asigna un rol",'permission_id': "Por favor, asigna el permiso"},
-    //     debug: true,errorElement: "label",
-    //     submitHandler: function(form){
-    //         $("#alert").show();
-    //         // $("#alert").html("<img src='images/ajax-loader.gif' style='vertical-align:middle;margin:0 10px 0 0' /><strong>Enviando mensaje...</strong>");
-    //         setTimeout(function() {
-    //             $('#alert').fadeOut('slow');
-    //         }, 5000);
-    //         $.ajax({
-    //             type: "POST",
-    //             url:"send.php",
-    //             data: "name="+escape($('#name').val())+"&email="+escape($('#email').val())+"&password="+escape($('#password').val())+"&role_id="+escape($('#role_id').val())+"&permission_id="+escape($('#permission_id').val()),
-    //             success: function(msg){
-    //                 $("#alert").html(msg);
-    //                 document.getElementById("name").value="";
-    //                 document.getElementById("email").value="";
-    //                 document.getElementById("password").value="";
-    //                 document.getElementById("role_id").value="";
-    //                 document.getElementById("permission_id").value="";
-    //                 setTimeout(function() {
-    //                     $('#alert').fadeOut('slow');
-    //                 }, 5000);
-
-    //             }
-    //         });
-    //     }
-    // });
 });
 
+$("#btnCancelar").on("click",function(e){
+     e.preventDefault();
+	 validator.resetForm();
+    $('#frm-user').trigger("reset");
+});
+
+$("#btnUpdateCancelar").on("click",function(e){
+     e.preventDefault();
+	 validatorUpdate.resetForm();
+    $('#frm-update_user').trigger("reset");
+
+});
 
 		function dataTableUsers()
 			{
@@ -315,6 +329,10 @@
 						});
 					}).draw();
 			}
+
+
+
+
 		//-----------Crear Usuario--------
 			$('#frm-user').on('submit', function(e){
 				e.preventDefault();
@@ -344,7 +362,7 @@
 				//para cargar la lista de roles
 			function getRoles(){
 			$.get('get-roles', function(data){
-					$('#role_id').append($('<option>', {value: "", text: 'Seleccionar tipo'}));
+					$('#role_id').append($('<option>', {value: "", text: 'Seleccionar rol'}));
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 					$('#role_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -354,7 +372,7 @@
 			//para cargar la lista de permisos
 			function getPermissions(){
 			$.get('get-permissions', function(data){
-					$('#permission_id').append($('<option>', {value: "", text: 'Seleccionar etapa'}));
+					$('#permission_id').append($('<option>', {value: "", text: 'Seleccionar permiso'}));
 					$.each(data,	function(i, value){
 						//posiciones.append($('<option value="' + value.id + '">').text = value.name;
 					$('#permission_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -390,7 +408,7 @@ function check(){
 			}
 	}})());
 }
-				// Editar usuario
+	// Editar usuario
 	$('body').delegate('#tbl-users #edit', 'click', function(e){
 		e.preventDefault();
 			var $tr = $(this).closest('li').length ?
@@ -437,6 +455,188 @@ function check(){
 				});
 			}
 
+
+
+/* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
+para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
+
+		function validar () {
+			jQuery.validator.addMethod("lettersonly", function(value, element) {
+				return this.optional(element) || /^[a-z\sÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]+$/i.test(value);
+			}, );
+			jQuery.validator.addMethod("phoneguion", function(value, element) {
+				return this.optional(element) || /^[0-9\-]+$/i.test(value);
+			}, );
+			jQuery.validator.addMethod("pwcheck", function(value) {
+   					return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+					&& /[a-z]/.test(value) // has a lowercase letter
+					&& /\d/.test(value) // has a digit
+				});
+
+		validator = $('#frm-user').validate({
+			 keyup: true,
+				rules: {
+					name: {
+						required: 		true,
+						lettersonly: 	true,
+						minlength: 		5,
+						maxlength: 		50,
+					},
+					email: {
+						required: 		true,
+						email:			true,
+						minlength: 		8,
+						maxlength: 		35,
+					},
+					password: {
+						required:		true,
+						minlength: 		6,
+						pwcheck: 		true,
+						// maxlength: 		15,
+					},
+					role_id: {
+						required: 		true
+					},
+					permission_id: {
+						required: 		true,
+					},
+					status: {
+						required: 		true,
+
+					}
+				},
+				debug: true,
+				errorClass: 'help-block',
+				validClass: 'success',
+				errorElement: "span",
+				highlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           			 	$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        			}
+				},
+				unhighlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        			}
+				},
+				errorPlacement: function (error, element) {
+					if (element.parent('.input-group').length) {
+						error.insertAfter(element.parent());
+					}
+					else if (element.prop('type') === 'radio' && element.parent('.radio-inline').length) {
+						error.insertAfter(element.parent().parent());
+					}
+					else if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+						error.appendTo(element.parent().parent());
+					}
+					else {
+						error.insertAfter(element);
+					}
+				},
+				messages: {
+					name: {
+						required: 		'Debe ingresar al menos un nombre y un apellido',
+						lettersonly: 	'Los nombres solo pueden contener letras',
+						minlength: 		'Un nombre válido tiene como mínimo 5 letras',
+						maxlength: 		'Un nombre válido tiene como máximo 50 letras',
+					},
+					email: {
+						required:		'Debe ingresar una dirección de correo electrónico',
+						email:			'Por favor ingrese una dirección de correo válida',
+						minlength: 		'Un correo electrónico válido tiene como mínimo 8 caracteres',
+						maxlength: 		'Supera el límite de 35 caracteres',
+					},
+					password: {
+						required: 		'Debe ingresar una contraseña',
+						minlength: 		'La contraseña debe tener como mínimo 6 caracteres',
+						pwcheck:        'Debe tener al menos una letra mayúscula, al menos un número y al menos un símbolo',
+					},
+					role_id: {
+						required: 		'Debe seleccionar un rol',
+					},
+					permission_id: {
+						required: 		'Debe seleccionar un permiso',
+					},
+					status: {
+						required: 		'Debe activar el estado del usuario'
+					}
+				 },
+			});
+
+
+			validatorUpdate = $('#frm-update_user').validate({
+				keyup: true,
+					rules: {
+						name: {
+							required: 		true,
+							lettersonly: 	true,
+							minlength: 		5,
+							maxlength: 		50,
+						},
+						email: {
+							required: 		true,
+							email:			true,
+							minlength: 		8,
+							maxlength: 		35,
+						},
+						role_id: {
+							required: 		true
+						},
+						permission_id: {
+							required: 		true,
+						}
+					},
+					debug: true,
+					errorClass: 'help-block',
+					validClass: 'success',
+					errorElement: "span",
+					highlight: function(element, errorClass, validClass){
+						if (!$(element).hasClass('novalidation')) {
+							$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+						}
+					},
+					unhighlight: function(element, errorClass, validClass){
+						if (!$(element).hasClass('novalidation')) {
+							$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+						}
+					},
+					errorPlacement: function (error, element) {
+						if (element.parent('.input-group').length) {
+							error.insertAfter(element.parent());
+						}
+						else if (element.prop('type') === 'radio' && element.parent('.radio-inline').length) {
+							error.insertAfter(element.parent().parent());
+						}
+						else if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+							error.appendTo(element.parent().parent());
+						}
+						else {
+							error.insertAfter(element);
+						}
+					},
+					messages: {
+						name: {
+							required: 		'Debe ingresar al menos un nombre y un apellido',
+							lettersonly: 	'Los nombres solo pueden contener letras',
+							minlength: 		'Un nombre válido tiene como mínimo 5 letras',
+							maxlength: 		'Un nombre válido tiene como máximo 50 letras',
+						},
+						email: {
+							required:		'Debe ingresar una dirección de correo electrónico',
+							email:			'Por favor ingrese una dirección de correo válida',
+							minlength: 		'Un correo electrónico válido tiene como mínimo 8 caracteres',
+							maxlength: 		'Supera el límite de 35 caracteres',
+						},
+						role_id: {
+							required: 		'Debe seleccionar un rol',
+						},
+						permission_id: {
+							required: 		'Debe seleccionar un permiso',
+						}
+					},
+				});
+		}
+
 			//-------------Actualizar usuarios-------------
 
 				$('#frm-update_user').on('submit', function(e){
@@ -473,9 +673,6 @@ function check(){
     				var rowData = $('#tbl-users').DataTable().row($tr).data();
 					var user = rowData.id;
 					var status = rowData.status;
-		//$.get('users/' + vid + '/edit', {id:vid}, function(data){
-			//console.log(data);
-			// var rol=data.roles;
 			if(status == 1 ){
 				$('#update_status').append($('<option>', {value: 1, text: 'Activo'}));
 				$('#update_status').append($('<option>', {value: 0, text: 'Inactivo'}));
@@ -483,10 +680,9 @@ function check(){
 				$('#update_status').append($('<option>', {value: 0, text: 'Inactivo'}));
 				$('#update_status').append($('<option>', {value: 1, text: 'Activo'}));
 			}
-			//$('#frm-update_status').find('#update_status').val(status)
 			$('#frm-update_status').find('#update_userstatus_id').val(user)
 			$('#update_status_modal').modal('show');
-		//});
+
 	});
 
 		//-------------Actualizar status-------------

@@ -375,7 +375,7 @@
                       <select name="toothache"id="toothache"class="form-control"></select>
                     </div>
                   </div>
-                    <input type="text" name="id" id="dental_patient_id"/>
+                    <input type="hidden" name="id" id="dental_patient_id"/>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -523,7 +523,7 @@
       //disabledDepartmentEdit()
       //filterMunicipalityEdit();
       embarazada();
-
+      updatePaciente ();
     });
 
 function embarazada(){
@@ -658,6 +658,93 @@ function calcularEdad(fecha) {
 			}
 
 
+/* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
+para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
+
+  	function updatePaciente () {
+			jQuery.validator.addMethod("lettersonly", function(value, element) {
+				return this.optional(element) || /^[a-z\sÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]+$/i.test(value);
+			}, );
+			jQuery.validator.addMethod("phoneguion", function(value, element) {
+				return this.optional(element) || /^[0-9\-]+$/i.test(value);
+			}, );
+			$('#frm-update_patient').validate({
+				keyup: true,
+				rules: {
+					names: {
+						// required: 		true,
+						lettersonly: 	true,
+						minlength: 		2,
+						maxlength: 		35,
+					},
+					surnames: {
+						// required: 		true,
+						lettersonly: 	true,
+						minlength: 		2,
+						maxlength: 		35,
+					},
+					gender_id: {
+						required:		true,
+					},
+					birth_date: {
+						required: 		true
+					},
+					location_id: {
+						required: 		true,
+					},
+					address: {
+						required: 		true,
+						minlength: 		5,
+					},
+					municipality_id: {
+						required: 		true
+					},
+					phone_number: {
+						phoneguion: 	true,
+						minlength: 		9,
+						maxlength: 		9,
+					}
+
+
+				},
+				messages: {
+					names: {
+						// required: 		function () {toastr.error('Por favor ingrese al menos un nombre')},
+						lettersonly: 	function () {toastr.error('Los nombres solo pueden contener letras')},
+						minlength: 		function () {toastr.error('Ingrese un nombre válido')},
+						maxlength: 		function () {toastr.error('Ingrese un nombre válido')},
+					},
+					surnames: {
+						// required: 		function () {toastr.error('Por favor ingrese al menos un apellido')},
+						lettersonly: 	function () {toastr.error('Los apellidos solo pueden contener letras')},
+						minlength: 		function () {toastr.error('Ingrese un apellido válido')},
+						maxlength: 		function () {toastr.error('Ingrese un apellido válido')},
+					},
+					gender_id: {
+						required: 		function () {toastr.error('Debe elegir un género')}
+					},
+					birth_date: {
+						required: 		function () {toastr.error('Debe ingresa fecha de nacimiento')},
+						date: 			function () {toastr.error('Ingrese una fecha válida')}
+					},
+					location_id: {
+						required: 		function () {toastr.error('Debe elegir localidad')},
+					},
+					municipality_id: {
+						required: 		function () {toastr.error('Debe elegir un municipio')}
+					},
+					address: {
+						required: 		function () {toastr.error('La dirección es requerida')},
+						minlength: 		function () {toastr.error('Ingrese una dirección válida')},
+					},
+					phone_number: {
+						phoneguion: 		function () {toastr.error('Ingrese un número de teléfono válido')},
+						minlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
+						maxlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
+					}
+				},
+			});
+		}
 
 
 
@@ -785,6 +872,9 @@ function calcularEdad(fecha) {
       if($('#frm-update_history_dental').find('#what_reaction').val() == ""){
       $('#frm-update_history_dental').find('#what_reaction').val('No tiene ninguna reacción')
       }
+      else if($('#frm-update_history_dental').find('#what_reaction').val() == "No tiene ninguna reacción"){
+      $('#frm-update_history_dental').find('#what_reaction').val('No tiene ninguna reacción')
+      }
       else{
       $('#frm-update_history_dental').find('#what_reaction').val(data.what_reaction)
       }
@@ -801,6 +891,8 @@ function calcularEdad(fecha) {
 			$('#update_history_dental_modal').modal('show');
 		});
 	});
+
+
 
 	//-------------Actualizar Historia odontologica------------
 
@@ -848,8 +940,12 @@ function calcularEdad(fecha) {
        if($('#frm-update_history_clinic').find('#disease_name').val() == ""){
       $('#frm-update_history_clinic').find('#disease_name').val('No tiene ninguna enfermedad')
       }
+        else if($('#frm-update_history_clinic').find('#disease_name').val() == "No tiene ninguna enfermedad"){
+      $('#frm-update_history_clinic').find('#disease_name').val('No tiene ninguna enfermedad')
+      }
+
       else{
-      $('#frm-update_history_clinic').find('#disease_name').val(data.what_reaction)
+      $('#frm-update_history_clinic').find('#disease_name').val(data.disease_name)
       }
 			//console.log(data);
 			var infeccion=data.cardiac;
@@ -872,6 +968,10 @@ function calcularEdad(fecha) {
       if($('#frm-update_history_clinic').find('#what_you_allergy').val() == ""){
       $('#frm-update_history_clinic').find('#what_you_allergy').val('No le da ninguna reacción')
       }
+       else if($('#frm-update_history_clinic').find('#what_you_allergy').val() == "No le da ninguna reacción"){
+      $('#frm-update_history_clinic').find('#what_you_allergy').val('No le da ninguna reacción')
+      }
+
       else{
       $('#frm-update_history_clinic').find('#what_you_allergy').val(data.what_you_allergy)
       }
@@ -903,6 +1003,10 @@ function calcularEdad(fecha) {
       if($('#frm-update_history_clinic').find('#observations').val() == ""){
       $('#frm-update_history_clinic').find('#observations').val('No  hay observaciones')
       }
+       else if($('#frm-update_history_clinic').find('#observations').val() == "No  hay observaciones"){
+      $('#frm-update_history_clinic').find('#observations').val('No  hay observaciones')
+      }
+
       else{
       $('#frm-update_history_clinic').find('#observations').val(data.observations)
       }

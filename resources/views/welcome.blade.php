@@ -50,7 +50,7 @@
             }
 
             .links > a {
-                background-color:#057deb;
+                background-color:#b1faf8;
                 border-radius: 15px;
                 color: #000000;
                 padding: 14px 25px;
@@ -73,7 +73,10 @@
                 margin-bottom: -22%;
                text-shadow: 1px 1px 2px #000000 , 2px 2px 4px #F8E6E0;
             }
-
+            b{
+                margin-bottom: -22%;
+               text-shadow: 1px 1px 2px #000000 , 2px 2px 4px #F8E6E0;
+            }
             .fondo{
             background: url('../images/fondo.png') no-repeat center center fixed;
             -webkit-background-size: 780px;
@@ -97,7 +100,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <b>SISALUDENT</b>
+                    <b><font>SISALUDENT</font></b>
                 </div>
                 <h1> Sistema de Salud Dental</h1>
             </div>
