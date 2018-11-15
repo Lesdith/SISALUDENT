@@ -14,110 +14,80 @@
 @section('content')
 
     <div class="container">
-        <form id="nuevo_presupuesto">
-            {{ csrf_field() }}
-             <h5 style="color:#ff6347">Presupuesto</h5>
-                    <hr />
-                    <div class="form-horizontal">
+        <div class="well well-sm">
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="patient_id" class="form-control typeahead" type="hidden" placeholder="Paciente" value="{{$patient->id}}" />
+                {{ csrf_field() }}
+                <input id="name" class="form-control typeahead" type="text" placeholder="Paciente" value="{{$patient->names}} {{$patient->surnames}}" />
+            </div>
+            <div class="col-xs-2">
+                <input class="form-control" type="date" id="date" placeholder="Fecha" readonly  />
+            </div>
+        </div>
+    </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                Paciente
-                            </label>
-                            <div class="col-md-4">
-                             <input type="text" name="patient_id" value="{{$patient->id}}" id="patient_id" />
-                                <input type="text" id="names" name="names" placeholder="Nombre de paciente" value="{{$patient->names}} {{$patient->surnames}}" class="form-control" />
-                            </div>
-                            <label class="control-label col-md-2">
-                                Fecha de emisión
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="date" name="date" placeholder="Fecha de emisión" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <h5 style="margin-top:10px;color:#ff6347">Detalles</h5>
-                    <hr />
-                    <div class="form-horizontal">
-                        <input type="hidden" id="OrderId" />
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                               Diente
-                            </label>
-                            <div class="col-md-4">
-                                <select  id="tooth_id" name="tooth_id" class="form-control" >
-                                </select>
-                            </div>
-                            <label class="control-label col-md-2">
-                                Diagnostico
-                            </label>
-                            <div class="col-md-4">
-                                <select type="text" id="diagnosis_id" name="diagnosis_id"  class="form-control" ></select>
-                            </div>
-                            <label class="control-label col-md-2">
-                                Tratamiento
-                            </label>
-                            <div class="col-md-4">
-                                <select type="text" id="tooth_treatment_id" name="tooth_treatment_id" class="form-control" ></select>
-                            </div>
-                            <label class="control-label col-md-2">
-                                Precio
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="cost" name="cost"  class="form-control" />
-                            </div>
-                             <label class="control-label col-md-2">
-                                Descripción
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="description" name="description" class="form-control" />
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <select id="tooth_id" name="tooth_id" class="form-control" type="text"></select>
+        </div>
+        <div class="col-xs-2">
+            <select id="diagnosis_id" name="diagnosis" class="form-control" type="text"></select>
+        </div>
+        <div class="col-xs-3">
+            <select id="tooth_treatment_id" name="tooth_treatment_id" class="form-control" type="text"></select>
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Q.</span>
+                <input class="form-control" id="cost" type="text" placeholder="Precio"/>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <input id="description" name="description" class="form-control" type="textarea" placeholder="" />
+        </div>
+        <div class="col-xs-1">
+            <button onclick="addPlanToDetail();" class="btn btn-primary form-control" id="btn-agregar">
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+        </div>
+    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-2 col-lg-offset-4">
-                                <a id="addToList" class="btn btn-primary">Agregar</a>
-                            </div>
-                        </div>
+    <hr />
 
-                        <table id="detalles" class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width:30%">Diente</th>
-                                    <th style="width:20%">Diagnóstico</th>
-                                    <th style="width:15%">Tratamiento</th>
-                                    <th style="width:25%">Precio</th>
-                                    <th style="width:25%">Descripción</th>
-                                    <th style="width:10%"></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                            <label class="control-label col-md-2">
-                                Subtotal
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="subtotal" name="subtotal" class="form-control" value="0" readonly="readonly"/>
-                            </div>
-                             <label class="control-label col-md-2">
-                                Descuento
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="discount" name="discount" class="form-control" value="0" />
-                            </div>
-                             <label class="control-label col-md-2">
-                                Total
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="total" name="total" class="form-control" value="0" readonly="readonly"/>
-                            </div>
-                    </div>
-                </div>
-                <div>
-                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button id="saveOrder" type="submit" class="btn btn-danger">Guardar</button>
-                </div>
-            </form>
+    <table class="table table-striped" id="detalles">
+        <thead>
+        <tr>
+            <th style="width:40px;"></th>
+            <th style="width:10px;">#</th>
+            <th>Diente</th>
+            <th style="width:100px;">Diagnostico</th>
+            <th style="width:100px;">Tratamiento</th>
+            <th style="width:100px;">precio</th>
+            <th style="width:100px;">Descripción</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4" class="text-right"><b>Subtotal</b></td>
+            <td class="text-right"><input class="form-control" id="subtotal" value="0" readonly="readonly" name="subtotal"/></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-right"><b>Descuento</b></td>
+            <td class="text-right"><input class="form-control" id="discount" name="discount" value="0" /></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-right"><b>Total</b></td>
+            <td class="text-right"><input class="form-control" id="total" value ="0" readonly="readonly"name="total"/></td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <button onclick="savePlan();" class="btn btn-default btn-lg btn-block">
+        Guardar
+    </button>
+
     </div>
 
 @stop
@@ -126,14 +96,21 @@
   <script>
 
       $(document).ready(function() {
+            
             Today();
             getDiente();
             getDiagnostico();
             getTratamiento();
             //calcularDescuento();
             $("#discount").keyup(function(){
-                    sumaTotal();
-                });
+                sumaTotal();
+            });
+
+            $.ajaxSetup({
+			headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+		});
         });
 
         function Today(){
@@ -143,40 +120,45 @@
             var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + twoDigitDate; console.log(currentDate);
             $('#date').val(currentDate);
         }
-
-
-        //Se llena la tabla con cada uno de los tratamientos.
-        $("#addToList").click(function (e) {
-            e.preventDefault();
-
-            if ($.trim($("#tooth_id").val()) == "" || $.trim($("#diagnosis_id").val()) == "" || $.trim($("#cost").val()) == "" || $.trim($("#description").val()) == "") return;
-
-            var tooth_id = $("#tooth_id").val(),
-                diagnosis_id = $("#diagnosis_id").val(),
-                tooth_treatment_id = $("#tooth_treatment_id").val(),
-                cost = $("#cost").val(),
-                description = $('#description').val(),
-                detailsTableBody = $("#detalles tbody");
-
-            var treatment = '<tr><td>' + tooth_id + '</td><td>' + diagnosis_id + '</td><td>' + tooth_treatment_id + '</td><td>' + cost + '</td><td>' + description + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+        var detail = [];
+        var i =0;
+        function addPlanToDetail() {
+            
+            detail.push({
+                tooth_id: $('#tooth_id').val(),
+                diagnosis_id: $('#diagnosis_id').val(),
+                tooth_treatment_id: $('#tooth_treatment_id').val(),
+                cost: $('#cost').val(),
+                description: $('#description').val(),
+            });
+            var tooth_id_name = $('#tooth_id').find('option:selected').text();
+            var diagnosis_id_name = $('#diagnosis_id').find('option:selected').text();
+            var tooth_treatment_id_name = $('#tooth_treatment_id').find('option:selected').text();
+            var cost_name = $('#cost').val();
+            var description_name = $('#description').val();
+            
+            detailsTableBody = $("#detalles tbody");
+            i++;
+            console.log(i)
+            var treatment = '<tr><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger">X</a></td><td>'+ i +'</td><td>' + tooth_id_name + '</td><td>' + diagnosis_id_name + '</td><td>' + tooth_treatment_id_name + '</td><td>' + cost_name + '</td><td>' + description_name + '</td></tr>';
             detailsTableBody.append(treatment);
-            sumarDetalles()
-            sumaTotal()
-            clearItem();
-        });
-        //permite eliminar de la tabla temporal registro por registro
+            sumarDetalles();
+            sumaTotal();
+        }
+
         $(document).on('click', 'a.deleteItem', function (e) {
             e.preventDefault();
             var $self = $(this);
             if ($(this).attr('data-itemId') == "0") {
                 $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    var item = $(this).find('td:eq(1)').html();
+                    
+                        detail.splice(--item, 1);
+                        console.log(detail)
 
-                    var costoItem = $(this).find('td:eq(3)').html();
-                    console.log(costoItem)
+                    var costoItem = $(this).find('td:eq(5)').html();
                     var subTotalDelete = $('#subtotal').val();
-                    console.log(subTotalDelete)
                     var Recalcular = parseFloat(subTotalDelete)-parseFloat(costoItem);
-                    console.log(Recalcular)
                     $('#subtotal').val(Recalcular);
                     sumaTotal();
                     $(this).remove();
@@ -184,144 +166,58 @@
             }
         });
 
-        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
-        function clearItem() {
-            getDiente();
-            getDiagnostico();
-            getTratamiento();
-            $("#cost").val('');
-            $("#description").val('');
-        }
+        // function deleteRow(r) {
+            
+        //    var i = r.parentNode.parentNode.rowIndex;
+        //    console.log(i)
+        //    var table = document.getElementById("#detalles");
+        //   // if (table.rows.length > 0){
+        //        table.deleteRow(i);
+        //   // }
+        //     // var item = e.item,
+        //     //     index = detail.indexOf(item);
 
-        $.ajaxSetup({
-			headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-		});
-
-        $.ajaxSetup({
-			headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-		});
-
-        $('#nuevo_presupuesto').on('submit', function(e){
-            e.preventDefault();
-				var orderArr = [];
-				$.each($('#detalles tbody tr'), function(){
-					orderArr.push({
-						tooth_id: $(this).find('td:eq(0)').html(),
-						diagnosis_id: $(this).find('td:eq(1)').html(),
-						tooth_treatment_id: $(this).find('td:eq(2)').html(),
-						cost: $(this).find('td:eq(3)').html(),
-						description: $(this).find('td:eq(4)').html()
-                	});
-				});
-
-                var datos = $('#nuevo_presupuesto').serializeArray();
-                datos.push({order: orderArr});
-
-                console.log(datos);
-
-				// var data = JSON.stringify({
-				// 	patient_id: $("#patient_id").val(),
-				// 	date: $("#date").val(),
-				// 	subtotal: $('#subtotal').val(),
-				// 	discount: $('#discount').val(),
-				// 	total: $('#total').val(),
-                //     _token : "{{csrf_token()}}",
-				// 	order: orderArr
-				// });
-
-				console.log(datos);
-				$.ajax({
-					dataType: 'JSON',
-					type: 'POST',
-					url: '{{ URL::to('plans')}}',
-					data: datos,
-
-					success: function (data) {
-                        console.log(data),
-                        toastr["success"]("¡Paciente creado exitosamente!", "Guardado")
-						// alert(result);
-						// location.reload();
-					},
-                     error: function (jqXHR, exception) {
-                            var msg = '';
-                            if (jqXHR.status === 0) {
-                                msg = 'Not connect.\n Verify Network.';
-                            } else if (jqXHR.status == 404) {
-                                msg = 'Requested page not found. [404]';
-                            } else if (jqXHR.status == 500) {
-                                msg = 'Internal Server Error [500].';
-                            } else if (exception === 'parsererror') {
-                                msg = 'Requested JSON parse failed.';
-                            } else if (exception === 'timeout') {
-                                msg = 'Time out error.';
-                            } else if (exception === 'abort') {
-                                msg = 'Ajax request aborted.';
-                            } else {
-                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                            }
-                    alert(msg);
-                        },
-
-				});
-
-
-			});
-
-
-        // After Click Save Button Pass All Data View To Controller For Save Database
-        // function saveOrder(data) {
-        //        console.log(data);
-        //     return $.ajax({
-        //         dataType: 'json',
-        //         type: 'POST',
-        //         url: '{{ URL::to('plans')}}',
-        //         data: data,
-        //         success: function (data) {
-        //             // alert(result);
-        //             // location.reload();
-        //         },
-        //         error: function () {
-        //             alert("Error!")
-        //         }
-        //     });
+        //     // detail.splice(index, 1);
+            
         // }
-        // //Collect Multiple Order List For Pass To Controller
-        // $("#saveOrder").click(function (e) {
-        //     e.preventDefault();
-
-        //     var orderArr = [];
-        //     orderArr.length = 0;
-
-        //     $.each($("#detalles tbody tr"), function () {
-        //         orderArr.push({
-        //             tooth_id: $(this).find('td:eq(0)').html(),
-        //             diagnosis_id: $(this).find('td:eq(1)').html(),
-        //             tooth_treatment_id: $(this).find('td:eq(2)').html(),
-        //             cost: $(this).find('td:eq(3)').html(),
-        //             description: $(this).find('td:eq(4)').html()
-        //         });
-        //     });
 
 
-        //     var data = JSON.stringify({
-        //         patient_id: $("#patient_id").val(),
-        //         date: $("#date").val(),
-        //         subtotal: $('#subtotal').val(),
-        //         discount: $('#discount').val(),
-        //         total: $('#total').val(),
-        //         order: orderArr
-        //     });
+        // $.ajax({
+		// 			dataType: 'JSON',
+		// 			type: 'POST',
+		// 			url: '{{ URL::to('plans')}}',
+		// 			data: datos,
 
-        //     // $.when(saveOrder(data)).then(function (response) {
-        //     //     console.log(response);
-        //     // }).fail(function (err) {
-        //     //     console.log(err);
-        //     // });
-        // });
+		// 			success: function (data) {
+        //                 console.log(data),
+        //                 toastr["success"]("¡Paciente creado exitosamente!", "Guardado")
+		// 				// alert(result);
+		// 				// location.reload();
+		// 			},
+        //              error: function (jqXHR, exception) {
+        //                     var msg = '';
+        //                     if (jqXHR.status === 0) {
+        //                         msg = 'Not connect.\n Verify Network.';
+        //                     } else if (jqXHR.status == 404) {
+        //                         msg = 'Requested page not found. [404]';
+        //                     } else if (jqXHR.status == 500) {
+        //                         msg = 'Internal Server Error [500].';
+        //                     } else if (exception === 'parsererror') {
+        //                         msg = 'Requested JSON parse failed.';
+        //                     } else if (exception === 'timeout') {
+        //                         msg = 'Time out error.';
+        //                     } else if (exception === 'abort') {
+        //                         msg = 'Ajax request aborted.';
+        //                     } else {
+        //                         msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        //                     }
+        //             alert(msg);
+        //                 },
+
+		// 		});
+
+
+		
 
 
 	//para cargar la lista de
@@ -379,9 +275,25 @@
                     $('#total').val(total);
                 }
             }
-            function calcularDescuento(){
 
-            }
+            function savePlan() {
+            $.post( "../plans", {
+                patient_id: $('#patient_id').val(),
+                date: $('#date').val(),
+                subtotal: $('#subtotal').val(),
+                discount: $('#discount').val(),
+                total: $('#total').val(),
+                detail: detail
+            }, function(r){
+                if(r.response) {
+                    console.log(r)
+                   // window.location.href = baseUrl('invoice');
+                } else {
+                    alert('Ocurrió un error');
+                }
+            }, 'json')
+        }
+        
 
 
 
