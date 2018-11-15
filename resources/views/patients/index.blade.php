@@ -533,6 +533,7 @@ $("#cancel").on("click",function(e){
 			});
 	}
 
+
 //Función para poder activar y desactivar el input de enfermedades
 
 	function enfermedadInfecciosa(){
@@ -655,7 +656,9 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						&& /[a-z]/.test(value) // has a lowercase letter
 						&& /\d/.test(value) // has a digit
 				});
+
 			validator = $('#frm-patient').validate({
+			errorPlacement: function errorPlacement(error, element) { element.before(error); },
 				keyup: true,
 				rules: {
 					names: {
@@ -691,13 +694,13 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						minlength: 		9,
 						maxlength: 		9,
 					}
-
-
 				},
 				debug: true,
 				errorClass: 'help-block',
 				validClass: 'success',
 				errorElement: "span",
+				onclick: true,
+
 				highlight: function(element, errorClass, validClass){
 					if (!$(element).hasClass('novalidation')) {
            			 	$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -721,7 +724,8 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					else {
 						error.insertAfter(element);
 					}
-				},
+   		},
+
 				messages: {
 					names: {
 						required: 		'Por favor ingrese al menos un nombre',
@@ -759,6 +763,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					}
 				},
 			});
+
 		}
 
 
