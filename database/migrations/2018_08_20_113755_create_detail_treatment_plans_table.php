@@ -19,10 +19,10 @@ class CreateDetailTreatmentPlansTable extends Migration
             $table->integer('tooth_id')->unsigned();
             $table->integer('diagnosis_id')->unsigned();
             $table->integer('tooth_treatment_id')->unsigned();
-            $table->decimal('cost', 19, 4);
+            $table->decimal('cost', 10, 2);
             $table->longText('description')->nullable();
             $table->timestamps();
-                     
+
             $table->foreign('treatment_plan_id')->references('id')->on('treatment_plans')
             ->onDelete('cascade')
             ->onUpdate('cascade');
@@ -40,7 +40,7 @@ class CreateDetailTreatmentPlansTable extends Migration
             ->onUpdate('cascade');
         });
 
-        
+
     }
 
     /**
