@@ -310,7 +310,7 @@
 					<div class="modal-footer">
 							<button type="button" id="cancel" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
 							<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
-							<button  aria-disabled="true" type="button"class="btn btn-success js-btn-step" data-orientation="next"></button>
+							<button  disabled="true" id="siguiente" type="button"class="btn btn-success js-btn-step" data-orientation="next"></button>
 					</div>
 			</div>
 		</div>
@@ -364,15 +364,18 @@ input.error {
 		check();
 		calculaEdad();
 		var validator;
-
 	});
 
-$("#cancel").on("click",function(e){
-     e.preventDefault();
-	 validator.resetForm();
-    $('#frm-patient').trigger("reset");
-});
+	/* Esta es una función que se dispara al dar click en el botón cancel del modal del formulario
+	de pacientes (frm-patient) sirve para limpiar el formulario y las validaciones cargadas en el modal */
+	$("#cancel").on("click",function(e){
+		e.preventDefault();
+		validator.resetForm();
+		$('#frm-patient').trigger("reset");
+	});
 
+
+	// Esta función sirve para configurar y mostrar el datatable pero la función  debe ser llamada en el document ready
 		function dataTablePatient()
 			{
 				var dt = $('#tbl-patients').DataTable({
@@ -428,14 +431,15 @@ $("#cancel").on("click",function(e){
 
 							"<div class='btn-group btn-group-xs' > " +
 							"<button type='button' id='show'  class='show btn btn-info'   title='Mostrar'   data-id='id'><i class='fa fa-eye'></i></button>"+
-							"<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>"+
-							//"<button type='button' id='del' class='delete btn btn-danger' title='Eliminar'><i class='fa fa-trash-o'></i></button>"+
+							// "<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>"+
 							"</div>"
 
 						}
 
 					]
 				});
+			/* Permite indexar los registros mostrados en el datatable es decir que deben aparecer en orden
+			independientemente si se borran registros o si se hace una búsqueda los registros se numeran desde el 1 en adelante */
 				dt.on( 'order.dt search.dt', function () {
        				dt.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             			cell.innerHTML = i+1;
@@ -443,7 +447,8 @@ $("#cancel").on("click",function(e){
     			}).draw();
 			}
 
-			//para cargar la lista de géneros
+			/* Esta función permite cargar el listado de géneros en el dropdownlist
+			 al momento de crear un paciente, pero la función  debe ser llamada en el document ready */
 			function getGender(){
 			$.get('get-genders', function(data){
 					$('#gender_id').append($('<option>', {value: "", text: 'Seleccionar género'}));
@@ -453,7 +458,8 @@ $("#cancel").on("click",function(e){
 				});
 			}
 
-			//para cargar la lista de tipos de localidad
+			/* Esta función permite cargar el listado de localidad en el dropdownlist
+			 al momento de crear un paciente, pero la función  debe ser llamada en el document ready */
 			function getLocation(){
 			$.get('get-locations', function(data){
 					$('#location_id').append($('<option>', {value: "0", text: 'Seleccionar Localidad'}));
@@ -463,6 +469,9 @@ $("#cancel").on("click",function(e){
 				});
 			}
 
+			/* Esta función trabaja en conjunto con la función de location (si la localidad es =  local) se habilita el listado de departamentos
+			junto con los municipios asociados, en caso contrario (si la localidad es = extranjero) permanecen deshabilitados,
+			pero la función  debe ser llamada en el document ready*/
 			function disabledDepartment(){
 					$('#department_id').prop('disabled', true);
 						$('#location_id').change(function() {
@@ -479,7 +488,8 @@ $("#cancel").on("click",function(e){
 				}
 
 
-				//para cargar la lista de los departamentos
+			/* Esta función permite cargar el listado de departamentos en el dropdownlist
+			 al momento de crear un paciente, esta función se llama  dentro de otra función llamada disabledDepartment() */
 			function getDepartment(){
 			$.get('get-departments', function(data){
 					$('#department_id').append($('<option>', {value: "0", text: 'Seleccionar departamento'}));
@@ -490,7 +500,8 @@ $("#cancel").on("click",function(e){
 			}
 
 
-
+			/* Esta función permite filtrar el listado de municipalidades que pertenecen al departamento seleccionado
+			 al momento de crear un paciente, esta función se llama  en el document ready */
 			function filterMunicipality(){
 				$('#municipality_id').prop('disabled', true);
 				$('#municipality_id').empty();
@@ -506,7 +517,8 @@ $("#cancel").on("click",function(e){
 				});
 			}
 
-			//para cargar la lista de los municipios
+		/* Esta función permite cargar el listado de departamentos en el dropdownlist
+			 al momento de crear un paciente, esta función se llama  dentro de otra función llamada filterMunicipality()*/
 			function getMunicipality(){
 			$department = $('#department_id').val();
 			$.get('get-municipalities/'+ $department, function(data){
@@ -516,39 +528,44 @@ $("#cancel").on("click",function(e){
 					});
 				});
 			}
-
-//Modal con pasos función, se debe de llamar en el document ready
+		/* Esta función permite crear un paciente por medio del modal con pasos
+			al momento de crear un paciente, esta función se debe de llamar en el document ready*/
 	function modalSteps(){
 		$('#add_patient_modal').modalSteps({
-			btnCancelHtml: "Cancel",
-			btnPreviousHtml: "Previous",
-			btnNextHtml: "Next",
-			btnLastStepHtml: "Complete",
+			btnCancelHtml: "Cancelar",
+			btnPreviousHtml: "Anterior",
+			btnNextHtml: "Siguiente",
+			btnLastStepHtml: "Completar",
 			disableNextButton: false,
 			completeCallback: function() {
 				crearPaciente();
 			},
 			callbacks: {},
 			getTitleAndStep: function() {}
-			});
+		});
 	}
 
+	/* Esta función se inicializa, con el botón siguiente deshabilitado en el modal con pasos, y no se habilita
+	mientras no cumpla con las validaciones */
+	$('#frm-patient').bind('change keyup', function() {
+    if($(this).validate().checkForm()) {
+        $('#siguiente').attr('disabled', false);
+    } else {
+        $('#siguiente').attr('disabled', true);
+    } });
 
-//Función para poder activar y desactivar el input de enfermedades
 
+	//Función para poder activar y desactivar el input de enfermedades
 	function enfermedadInfecciosa(){
 		$('#disease_name').prop('disabled', true);
 	}
 
-
-//Función para poder activar y desactivar el input de alergias
-
+	//Función para poder activar y desactivar el input de alergias
 	function alergia(){
 		$('#what_you_allergy').prop('disabled', true);
 	}
 
-//Función para poder desactivar el botón de embarazo en caso de que el genero sea masculino
-
+	//Función para poder desactivar el botón de embarazo en caso de que el genero sea masculino
 	function embarazada(){
 		$('#pregnant').attr('disabled', true);
 			$('#gender_id').change(function() {
@@ -565,8 +582,6 @@ $("#cancel").on("click",function(e){
 
 // Función para poder seleccionar y deseleccionar el botón radio
 function check(){
-	// Necesitamos también enlazar click handler
-	// como el botón FF establece el botón después de la eliminación, pero antes de hacer clic
 	$('input:radio').bind('click mousedown', (function() {
 		// Capturar el estado del botón de radio dentro de su alcance del controlador,
 		// por lo que no usamos ninguna vars global y cada botón de radio mantiene su propio estado.
@@ -580,19 +595,15 @@ function check(){
 			if(event.type == 'click') {
 				if(isChecked) {
 					// Desmarcar y actualizar el estado
-
 					isChecked = this.checked = false;
-
 					if ('#allergic') {
 						$('#what_you_allergy').prop('disabled', true);
 					}
-
 
 				}else {
 						//Estado de actualización
 						// El navegador comprobará el botón por sí mismo
 						isChecked = true;
-
 						// Hacer algo más si se selecciona el botón de radio
 						if ('#allergic') {
 						$('#what_you_allergy').prop('disabled', false);
@@ -600,12 +611,10 @@ function check(){
 				}
 			}
 			else {
-
 				// Obtener el estado correcto antes de que el navegador lo configure
 				// Necesitamos usar el evento onmousedown aquí, ya que es el único evento compatible con varios navegadores para botones de radio
 				isChecked = this.checked;
 			}
-
 	}})());
 }
 
@@ -657,6 +666,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						&& /\d/.test(value) // has a digit
 				});
 
+			// Se creó la variable validator para poder identificar el formulario sobre el cual se esta trabajando
 			validator = $('#frm-patient').validate({
 			errorPlacement: function errorPlacement(error, element) { element.before(error); },
 				keyup: true,
@@ -685,9 +695,6 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					address: {
 						required: 		true,
 						minlength: 		5,
-					},
-					municipality_id: {
-						required: 		true
 					},
 					phone_number: {
 						phoneguion: 	true,
@@ -748,9 +755,6 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					},
 					location_id: {
 						required: 		'Debe elegir localidad',
-					},
-					municipality_id: {
-						required: 		'Debe elegir un municipio'
 					},
 					address: {
 						required: 		'La dirección es requerida',
