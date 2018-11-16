@@ -3,6 +3,17 @@
 
 @section('content_header')
     <h3>Plan de tratamiento</h3>
+    <style>
+        body {
+            /* Set "my-sec-counter" to 0 */
+            counter-reset: my-sec-counter;
+        }
+        u::before {
+            /* Increment "my-sec-counter" by 1 */
+            counter-increment: my-sec-counter;
+            content: counter(my-sec-counter);
+        }
+        </style>
 @stop
 
 	@if (session('status'))
@@ -13,7 +24,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
@@ -34,7 +45,7 @@
         <div class="col-xs-2">
             <select id="diagnosis_id" name="diagnosis" class="form-control" type="text"></select>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-2">
             <select id="tooth_treatment_id" name="tooth_treatment_id" class="form-control" type="text"></select>
         </div>
         <div class="col-xs-2">
@@ -43,8 +54,8 @@
                 <input class="form-control" id="cost" type="text" placeholder="Precio"/>
             </div>
         </div>
-        <div class="col-xs-2">
-            <input id="description" name="description" class="form-control" type="textarea" placeholder="" />
+        <div class="col-xs-3">
+            <input id="description" name="description" class="form-control" type="textarea" placeholder="Ingresar descripción u observación" />
         </div>
         <div class="col-xs-1">
             <button onclick="addPlanToDetail();" class="btn btn-primary form-control" id="btn-agregar">
@@ -121,9 +132,16 @@
             $('#date').val(currentDate);
         }
         var detail = [];
-        var i =0;
+        
         function addPlanToDetail() {
-            
+             if ($.trim($("#tooth_id").val()) == "" || $.trim($("#diagnosis_id").val()) == "" || $.trim($("#cost").val()) == "" || $.trim($("#description").val()) == "") {
+                swal(
+                'Error!',
+                'Todos los campos son requeridos',
+                'error'
+                ) 
+                return;
+            }
             detail.push({
                 tooth_id: $('#tooth_id').val(),
                 diagnosis_id: $('#diagnosis_id').val(),
@@ -136,14 +154,20 @@
             var tooth_treatment_id_name = $('#tooth_treatment_id').find('option:selected').text();
             var cost_name = $('#cost').val();
             var description_name = $('#description').val();
-            
             detailsTableBody = $("#detalles tbody");
-            i++;
-            console.log(i)
-            var treatment = '<tr><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger">X</a></td><td>'+ i +'</td><td>' + tooth_id_name + '</td><td>' + diagnosis_id_name + '</td><td>' + tooth_treatment_id_name + '</td><td>' + cost_name + '</td><td>' + description_name + '</td></tr>';
+            var treatment = '<tr><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger">X</a></td><td><u></u></td><td> ' + tooth_id_name + '</td><td>' + diagnosis_id_name + '</td><td>' + tooth_treatment_id_name + '</td><td> Q. ' + cost_name + '</td><td>' + description_name + '</td></tr>';
             detailsTableBody.append(treatment);
             sumarDetalles();
             sumaTotal();
+            clearInputs();
+        }
+
+        function clearInputs() {
+            getDiente();
+            getDiagnostico();
+            getTratamiento();
+            $("#cost").val('');
+            $("#description").val('');
         }
 
         // $(document).on('click', 'a.deleteItem', function (e) {
@@ -191,7 +215,6 @@
                     if ($(this).attr('data-itemId') == "0") {
                         $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
                             var item = $(this).find('td:eq(1)').html();
-                            
                                 detail.splice(--item, 1);
                                 console.log(detail)
 
