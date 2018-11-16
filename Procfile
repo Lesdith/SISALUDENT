@@ -1,1 +1,1 @@
-web: $(composer config bin-dir)/sisaludent public/ 
+web: $(composer config bin-dir)/ public/ 
