@@ -14,6 +14,8 @@ use IntelGUA\Sisaludent\Tooth_treatment;
 use IntelGUA\Sisaludent\Treatment_plan;
 use IntelGUA\Sisaludent\Detail_treatment_plan;
 use Illuminate\Support\Facades\DB;
+use PDF;
+use Illuminate\Support\Carbon;
 
 
 
@@ -32,7 +34,7 @@ class TreatmentPlansController extends Controller
 
     public function getPlans($id)
     {
-        $plans = Treatment_plan::where('patient_id', '=', $id)->orderby('id', 'DESC')->get();
+        $plans = Treatment_plan::where('patient_id', '=', $id)->orderby('date', 'DESC')->get();
         return (compact('plans'));
 
     }
@@ -164,9 +166,40 @@ class TreatmentPlansController extends Controller
      */
     public function edit($id)
     {
-        $plan = Treatment_plan::with('detail_treatment_plans', 'patient')->where('id', '=', $id)->get();
-       // return view('plans.edit', compact('plan'));
-        return (compact('plan'));
+        $plan = Treatment_plan::with(
+            'detail_treatment_plans',
+            'patient',
+            'detail_treatment_plans.tooth',
+            'detail_treatment_plans.diagnosis',
+            'detail_treatment_plans.tooth_treatment',
+            'detail_treatment_plans.tooth.tooth_type',
+            'detail_treatment_plans.tooth.tooth_stage',
+            'detail_treatment_plans.tooth.tooth_position'
+        )->find($id);
+        return view('plans.edit', compact('plan'));
+        //return (compact('plan'));
+    }
+
+    public function pdf($id)
+    {
+        $plan = Treatment_plan::with(
+            'detail_treatment_plans',
+            'patient',
+            'detail_treatment_plans.tooth',
+            'detail_treatment_plans.diagnosis',
+            'detail_treatment_plans.tooth_treatment',
+            'detail_treatment_plans.tooth.tooth_type',
+            'detail_treatment_plans.tooth.tooth_stage',
+            'detail_treatment_plans.tooth.tooth_position'
+        )->find($id);
+
+        $nombre_comprobante = sprintf('Presupuesto-%s.pdf', str_pad($plan->id, 7, '0', STR_PAD_LEFT));
+        $pdf = PDF::loadView('plans.pdf', compact('plan'));
+        // $treatment_name = sprintf('Presupuesto-%s.pdf', str_pad($treatment_plant->id, 7, '0', STR_PAD_LEfT));
+        // $pdf = PDF::loadView('plans.pdf', []);
+        //return view('plans.pdf', compact('plan'));
+        //return (compact('plan'));
+        return $pdf->download($nombre_comprobante);
     }
 
     /**

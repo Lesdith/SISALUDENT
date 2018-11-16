@@ -162,6 +162,7 @@ return [
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Caffeinated\Shinobi\ShinobiServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
         /*
@@ -227,7 +228,8 @@ return [
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Shinobi'=> Caffeinated\Shinobi\Facades\Shinobi::class,
+        'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
