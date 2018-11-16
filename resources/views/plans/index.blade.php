@@ -81,15 +81,15 @@
         <tbody></tbody>
         <tfoot>
         <tr>
-            <td colspan="4" class="text-right"><b>Subtotal</b></td>
+            <td colspan="5" class="text-right"><b>Subtotal</b></td>
             <td class="text-right"><input class="form-control" id="subtotal" value="0" readonly="readonly" name="subtotal"/></td>
         </tr>
         <tr>
-            <td colspan="4" class="text-right"><b>Descuento</b></td>
+            <td colspan="5" class="text-right"><b>Descuento</b></td>
             <td class="text-right"><input class="form-control" id="discount" name="discount" value="0" /></td>
         </tr>
         <tr>
-            <td colspan="4" class="text-right"><b>Total</b></td>
+            <td colspan="5" class="text-right"><b>Total</b></td>
             <td class="text-right"><input class="form-control" id="total" value ="0" readonly="readonly"name="total"/></td>
         </tr>
         </tfoot>
