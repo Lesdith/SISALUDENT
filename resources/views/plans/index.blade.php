@@ -202,7 +202,7 @@
 		//Muestra el mensaje de la alerta y activa el botón cancelar
 		swalWithBootstrapButtons({
 			title: 'Eliminar',
-			text: "¿Realmente desea eliminar el?",
+			text: "¿Realmente desea eliminar el detalle?",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Si, eliminar!',
