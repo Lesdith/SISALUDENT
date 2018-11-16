@@ -135,7 +135,7 @@
         var detail = [];
         
         function addPlanToDetail() {
-             if ($.trim($("#tooth_id").val()) == "" || $.trim($("#diagnosis_id").val()) == "" || $.trim($("#cost").val()) == "" || $.trim($("#description").val()) == "") {
+             if ($.trim($("#tooth_id").val()) == "" || $.trim($("#diagnosis_id").val()) == "" || $.trim($("#tooth_treatment_id").val()) == "" || $.trim($("#cost").val()) == "" || $.trim($("#description").val()) == "") {
                 swal(
                 'Error!',
                 'Todos los campos son requeridos',
@@ -231,7 +231,7 @@
 					//Se muestra un mensaje de que el dato se elimino correctamente
 					swalWithBootstrapButtons({
 						title:"Poof! ",
-						text: "Diente se eliminó correctamente!",
+						text: "Detalle se eliminó correctamente!",
 						type: "success",
 					});
 					// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada

@@ -16,6 +16,7 @@ use IntelGUA\Sisaludent\Detail_treatment_plan;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Redirect;
 
 
 
@@ -114,7 +115,7 @@ class TreatmentPlansController extends Controller
 
                 $treatment_plan = new Treatment_plan();
                 $treatment_plan->patient_id = $data->patient_id;
-                $treatment_plan->date = $data->date;
+                $treatment_plan->date = Carbon::parse($data->date)->format('Y/m/d');
                 $treatment_plan->subtotal = $data->subtotal;
                 $treatment_plan->discount = $data->discount;
                 $treatment_plan->total = $data->total;
@@ -139,6 +140,9 @@ class TreatmentPlansController extends Controller
             } catch (Exception $e) {
                 DB::rollBack();
             }
+            //var_dump($treatment_plan->patient_id);
+           //// exit;
+           // return Redirect::to('../patients/' . $treatment_plan->patient_id);
             return json_encode($return);
          //return Response::json(['data'=>$treatment_plan->id]);
             // return Json($result, JsonRequestBehavior.AllowGet);
