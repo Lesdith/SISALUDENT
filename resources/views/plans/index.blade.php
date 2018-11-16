@@ -146,25 +146,83 @@
             sumaTotal();
         }
 
-        $(document).on('click', 'a.deleteItem', function (e) {
-            e.preventDefault();
-            var $self = $(this);
-            if ($(this).attr('data-itemId') == "0") {
-                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
-                    var item = $(this).find('td:eq(1)').html();
+        // $(document).on('click', 'a.deleteItem', function (e) {
+        //     e.preventDefault();
+        //     var $self = $(this);
+        //     if ($(this).attr('data-itemId') == "0") {
+        //         $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+        //             var item = $(this).find('td:eq(1)').html();
                     
-                        detail.splice(--item, 1);
-                        console.log(detail)
+        //                 detail.splice(--item, 1);
+        //                 console.log(detail)
 
-                    var costoItem = $(this).find('td:eq(5)').html();
-                    var subTotalDelete = $('#subtotal').val();
-                    var Recalcular = parseFloat(subTotalDelete)-parseFloat(costoItem);
-                    $('#subtotal').val(Recalcular);
-                    sumaTotal();
-                    $(this).remove();
-                });
-            }
-        });
+        //             var costoItem = $(this).find('td:eq(5)').html();
+        //             var subTotalDelete = $('#subtotal').val();
+        //             var Recalcular = parseFloat(subTotalDelete)-parseFloat(costoItem);
+        //             $('#subtotal').val(Recalcular);
+        //             sumaTotal();
+        //             $(this).remove();
+        //         });
+        //     }
+        // });
+
+        $(document).on('click', 'a.deleteItem', function(e){
+		e.preventDefault();
+		// Crea los botones para que el usuario decida
+		const swalWithBootstrapButtons = swal.mixin({
+			confirmButtonClass: 'btn btn-success',
+			cancelButtonClass: 'btn btn-danger',
+			buttonsStyling: false,
+		})
+		//Muestra el mensaje de la alerta y activa el botón cancelar
+		swalWithBootstrapButtons({
+			title: 'Eliminar',
+			text: "¿Realmente desea eliminar el?",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Si, eliminar!',
+			cancelButtonText: 'No, cancelar!',
+			reverseButtons: true
+			// Se recoge el valor si se dio Click al botón eliminar
+		}).then((result) =>{
+			//console.log(result);
+				if (result.value) {
+					var $self = $(this);
+                    if ($(this).attr('data-itemId') == "0") {
+                        $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                            var item = $(this).find('td:eq(1)').html();
+                            
+                                detail.splice(--item, 1);
+                                console.log(detail)
+
+                            var costoItem = $(this).find('td:eq(5)').html();
+                            var subTotalDelete = $('#subtotal').val();
+                            var Recalcular = parseFloat(subTotalDelete)-parseFloat(costoItem);
+                            $('#subtotal').val(Recalcular);
+                            sumaTotal();
+                            $(this).remove();
+                        });
+                    }
+                     
+					//Se muestra un mensaje de que el dato se elimino correctamente
+					swalWithBootstrapButtons({
+						title:"Poof! ",
+						text: "Diente se eliminó correctamente!",
+						type: "success",
+					});
+					// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada
+				} else if(
+					result.dismiss === swal.DismissReason.cancel){
+					swalWithBootstrapButtons({
+						title	:"Cancelado",
+						text	:"¡Operación cancelada por el usuario!",
+						type	:"error",
+
+					});
+
+				}
+			});
+		});
 
         // function deleteRow(r) {
             
