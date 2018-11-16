@@ -18,6 +18,7 @@ Route::get('get-diente', 'TreatmentPlansController@getDiente');
 Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
 Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
 Route::get('get-plans/{id}', 'TreatmentPlansController@getPlans');
+Route::get('pdf/{id}', 'TreatmentPlansController@pdf');
 
 Auth::routes();
 

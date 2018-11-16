@@ -193,7 +193,13 @@
         
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="panel panel-info">
-                <div class="panel-heading"><b>Planes de tratamiento</b></div>
+                <div class="panel-heading">
+                  <b>Planes de tratamiento</b> 
+                    <a href="{{url('../plan/'.$patient->id)}}" class="btn btn-success pull-right" >
+						          <i class="fa fa-plus"></i> 
+                      Agregar
+                    </a>
+                </div>
                 <div class="panel-body">
                   <div class="container-fluid">
                         <table id="tbl-plans" class="display responsive no-wrap" width="100%">
@@ -1047,7 +1053,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
               }
             ],
 
-            "order": [[ 1, 'asc' ]],
+            "order": [[ 1, 'desc' ]],
             "fixedColumns":	true,
 
             "language":
@@ -1068,7 +1074,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 
                 "<div class='btn-group btn-group-xs' > " +
                 "<button type='button' id='show'  class='show btn btn-info'   title='Mostrar'   data-id='id'><i class='fa fa-eye'></i></button>"+
-                //"<button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>"+
+                "<button type='button' id='pdf' class='btn btn-warning' title='PDF' data-id='id'><i class='fa fa-file-pdf-o'></i></button>"+
                 //"<button type='button' id='del' class='delete btn btn-danger' title='Eliminar'><i class='fa fa-trash-o'></i></button>"+
                 "</div>"
 
@@ -1082,6 +1088,34 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
                 });
             }).draw();
         }
+
+        $('body').delegate('#tbl-plans #show', 'click', function(e){
+          e.preventDefault();
+            var $tr = $(this).closest('li').length ?
+                $(this).closest('li'):
+                $(this).closest('tr');;
+                  var rowData = $('#tbl-plans').DataTable().row($tr).data();
+                    //console.log(rowData);
+                var vid = rowData.id;
+                console.log(vid);
+              //$.get('plans/' + vid +'/edit', {id:vid}, function(data){
+                window.location.href = '../plans/' + vid+'/edit';
+          // });
+        });
+
+        $('body').delegate('#tbl-plans #pdf', 'click', function(e){
+          e.preventDefault();
+            var $tr = $(this).closest('li').length ?
+                $(this).closest('li'):
+                $(this).closest('tr');;
+                  var rowData = $('#tbl-plans').DataTable().row($tr).data();
+                    //console.log(rowData);
+                var vid = rowData.id;
+                console.log(vid);
+              //$.get('plans/' + vid +'/edit', {id:vid}, function(data){
+                window.location.href = '../pdf/' + vid;
+          // });
+        });
 
 
   </script>

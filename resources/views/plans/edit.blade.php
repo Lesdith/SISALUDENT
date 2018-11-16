@@ -14,15 +14,21 @@
 @section('content')
 
     <div class="container">
+        <!-- <h2 class="page-header">
+            Presupuesto # {{ str_pad ($plan->id, 7, '0', STR_PAD_LEFT) }}
+        </h2> -->
         <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
-                <input id="patient_id" class="form-control typeahead" type="hidden" placeholder="Paciente" value="" />
+                <input id="patient_id" class="form-control typeahead" type="hidden" placeholder="Paciente" value="{{$plan->patient_id}}" />
                 {{ csrf_field() }}
-                <input id="name" class="form-control typeahead" type="text" placeholder="Paciente" value="{{$plan->id}}" />
+                <input id="name" class="form-control typeahead" type="text" placeholder="Paciente" value="{{$plan->patient->names}} {{$plan->patient->surnames}}" />
             </div>
             <div class="col-xs-2">
-                <input class="form-control" type="date" id="date" placeholder="Fecha" readonly  />
+                <input class="form-control" value="{{$plan->date}}" type="date" id="date" placeholder="Fecha" readonly  />
+            </div>
+            <div class="col-xs-4">
+                <a type='button' id='pdf' href="{{ url('../pdf/' . $plan->id) }}" class='btn btn-warning' title='PDF' data-id='id'><i class='fa fa-file-pdf-o'></i> Imprimir</a>
             </div>
         </div>
     </div>
@@ -67,19 +73,31 @@
             <th style="width:100px;">Descripción</th>
         </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        @foreach($plan->detail_treatment_plans as $detail)
+        <tr>
+            <td></td>
+            <td></td>
+            <td>{{$detail->tooth->name}} {{$detail->tooth->tooth_type->name}} {{$detail->tooth->tooth_stage->name}} {{$detail->tooth->tooth_position->name}}</td>
+            <td>{{$detail->diagnosis->name}}</td>
+            <td>{{$detail->tooth_treatment->name}}</td>
+            <td>{{$detail->cost}}</td>
+            <td>{{$detail->description}}</td>
+        </tr>
+        @endforeach
+        </tbody>
         <tfoot>
         <tr>
             <td colspan="4" class="text-right"><b>Subtotal</b></td>
-            <td class="text-right"><input class="form-control" id="subtotal" value="0" readonly="readonly" name="subtotal"/></td>
+            <td class="text-right"><input class="form-control" id="subtotal" value="{{$plan->subtotal}}" readonly="readonly" name="subtotal"/></td>
         </tr>
         <tr>
             <td colspan="4" class="text-right"><b>Descuento</b></td>
-            <td class="text-right"><input class="form-control" id="discount" name="discount" value="0" /></td>
+            <td class="text-right"><input class="form-control" id="discount" name="discount" value="{{$plan->discount}}" /></td>
         </tr>
         <tr>
             <td colspan="4" class="text-right"><b>Total</b></td>
-            <td class="text-right"><input class="form-control" id="total" value ="0" readonly="readonly"name="total"/></td>
+            <td class="text-right"><input class="form-control" id="total" value ="{{$plan->total}}" readonly="readonly"name="total"/></td>
         </tr>
         </tfoot>
     </table>
