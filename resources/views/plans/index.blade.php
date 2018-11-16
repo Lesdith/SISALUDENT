@@ -33,7 +33,7 @@
                 <input id="name" class="form-control typeahead" type="text" placeholder="Paciente" value="{{$patient->names}} {{$patient->surnames}}" />
             </div>
             <div class="col-xs-2">
-                <input class="form-control" type="date" id="date" placeholder="Fecha" readonly  />
+                <input class="form-control" type="text" id="date" placeholder="Fecha" readonly  />
             </div>
         </div>
     </div>
@@ -128,7 +128,8 @@
             var fullDate = new Date();console.log(fullDate);
             var twoDigitMonth = (fullDate.getMonth()+1)+"";if(twoDigitMonth.length==1)	twoDigitMonth="0" +twoDigitMonth;
             var twoDigitDate = fullDate.getDate()+"";if(twoDigitDate.length==1)	twoDigitDate="0" +twoDigitDate;
-            var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + twoDigitDate; console.log(currentDate);
+            var currentDate = 
+            twoDigitDate + "-" + twoDigitMonth + "-" +fullDate.getFullYear() ; console.log(currentDate);
             $('#date').val(currentDate);
         }
         var detail = [];
