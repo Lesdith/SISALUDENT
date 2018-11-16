@@ -583,7 +583,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					//Se muestra un mensaje de que el dato se elimino correctamente
 					swalWithBootstrapButtons({
 						title:"Poof! ",
-						text: "Diente se eliminó correctamente!",
+						text: "Cita se eliminó correctamente!",
 						type: "success",
 					});
 					// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada

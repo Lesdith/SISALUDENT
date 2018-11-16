@@ -50,7 +50,9 @@
                         </div>
                       </div>
                     </form>
+                    <div class="panel-footer">
                       <button type='button' id='edit' class='edit btn btn-warning' title='Modificar' data-id='id'><i class='fa fa-pencil-square-o'></i></button>
+                    </div>
                   </div><br/>
             <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -59,7 +61,7 @@
                   <div class="panel-body">
                     <div class="container-fluid">
                       <form id="form">
-  
+
                           <input id="clinic_history" type="hidden" value="{{$patient->clinic_history}}">
                             <p><strong>¿Ha tenido alguna enfermedad infecciosa?:</strong>
                               @if($patient->infectious_disease == 1 )
@@ -130,7 +132,9 @@
                           </div>
                         </div>
                       </form>
+                      <div class="panel-footer">
                         <button type='button' id='edita' class='edit btn btn-warning' title='Modificar' data-id='patient_id'><i class='fa fa-pencil-square-o'></i></button>
+                      </div>
                     </div>
                   </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -185,12 +189,14 @@
                           </div>
                         </div>
                       </form>
+                      <div class="panel-footer">
                         <button type='button' id='editar' class='edit btn btn-warning' title='Modificar' data-id='patients_id'><i class='fa fa-pencil-square-o'></i></button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-        
+
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="panel panel-info">
                 <div class="panel-heading"><b>Planes de tratamiento</b></div>
@@ -292,7 +298,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="cancelar" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <input type="submit" class="btn btn-success" value="Actualizar" />
               </div>
           </form>
@@ -478,32 +484,32 @@
 
 @push('css')
 <style>
+.help-block {
+  display: run-in;
+  color: #ff0000;
+}
+
+input.error {
+   border:1px dotted red;
+}
+
+
 .modal-header{
           border-radius: 15px;
 }
 .modal-content{
    border-radius: 15px;
 }
-
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:   flex;
+}
 </style>
 @endpush
 @push('js')
   <script>
-
-//   	$(document).ready(function() {
-// // var noseque = {{$patient->birth_date}};
-// //       console.log(noseque);
-
-// // 		  calcularEdad();
-// //       $("#edad").append(edad);
-// //       console.log(edad);
-
-//      getGenderEdit();
-// 		 getLocationEdit();
-// 		getMunicipalityEdit();
-//     });
-
-
     $(document).ready(function() {
       getGenderEdit();
       getLocationEdit();
@@ -511,10 +517,30 @@
       //disabledDepartmentEdit()
       //filterMunicipalityEdit();
       embarazada();
-      updatePaciente ();
-      dataTablePlans()
+      validar ();
+      dataTablePlans();
+
+      var validator;
+
+      var heights = $(".container-fluid").map(function() {
+          return $(this).height();
+      }).get(),
+
+      maxHeight = Math.max.apply(null, heights);
+        $(".container-fluid").height(maxHeight);
+
     });
 
+// este apartado permite limpiar el formulario cargado en el modal al dar clic en el boton cancelar
+$("#cancelar").on("click",function(e){
+     e.preventDefault();
+	 validator.resetForm();
+    $('#frm-update_patient').trigger("reset");
+});
+
+
+
+//Esta funcion permite desabilitar el campo si es un hombre, se activa solo si es mujer
 function embarazada(){
 		$('#pregnant').attr('disabled', true);
 			$('#gender_id').change(function() {
@@ -526,6 +552,7 @@ function embarazada(){
 			});
 	}
 
+// Esta función permite calcular la edad del paciente
 function calcularEdad(fecha) {
     var hoy = new Date();
     var cumpleanos = new Date(fecha);
@@ -533,20 +560,19 @@ function calcularEdad(fecha) {
       console.log(edad);
 
     var m = hoy.getMonth() - cumpleanos.getMonth();
-
     if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
         edad--;
     }
-
     return edad;
 }
 
 //-------------Editar paciente-------------
+// con esta sección se obtienen y se cargan los datos en un modal.
 
 	$('body').delegate('#edit', 'click', function(e){
 		e.preventDefault();
 		  var vid = $('#patient_id').val();
-        //console.log(vid);
+      console.log(vid);
 
 		$.get('../patients/' + vid + '/edit', {id:vid}, function(data){
 
@@ -567,7 +593,7 @@ function calcularEdad(fecha) {
 	});
 
 
-	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
+	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
 			function getLocationEdit(vid){
         $('#update_location_id').empty();
 				$.get('../get-locations', function(data){
@@ -579,31 +605,25 @@ function calcularEdad(fecha) {
 					});
 				});
 			}
-	        //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
-			function getGenderEdit(vid){
 
+	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
+			function getGenderEdit(vid){
 				$('#update_gender_id').empty();
 			    $.get('../get-genders', function(data){
 					$.each(data,	function(i, value){
 						if(value.id === vid ){
-
 							$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
-
 						}
 						$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
 					});
-
 				});
 			}
 
-
+ //Esta función se utiliza para cargar los datos del dropdown list si el paciente pertenece a un departamento
       function getDepartmentEdit(vid){
-
          $('#update_department_id').empty();
 			$.get('../get-departments', function(data){
-
 					$.each(data,	function(i, value){
-
             if(value.id === vid){
                 $('#update_department_id').append($('<option selected>', {value: value.id, text: `${value.name}`}));
             }
@@ -626,7 +646,7 @@ function calcularEdad(fecha) {
 			// 		}
 			// 	});
 			// }
-
+  // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
         $('#update_patient_modal').on('show.bs.modal', function (e) {
           getMunicipalityEdit();
         });
@@ -637,7 +657,6 @@ function calcularEdad(fecha) {
 			$.get('../get-municipalities/'+ department, function(data){
 
 					$.each(data,	function(i, value){
-
             if(value.id === vid){
                 $('#update_municipality_id').append($('<option selected>', {value: value.id, text: `${value.name}`}));
             }
@@ -650,24 +669,29 @@ function calcularEdad(fecha) {
 /* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
 para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
 
-  	function updatePaciente () {
-			jQuery.validator.addMethod("lettersonly", function(value, element) {
+  	function  validar () {
+		jQuery.validator.addMethod("lettersonly", function(value, element) {
 				return this.optional(element) || /^[a-z\sÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]+$/i.test(value);
 			}, );
 			jQuery.validator.addMethod("phoneguion", function(value, element) {
 				return this.optional(element) || /^[0-9\-]+$/i.test(value);
 			}, );
-			$('#frm-update_patient').validate({
+			jQuery.validator.addMethod("pwcheck", function(value) {
+   					return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+					&& /[a-z]/.test(value) // has a lowercase letter
+					&& /\d/.test(value) // has a digit
+				});
+		validator = 	$('#frm-update_patient').validate({
 				keyup: true,
 				rules: {
 					names: {
-						// required: 		true,
+						required: 		true,
 						lettersonly: 	true,
 						minlength: 		2,
 						maxlength: 		35,
 					},
 					surnames: {
-						// required: 		true,
+						required: 		true,
 						lettersonly: 	true,
 						minlength: 		2,
 						maxlength: 		35,
@@ -685,9 +709,6 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						required: 		true,
 						minlength: 		5,
 					},
-					municipality_id: {
-						required: 		true
-					},
 					phone_number: {
 						phoneguion: 	true,
 						minlength: 		9,
@@ -696,40 +717,65 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 
 
 				},
+        debug: true,
+				errorClass: 'help-block',
+				validClass: 'success',
+				errorElement: "span",
+				highlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           			 	$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        			}
+				},
+				unhighlight: function(element, errorClass, validClass){
+					if (!$(element).hasClass('novalidation')) {
+           				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        			}
+				},
+				errorPlacement: function (error, element) {
+					if (element.parent('.input-group').length) {
+						error.insertAfter(element.parent());
+					}
+					else if (element.prop('type') === 'radio' && element.parent('.radio-inline').length) {
+						error.insertAfter(element.parent().parent());
+					}
+					else if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+						error.appendTo(element.parent().parent());
+					}
+					else {
+						error.insertAfter(element);
+					}
+				},
 				messages: {
 					names: {
-						// required: 		function () {toastr.error('Por favor ingrese al menos un nombre')},
-						lettersonly: 	function () {toastr.error('Los nombres solo pueden contener letras')},
-						minlength: 		function () {toastr.error('Ingrese un nombre válido')},
-						maxlength: 		function () {toastr.error('Ingrese un nombre válido')},
+						required: 		'Por favor ingrese al menos un nombre',
+						lettersonly: 	'Los nombres solo pueden contener letras',
+						minlength: 		'Ingrese un nombre válido',
+						maxlength: 		'Ingrese un nombre válido',
 					},
 					surnames: {
-						// required: 		function () {toastr.error('Por favor ingrese al menos un apellido')},
-						lettersonly: 	function () {toastr.error('Los apellidos solo pueden contener letras')},
-						minlength: 		function () {toastr.error('Ingrese un apellido válido')},
-						maxlength: 		function () {toastr.error('Ingrese un apellido válido')},
+						required: 		'Por favor ingrese al menos un apellido',
+						lettersonly: 	'Los apellidos solo pueden contener letras',
+						minlength: 		'Ingrese un apellido válido',
+						maxlength: 		'Ingrese un apellido válido',
 					},
 					gender_id: {
-						required: 		function () {toastr.error('Debe elegir un género')}
+						required: 		'Debe elegir un género'
 					},
 					birth_date: {
-						required: 		function () {toastr.error('Debe ingresa fecha de nacimiento')},
-						date: 			function () {toastr.error('Ingrese una fecha válida')}
+						required: 		'Debe ingresa fecha de nacimiento',
+						date: 			'Ingrese una fecha válida'
 					},
 					location_id: {
-						required: 		function () {toastr.error('Debe elegir localidad')},
-					},
-					municipality_id: {
-						required: 		function () {toastr.error('Debe elegir un municipio')}
+						required: 		'Debe elegir localidad',
 					},
 					address: {
-						required: 		function () {toastr.error('La dirección es requerida')},
-						minlength: 		function () {toastr.error('Ingrese una dirección válida')},
+						required: 		'La dirección es requerida',
+						minlength: 		'Ingrese una dirección válida',
 					},
 					phone_number: {
-						phoneguion: 		function () {toastr.error('Ingrese un número de teléfono válido')},
-						minlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
-						maxlength: 		function () {toastr.error('El número de teléfono debe tener 8 dígitos')},
+						phoneguion: 		'Ingrese un número de teléfono válido',
+						minlength: 		'El número de teléfono debe tener 8 dígitos',
+						maxlength: 		'El número de teléfono debe tener 8 dígitos',
 					}
 				},
 			});
@@ -1029,7 +1075,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					}
 					});
         });
-        
+
         function dataTablePlans()
         {
           var id = {{$patient->id}};

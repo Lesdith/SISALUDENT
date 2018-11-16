@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>SiSaluDent</b>',
+    'logo' => '<b>SISALUDENT</b>',
 
     'logo_mini' => '<b>SSD</b>',
 

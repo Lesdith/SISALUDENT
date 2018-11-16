@@ -199,8 +199,9 @@ class PatientsController extends Controller
     {
          if ($request->ajax()) {
 
-            $patient = Patient::with('municipality')->find($request->id);
+            $patient = Patient::with("municipality")->find($request->id);
             return response($patient);
+            //return $patient;
 
         }
     }
