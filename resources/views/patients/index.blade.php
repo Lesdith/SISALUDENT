@@ -42,7 +42,7 @@
 					<!-- Botón que invoca el Modal #add_new_fee_modal para agregar registros -->
 					<div class="col-xs-12">
 					<button data-toggle="modal" data-target="#add_patient_modal" class="btn btn-success pull-right" style="margin-bottom:10px;">
-						<i class="fa fa-plus"></i> Nuevo Registro</button>
+						<i class="fa fa-plus"></i> Nuevo paciente</button>
 						<br/>
 					</div>
 				</div>

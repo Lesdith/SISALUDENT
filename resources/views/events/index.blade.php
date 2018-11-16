@@ -142,7 +142,7 @@
             <i class='fa fa-trash-o'>  Eliminar</i>
           </button>
             <button type='button' id='edit' class='edit btn btn-success' title='Actualizarr'>
-            <i class='fa fa-trash-o'>  Actualizar</i>
+            <i class=''>  Actualizar</i>
           </button>
           </div>
         </div>
