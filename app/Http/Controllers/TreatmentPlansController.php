@@ -15,6 +15,7 @@ use IntelGUA\Sisaludent\Treatment_plan;
 use IntelGUA\Sisaludent\Detail_treatment_plan;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Illuminate\Support\Carbon;
 
 
 
@@ -196,7 +197,7 @@ class TreatmentPlansController extends Controller
         $pdf = PDF::loadView('plans.pdf', compact('plan'));
         // $treatment_name = sprintf('Presupuesto-%s.pdf', str_pad($treatment_plant->id, 7, '0', STR_PAD_LEfT));
         // $pdf = PDF::loadView('plans.pdf', []);
-       // return view('plans.pdf', compact('plan'));
+        //return view('plans.pdf', compact('plan'));
         //return (compact('plan'));
         return $pdf->download($nombre_comprobante);
     }

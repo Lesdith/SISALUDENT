@@ -53,8 +53,8 @@
             <tr>
                 <th style="width:100px;">Paciente</th>
                 <td>{{$plan->patient->names}} {{$plan->patient->surnames}}</td>
-                <th style="width:150px;">Fecha de emision</th>
-                <td><input type="date" style="border: none; background:#ddd;" value="{{$plan->date}}"></td>
+                <th style="width:150px;">Fecha de emisión</th>
+                <td>{{\Carbon\Carbon::parse($plan->date)->format('d/m/Y')}}</td>
             </tr>
         
         </table>
