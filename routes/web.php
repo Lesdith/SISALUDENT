@@ -12,13 +12,7 @@ Route::get('/', function () {
 });
 
 
-Route::resource('plans', 'TreatmentPlansController');
-Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
-Route::get('get-diente', 'TreatmentPlansController@getDiente');
-Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
-Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
-Route::get('get-plans/{id}', 'TreatmentPlansController@getPlans');
-Route::get('pdf/{id}', 'TreatmentPlansController@pdf');
+
 
 Auth::routes();
 
@@ -97,6 +91,13 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     //Rutas para el plan de tratamiento y presupuesto
+    Route::resource('plans', 'TreatmentPlansController');
+    Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
+    Route::get('get-diente', 'TreatmentPlansController@getDiente');
+    Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
+    Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
+    Route::get('get-plans/{id}', 'TreatmentPlansController@getPlans');
+    Route::get('pdf/{id}', 'TreatmentPlansController@pdf');
 
     });
 

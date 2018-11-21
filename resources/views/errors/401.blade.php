@@ -67,7 +67,7 @@
 
                .m-b-md {
                 margin-bottom: -06%;
-               text-shadow: 4px 4px 5px #045FB4, 6px 6px 5px  #ffb3c0, 9px 9px 5px  #045FB4;
+               text-shadow: 4px 4px 5px #000;
             }
             h1{
                 margin-bottom: -22%;
