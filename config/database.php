@@ -31,8 +31,7 @@ return [
     |
     */
 
-
-    // 'connections' => [
+'connections' => [
 
 
     //     'mysql' => [
