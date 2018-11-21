@@ -36,69 +36,70 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('get-permissions', 'UsersController@getPermissions');
         Route::put('status/{id}', 'UsersController@Status');
         Route::get('get-status', 'UsersController@getStatus');
-    });
-
-//Grupo de rutas a las que puede acceder un asistente con permisos
-    Route::group([
-        'middleware' => ['role:asistente'],
-    ], function () {
-
-         //Rutas de la agenda
-        Route::resource('events', 'EventsController');
-        Route::get('get-events', 'EventsController@get_events');
-        Route::get('get-event/{id}', 'EventsController@getEvent');
-
-        //Rutas de  Tooth
-        Route::resource('teeth', 'TeethController');
-        Route::get('get-teeth', 'TeethController@getTeeth');
-        Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
 
 
-    //Rutas del modelo Tooth_position
-        Route::resource('tooth_positions', 'ToothPositionsController');
-        Route::get('get-tooth_positions', 'ToothPositionsController@getToothPosition');
+    //Grupo de rutas a las que puede acceder un asistente con permisos
+        Route::group([
+            'middleware' => ['role:asistente'],
+        ], function () {
 
-    //Rutas de Tooth_stage
-        Route::resource('tooth_stages', 'ToothStagesController');
-        Route::get('get-tooth_stages', 'ToothStagesController@getToothStage');
+            //Rutas de la agenda
+            Route::resource('events', 'EventsController');
+            Route::get('get-events', 'EventsController@get_events');
+            Route::get('get-event/{id}', 'EventsController@getEvent');
 
-    //Rutas de Tooth_type
-        Route::resource('tooth_types', 'ToothTypesController');
-        Route::get('get-tooth_types', 'ToothTypesController@getToothType');
-
-    //Rutas del paciente
-        Route::resource('patients', 'PatientsController');
-        Route::get('get-patients', 'PatientsController@getPatients');
-
-        Route::get('get-clinics/{id}', 'PatientsController@editClinic');
-        Route::put('clinics/{id}', 'PatientsController@updateClinic');
-
-        Route::get('get-dentals/{id}', 'PatientsController@editDental');
-        Route::put('dentals/{id}', 'PatientsController@updateDental');
+            //Rutas de  Tooth
+            Route::resource('teeth', 'TeethController');
+            Route::get('get-teeth', 'TeethController@getTeeth');
+            Route::get('get-tooth/{id}', 'TeethController@getTooth')->name('get-tooth');
 
 
-    //Ruta en pacientes para obtener género
-        Route::get('get-genders', 'PatientsController@getGender');
+        //Rutas del modelo Tooth_position
+            Route::resource('tooth_positions', 'ToothPositionsController');
+            Route::get('get-tooth_positions', 'ToothPositionsController@getToothPosition');
 
-    //Ruta en paciente para obtener localidad
-        Route::get('get-locations', 'PatientsController@getLocation');
+        //Rutas de Tooth_stage
+            Route::resource('tooth_stages', 'ToothStagesController');
+            Route::get('get-tooth_stages', 'ToothStagesController@getToothStage');
 
-    //Ruta en pacientes para obtener departamento
-        Route::get('get-departments', 'PatientsController@getDepartment');
+        //Rutas de Tooth_type
+            Route::resource('tooth_types', 'ToothTypesController');
+            Route::get('get-tooth_types', 'ToothTypesController@getToothType');
 
-    //Ruta en pacientes para obtener municipio
-        Route::get('get-municipalities/{id}', 'PatientsController@getMunicipality');
+        //Rutas del paciente
+            Route::resource('patients', 'PatientsController');
+            Route::get('get-patients', 'PatientsController@getPatients');
+
+            Route::get('get-clinics/{id}', 'PatientsController@editClinic');
+            Route::put('clinics/{id}', 'PatientsController@updateClinic');
+
+            Route::get('get-dentals/{id}', 'PatientsController@editDental');
+            Route::put('dentals/{id}', 'PatientsController@updateDental');
 
 
-    //Rutas para el plan de tratamiento y presupuesto
-    Route::resource('plans', 'TreatmentPlansController');
-    Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
-    Route::get('get-diente', 'TreatmentPlansController@getDiente');
-    Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
-    Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
-    Route::get('get-plans/{id}', 'TreatmentPlansController@getPlans');
-    Route::get('pdf/{id}', 'TreatmentPlansController@pdf');
+        //Ruta en pacientes para obtener género
+            Route::get('get-genders', 'PatientsController@getGender');
 
+        //Ruta en paciente para obtener localidad
+            Route::get('get-locations', 'PatientsController@getLocation');
+
+        //Ruta en pacientes para obtener departamento
+            Route::get('get-departments', 'PatientsController@getDepartment');
+
+        //Ruta en pacientes para obtener municipio
+            Route::get('get-municipalities/{id}', 'PatientsController@getMunicipality');
+
+
+        //Rutas para el plan de tratamiento y presupuesto
+        Route::resource('plans', 'TreatmentPlansController');
+        Route::get('plan/{id}', 'TreatmentPlansController@crearPlan');
+        Route::get('get-diente', 'TreatmentPlansController@getDiente');
+        Route::get('get-diagnostico', 'TreatmentPlansController@getDiagnostico');
+        Route::get('get-tratamiento', 'TreatmentPlansController@getTratamiento');
+        Route::get('get-plans/{id}', 'TreatmentPlansController@getPlans');
+        Route::get('pdf/{id}', 'TreatmentPlansController@pdf');
+
+        });
     });
 
 
