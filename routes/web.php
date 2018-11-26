@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Grupo de rutas a las que puede acceder exclusivamente el administrador
     Route::group([
-        'middleware' => ['role:todos'],
+        'middleware' => ['role:administrador'],
     ], function () {
 
         //         //Rutas de usuarios
