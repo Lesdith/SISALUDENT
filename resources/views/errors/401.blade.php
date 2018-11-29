@@ -79,9 +79,8 @@
             -webkit-background-size: 20%;
             -moz-background-size: 20%;
             -o-background-size: 20%;
-            background-size: cover;
            background-position: 680px 110px;
-           /* background-size: 10% 17%; */
+           background-size: 10% 17%;
             }
 
         </style>

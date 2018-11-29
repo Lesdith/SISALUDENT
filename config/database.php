@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'connections' => [
+'connections' => [
 
 
         'mysql' => [
@@ -48,6 +48,10 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+
+
+
+
 
          'sqlite' => [
             'driver' => 'sqlite',

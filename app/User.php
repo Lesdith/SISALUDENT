@@ -15,7 +15,7 @@ use Caffeinated\Shinobi\Traits\ShinobiTrait;
 class User extends Authenticatable
 {
     use Notifiable;
-    use ShinobiTrait;
+
     // use PermissionTrait;
 
 
