@@ -369,7 +369,44 @@
             }, function(r){
                 if(r.response) {
                     console.log(r)
-                   // window.location.href = baseUrl('invoice');
+                    var id = r.response;
+                   const swalWithBootstrapButtons = swal.mixin({
+						confirmButtonClass: 'btn btn-success',
+						cancelButtonClass: 'btn btn-danger',
+						buttonsStyling: false,
+					})
+					//Muestra el mensaje de la alerta y activa el botón cancelar
+					swalWithBootstrapButtons({
+						title: 'Plan de Tratamiento Guardado Correctamente!',
+						text: "¿Desea imprimir?",
+						type: 'success',
+						showCancelButton: true,
+						confirmButtonText: 'Si, Imprimir!',
+						cancelButtonText: 'No, cancelar!',
+						reverseButtons: true
+						// Se recoge el valor si se dio Click al botón eliminar
+					}).then((result) =>{
+						//console.log(result);
+							if (result.value) {
+								window.open( '../pdf/' + id );
+                                window.location.href = '../patients/' + {{$patient->id}};
+								
+								//Se muestra un mensaje de que el dato se elimino correctamente
+								swalWithBootstrapButtons({
+									title:"Presupuesto! ",
+									text: "Generando el preupuesto!",
+									type: "success",
+								});
+								// En caso de que el usuario seleccione el botón cancelar se muestra un mensaje de operación cancelada
+							} else if(
+								result.dismiss === swal.DismissReason.cancel){
+								swalWithBootstrapButtons({
+									title	:"Cancelado",
+									text	:"¡Operación cancelada por el usuario!",
+									type	:"error",
+								});
+							}
+						});
                 } else {
                     alert('Ocurrió un error');
                 }

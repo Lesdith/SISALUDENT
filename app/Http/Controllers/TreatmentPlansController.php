@@ -134,7 +134,7 @@ class TreatmentPlansController extends Controller
                     $detail[] = $obj;
                 }
                 $treatment_plan->detail_treatment_plans()->saveMany($detail);
-                $return->response = true;
+                $return->response = $treatment_plan->id;
 
                 DB::commit();
             } catch (Exception $e) {
@@ -203,7 +203,7 @@ class TreatmentPlansController extends Controller
         // $pdf = PDF::loadView('plans.pdf', []);
         //return view('plans.pdf', compact('plan'));
         //return (compact('plan'));
-        return $pdf->download($nombre_comprobante);
+        return $pdf->stream($nombre_comprobante);
     }
 
     /**
