@@ -37,8 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('status/{id}', 'UsersController@Status');
         Route::get('get-status', 'UsersController@getStatus');
 
-
-    //Grupo de rutas a las que puede acceder un asistente con permisos
+        });
+        //Grupo de rutas a las que puede acceder un asistente con permisos
         Route::group([
             'middleware' => ['role:asistente'],
         ], function () {
@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('pdf/{id}', 'TreatmentPlansController@pdf');
 
         });
-    });
+  
 
 
         // Route::group(['prefix' => 'asist', 'middleware' => ['role:asist']], function() {
