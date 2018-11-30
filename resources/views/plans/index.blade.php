@@ -382,7 +382,7 @@
 						type: 'success',
 						showCancelButton: true,
 						confirmButtonText: 'Si, Imprimir!',
-						cancelButtonText: 'No, cancelar!',
+						cancelButtonText: 'No',
 						reverseButtons: true
 						// Se recoge el valor si se dio Click al botón eliminar
 					}).then((result) =>{
@@ -402,9 +402,10 @@
 								result.dismiss === swal.DismissReason.cancel){
 								swalWithBootstrapButtons({
 									title	:"Cancelado",
-									text	:"¡Operación cancelada por el usuario!",
+									text	:"¡Impresión cancelada por el usuario!",
 									type	:"error",
 								});
+                                window.location.href = '../patients/' + {{$patient->id}};
 							}
 						});
                 } else {
