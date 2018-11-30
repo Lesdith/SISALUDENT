@@ -13,6 +13,9 @@
             counter-increment: my-sec-counter;
             content: counter(my-sec-counter);
         }
+        .well {
+            background: rgb(253, 254, 254);
+        }
         </style>
 @stop
 
@@ -25,7 +28,7 @@
 @section('content')
 
     <div class="container-fluid">
-        <div class="well well-sm">
+        <div class="well well-sm" >
         <div class="row">
             <div class="col-xs-6">
                 <input id="patient_id" class="form-control typeahead" type="hidden" placeholder="Paciente" value="{{$patient->id}}" />
@@ -38,7 +41,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row well well-sm">
         <div class="col-xs-2">
             <select id="tooth_id" name="tooth_id" class="form-control" type="text"></select>
         </div>
@@ -65,37 +68,37 @@
     </div>
 
     <hr />
-
-    <table class="table table-striped" id="detalles">
-        <thead>
-        <tr>
-            <th style="width:40px;"></th>
-            <th style="width:10px;">#</th>
-            <th>Diente</th>
-            <th style="width:100px;">Diagnostico</th>
-            <th style="width:100px;">Tratamiento</th>
-            <th style="width:100px;">precio</th>
-            <th style="width:100px;">Descripción</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-        <tr>
-            <td colspan="5" class="text-right"><b>Subtotal</b></td>
-            <td class="text-right"><input class="form-control" id="subtotal" value="0" readonly="readonly" name="subtotal"/></td>
-        </tr>
-        <tr>
-            <td colspan="5" class="text-right"><b>Descuento</b></td>
-            <td class="text-right"><input class="form-control" id="discount" name="discount" value="0" /></td>
-        </tr>
-        <tr>
-            <td colspan="5" class="text-right"><b>Total</b></td>
-            <td class="text-right"><input class="form-control" id="total" value ="0" readonly="readonly"name="total"/></td>
-        </tr>
-        </tfoot>
-    </table>
-
-    <button onclick="savePlan();" class="btn btn-default btn-lg btn-block">
+    <div class="well">
+        <table class="table table-striped" id="detalles">
+            <thead>
+            <tr>
+                <th style="width:40px;"></th>
+                <th style="width:10px;">#</th>
+                <th>Diente</th>
+                <th style="width:100px;">Diagnostico</th>
+                <th style="width:100px;">Tratamiento</th>
+                <th style="width:100px;">precio</th>
+                <th style="width:100px;">Descripción</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-right"><b>Subtotal</b></td>
+                <td class="text-right"><input class="form-control" id="subtotal" value="0" readonly="readonly" name="subtotal"/></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right"><b>Descuento</b></td>
+                <td class="text-right"><input class="form-control" id="discount" name="discount" value="0" /></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right"><b>Total</b></td>
+                <td class="text-right"><input class="form-control" id="total" value ="0" readonly="readonly"name="total"/></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <button onclick="savePlan();" class="btn btn-success btn-lg btn-block">
         Guardar
     </button>
 
