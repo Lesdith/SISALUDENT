@@ -2,7 +2,7 @@
 @section('title', 'SISALUDENT')
 
 @section('content_header')
-    <h3>Plan de tratamiento</h3>
+    <center><h2>Plan de tratamiento</h2></center>
     <style>
         body {
             /* Set "my-sec-counter" to 0 */
@@ -67,7 +67,6 @@
         </div>
     </div>
 
-    <hr />
     <div class="well">
         <table class="table table-striped" id="detalles">
             <thead>
