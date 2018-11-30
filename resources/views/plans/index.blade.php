@@ -40,30 +40,31 @@
             </div>
         </div>
     </div>
-
-    <div class="row well well-sm">
-        <div class="col-xs-2">
-            <select id="tooth_id" name="tooth_id" class="form-control" type="text"></select>
-        </div>
-        <div class="col-xs-2">
-            <select id="diagnosis_id" name="diagnosis" class="form-control" type="text"></select>
-        </div>
-        <div class="col-xs-2">
-            <select id="tooth_treatment_id" name="tooth_treatment_id" class="form-control" type="text"></select>
-        </div>
-        <div class="col-xs-2">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Q.</span>
-                <input class="form-control" id="cost" type="text" placeholder="Precio"/>
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-xs-2">
+                <select id="tooth_id" name="tooth_id" class="form-control" type="text"></select>
             </div>
-        </div>
-        <div class="col-xs-3">
-            <input id="description" name="description" class="form-control" type="textarea" placeholder="Ingresar descripción u observación" />
-        </div>
-        <div class="col-xs-1">
-            <button onclick="addPlanToDetail();" class="btn btn-primary form-control" id="btn-agregar">
-                <i class="glyphicon glyphicon-plus"></i>
-            </button>
+            <div class="col-xs-2">
+                <select id="diagnosis_id" name="diagnosis" class="form-control" type="text"></select>
+            </div>
+            <div class="col-xs-2">
+                <select id="tooth_treatment_id" name="tooth_treatment_id" class="form-control" type="text"></select>
+            </div>
+            <div class="col-xs-2">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Q.</span>
+                    <input class="form-control" id="cost" type="text" placeholder="Precio"/>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <input id="description" name="description" class="form-control" type="textarea" placeholder="Ingresar descripción u observación" />
+            </div>
+            <div class="col-xs-1">
+                <button onclick="addPlanToDetail();" class="btn btn-primary form-control" id="btn-agregar">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+            </div>
         </div>
     </div>
 
