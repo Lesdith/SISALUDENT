@@ -67,22 +67,31 @@
 
                .m-b-md {
                 margin-bottom: -06%;
-               text-shadow: 4px 4px 5px #000;
+                font-size: 75px;
+                text-shadow: 3px 3px 5px #F6D8CE, 6px 6px 5px #2E9AFE , 9px 9px 5px #58FAD0;
             }
             h1{
                 margin-bottom: -22%;
                text-shadow: 1px 1px 2px #000000 , 2px 2px 4px #F8E6E0;
             }
 
-            .fondo{
+            /* .fondo{
             background: url('../images/candado.png') no-repeat  center fixed;
             -webkit-background-size: 20%;
             -moz-background-size: 20%;
             -o-background-size: 20%;
             background-size: cover;
            background-position: 680px 110px;
-           /* background-size: 10% 17%; */
-            }
+            background-size: 10% 17%; 
+            }*/
+
+            
+            img{
+            display: block; 
+            margin: 0 auto;
+            max-width: 10%;
+            width: 10%;
+            } 
 
         </style>
     </head>
@@ -99,6 +108,7 @@
             @endif
             <div class="content">
                 <div class="title m-b-md">
+                    <img src="{{asset('../images/candado.png')}}" alt="Candado"><br/>
                      <center><b>No tienes permisos,</b></center>
                      <center><b>para acceder a esta sección.</b></center>
                 </div>

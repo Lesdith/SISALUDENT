@@ -14,7 +14,7 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                /* color: #636b6f; */
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -67,7 +67,8 @@
 
                .m-b-md {
                 margin-bottom: -06%;
-               text-shadow: 3px 3px 5px #F6D8CE, 6px 6px 5px #2E9AFE , 9px 9px 5px #58FAD0;
+                font-size: 75px;
+                text-shadow: 3px 3px 5px #F6D8CE, 6px 6px 5px #2E9AFE , 9px 9px 5px #58FAD0;
             }
             h1{
                 margin-bottom: -22%;
@@ -79,9 +80,8 @@
             }
             .fondo{
             background: url('../images/fondo.png') no-repeat center center fixed;
-            -webkit-background-size: 780px;
-            -moz-background-size:780px;
-            -o-background-size:780px;
+            background-repeat: no-repeat;
+            background-size: 50%;
             }
 
         </style>
@@ -100,7 +100,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <b><font>SISALUDENT</font></b>
+                    <b>SISALUDENT</b>
                 </div>
                 <h1> Sistema de Salud Dental</h1>
             </div>
