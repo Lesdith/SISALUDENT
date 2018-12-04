@@ -64,7 +64,7 @@
         "post-install-cmd": [
             "php artisan clear-compiled",
             "php artisan optimized",
-            "chmod -R 777 storage/fonts/"
+            "chmod -R 777 storage/fonts"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
