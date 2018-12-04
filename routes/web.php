@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Grupo de rutas a las que puede acceder exclusivamente el administrador
     Route::group([
-        'middleware' => ['role:administrador','role:propietaria'],
+        'middleware' => ['role:administrador'||'role:propietaria'],
     ], function () {
 
         //Rutas de usuarios
@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         //Grupo de rutas a las que puede acceder un asistente con permisos
         Route::group([
-            'middleware' => ['role:asistente','role:administrador','role:propietaria'],
+            'middleware' => ['role:asistente'||'role:administrador'||'role:propietaria'],
         ], function () {
 
             //Rutas de la agenda
