@@ -95,7 +95,7 @@ background-size:780px;
                     </div> -->
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="boton">{{ trans('adminlte::adminlte.sign_in') }}</button>
+                        <button value="Ingresar" type="submit" class="boton">{{ trans('adminlte::adminlte.sign_in') }}</button>
                     </div>
                     <!-- /.col -->
                 </div>
