@@ -659,7 +659,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 						document.getElementById("frm-user").reset();
 						var t = $('#tbl-users').DataTable();
 						t.ajax.reload()
-						$('#add_new_user_modal').modal('hide');
+						$('#update_user_modal').modal('hide');
 						//getTeeth();
 						toastr["success"]("Usuario actualizado!", "Guardado")
 					}
