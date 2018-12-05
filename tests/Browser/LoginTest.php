@@ -20,8 +20,11 @@ class LoginTest extends DuskTestCase
             $browser->visit('/login');
             $browser->type('email','lesdith@gmail.com');
             $browser->type('password','Lesvia123.');
-            $browser->press('Ingresar');
-            $browser->assertSeePageIs('/home');
+            $browser->click('button[type="submit"]');
+            $browser->assertPathIs('/home');
+            $browser->visit('/home');
+            $browser->visit('/');
+
 
             // $this->browse(function (Browser $browser) {
             //     $browser->visit('/')
