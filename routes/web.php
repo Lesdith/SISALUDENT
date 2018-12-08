@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         //Grupo de rutas a las que puede acceder un asistente con permisos
         Route::group([
-            'middleware' => ['role:asistente'],
+            'middleware' => ['permission:asistente'],
         ], function () {
 
             //Rutas de la agenda

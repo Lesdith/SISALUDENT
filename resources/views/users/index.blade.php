@@ -652,13 +652,25 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					url 	: 'users/' + id,
 					data 	: data,
 					dataType: 'json',
+
 					success:function(data)
 					{
-						/**Se actualiza el DataTable */
-						var $t = $('#tbl-users').DataTable();
-						$t.ajax.reload();
+						
+						document.getElementById("frm-user").reset();
+						var t = $('#tbl-users').DataTable();
+						t.ajax.reload()
 						$('#update_user_modal').modal('hide');
+						//getTeeth();
+						toastr["success"]("Usuario actualizado!", "Guardado")
 					}
+					// success:function(data)
+					// {
+						
+					// 	/**Se actualiza el DataTable */
+					// 	var $t = $('#tbl-users').DataTable();
+					// 	$t.ajax.reload();
+					// 	$('#update_user_modal').modal('hide');
+					// }
 					});
 				});
 
@@ -702,10 +714,17 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					dataType: 'json',
 					success:function(data)
 					{
-						/**Se actualiza el DataTable */
-						var $t = $('#tbl-users').DataTable();
-						$t.ajax.reload();
+
+						document.getElementById("frm-user").reset();
+						var t = $('#tbl-users').DataTable();
+						t.ajax.reload()
 						$('#update_status_modal').modal('hide');
+						//getTeeth();
+						toastr["success"]("Estado Actualizado!", "Guardado")
+						// /**Se actualiza el DataTable */
+						// var $t = $('#tbl-users').DataTable();
+						// $t.ajax.reload();
+						// $('#update_status_modal').modal('hide');
 					}
 					});
 				});
