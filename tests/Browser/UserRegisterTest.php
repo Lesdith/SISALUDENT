@@ -22,6 +22,9 @@ class UserRegisterTest extends DuskTestCase
  */
 public function testRegisterUser()
 {
+
+    sleep(5);
+
     $this->browse(function (Browser $browser) {
     
         $browser->visit('/');
@@ -39,7 +42,8 @@ public function testRegisterUser()
         $browser->select('permission_id', '2');
         $browser->radio('#status', 'on');
         $browser->press('Guardar');
-
+        $browser->visit('/home');
+        $browser->visit('/');
      });
 
      session()->flush();
