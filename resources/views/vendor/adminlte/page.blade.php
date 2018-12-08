@@ -57,55 +57,46 @@
                 <div class="navbar-custom-menu">
 
                     <ul class="nav navbar-nav">
-                            <li class="dropdown user user-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                      {{-- <img src='../images/fondo.png' class="user-image" alt="User Image"> --}}
-                                      <span class="hidden-xs">Alexander Pierce</span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                      <!-- User image -->
-                                      <li class="user-header">
-                                        {{-- <img src='../images/fondo.png' class="img-circle" alt="User Image"> --}}
-                        
-                                        <p>
-                                          Alexander Pierce - Web Developer
-                                          {{-- <small>Member since Nov. 2012</small> --}}
-                                        </p>
-                                      </li>
-                                      <!-- Menu Body -->
-                
-                                      <!-- Menu Footer-->
-                                      <li class="user-footer">
-                                            <small>Member since Nov. 2012</small>
-                                        {{-- <div class="pull-left">
-                                          <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                        </div>
-                                        <div class="pull-right">
-                                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                        </div> --}}
-                                      </li>
-                                    </ul>
-                                  </li>
 
-                        <li>
-                            @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
-                                <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
-                                    <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
-                                </a>
-                            @else
-                                <a href="#"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                >
-                                    <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
-                                </a>
-                                <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
-                                    @if(config('adminlte.logout_method'))
-                                        {{ method_field(config('adminlte.logout_method')) }}
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src='../images/Paciente.png' class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ auth()->user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src='../images/Paciente.png' class="img-circle" alt="User Image">
+                                    <p>
+                                        {{ auth()->user()->name }}
+                                        <small>{{ auth()->user()->email }}</small>
+                                    </p>
+                                </li>
+                                    <!-- Menu Body -->
+                
+                                    <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
+                                        <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
+                                            <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
+                                        </a>
+                                    @else
+                                        <a href="#"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                        >
+                                            <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
+                                            @if(config('adminlte.logout_method'))
+                                                {{ method_field(config('adminlte.logout_method')) }}
+                                            @endif
+                                            {{ csrf_field() }}
+                                        </form>
                                     @endif
-                                    {{ csrf_field() }}
-                                </form>
-                            @endif
+                                </li>
+                            </ul>
                         </li>
+                        
                     </ul>
                 </div>
                 @if(config('adminlte.layout') == 'top-nav')
@@ -120,16 +111,16 @@
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-
-                    <div class="user-panel">
-                            <div class="pull-left image">
-                              <img src='../images/fondo.png' class="img-circle" alt="User Image">
-                            </div>
-                            <div class="pull-left info">
-                              <p>Alexander Pierce</p>
-                              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                            </div>
-                          </div>
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="../images/Paciente.png" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p>{{ auth()->user()->name }}</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Database Administrator</a>
+                        </div>
+                    </div>
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
