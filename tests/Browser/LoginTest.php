@@ -15,6 +15,8 @@ class LoginTest extends DuskTestCase
      */
     public function testLogin()
     {
+        sleep(5);
+
         $this->browse(function (Browser $browser) {
             $browser->visit('/');
             $browser->visit('/login');
@@ -30,5 +32,7 @@ class LoginTest extends DuskTestCase
             //     $browser->visit('/')
             //             ->assertSee('Laravel');
          });
+
+         session()->flush();
     }
 }
