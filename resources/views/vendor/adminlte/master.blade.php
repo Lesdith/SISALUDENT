@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
+    
 
     <!-- sweetalert -->
     <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/sweetalert/sweetalert2.min.css') }}"> -->
@@ -93,6 +94,8 @@
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/wysi/bootstrap-wysihtml5.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/riot/riot.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/riot/riot-compiler.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/odontogram/js/pictarea.js') }}"></script>
+
 
 
 

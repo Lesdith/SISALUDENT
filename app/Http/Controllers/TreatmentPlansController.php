@@ -228,4 +228,9 @@ class TreatmentPlansController extends Controller
     {
         //
     }
+
+    public function odontogram()
+    {
+        return view('plans.odontograma');
+    }
 }
