@@ -64,7 +64,19 @@
 	<script>
         $(function() {
             $('#map').pictarea({
-                rescaleOnResize: true
+                rescaleOnResize: true,
+                active: {
+                  strokeStyle: '#A2D9CE', 
+                  lineWidth: 2  
+                },
+                normal: {
+                    fillStyle: 'rgba(255,255,255,0.0)',
+                    strokeStyle: '#1C00ff00', 
+                    lineWidth: 1, 
+                    shadowColor: '#fff', 
+                    shadowBlur: 10
+                }
+
             });
         });
     </script>
