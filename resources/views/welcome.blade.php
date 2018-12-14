@@ -78,11 +78,11 @@
                 margin-bottom: -22%;
                text-shadow: 1px 1px 2px #000000 , 2px 2px 4px #F8E6E0;
             }
-            .fondo{
+            /* .fondo{
             background: url('../images/fondo.png') no-repeat center center fixed;
-            background-repeat: no-repeat;
-            background-size: 50%;
-            }
+            /* background-repeat: no-repeat;
+            background-size: 50%; 
+            }*/
 
         </style>
     </head>
