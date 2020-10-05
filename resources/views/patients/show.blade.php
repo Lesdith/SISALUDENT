@@ -520,8 +520,9 @@ input.error {
       getGenderEdit();
       getLocationEdit();
       getDepartmentEdit();
+      getMunicipalityEdit();
       //disabledDepartmentEdit()
-      //filterMunicipalityEdit();
+      filterMunicipalityEdit();
       embarazada();
       validar ();
       dataTablePlans();
@@ -612,6 +613,18 @@ function calcularEdad(fecha) {
 				});
 			}
 
+     //Esta funcion sirve para cambiar la localidad del paciente
+    function locationChange(){
+      $("#update_location_id").change(function(){
+       if($("#update_location_id").val() !== '2'){
+           $('#update_department_id').val() = null;
+           $('update_department_id').prop('disabled', true);
+           $('#update_municipality_id').val() = null;
+           $('#update_municipality_id').prop('disabled', true);
+          }
+     });
+    }
+
 	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
 			function getGenderEdit(vid){
 				$('#update_gender_id').empty();
@@ -639,24 +652,27 @@ function calcularEdad(fecha) {
 
 			}
 
-      // function filterMunicipalityEdit(){
+      function filterMunicipalityEdit(){
+				$("#update_department_id").change(function() {
+					if($("#update_department_id").val() !== '0'){
+						$('#update_municipality_id').empty();
+						getMunicipalityEdit();
+						$('#update_municipality_id').prop('disabled', false);
+					}else{
+						$('#update_municipality_id').prop('disabled', true);
+						$('#update_municipality_id').empty();
+					}
+				});
+      }
+      
 
-			// 	$("#update_department_id").change(function() {
-			// 		if($("#update_department_id").val() !== '0'){
-			// 			$('#update_municipality_id').empty();
-			// 			getMunicipalityEdit();
-			// 			$('#update_municipality_id').prop('disabled', false);
-			// 		}else{
-			// 			$('#update_municipality_id').prop('disabled', true);
-			// 			$('#update_municipality_id').empty();
-			// 		}
-			// 	});
-			// }
   // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
         $('#update_patient_modal').on('show.bs.modal', function (e) {
           getMunicipalityEdit();
         });
-	        //Esta función se utiliza para cargar los datos del dropdown list de los municipios
+
+  
+  //Esta función se utiliza para cargar los datos del dropdown list de los municipios
 			function getMunicipalityEdit(vid){
          $('#update_municipality_id').empty();
          var department = $('#update_department_id').val();
@@ -803,14 +819,13 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
-					url 	: 'patients/' + id ,
+					url 	: '../patients/' + id ,
 					dataType: 'json',
 					type 	: 'POST',
 					data 	: data,
 					success:function(data)
 					{
-						// var $t = $('#form').DataTable();
-						// $t.ajax.reload();
+					window.location.reload();
 					console.log(data);
 						$('#update_patient_modal').modal('hide');
 
@@ -820,7 +835,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 
 		// // (fecha dada , fecha nacimiento)
 		// calculaEdad(
-		// moment('11/04/2020','DD/MM/YYYY').format('YYYY-MM-DD'),
+		// m/oment('11/04/2020','DD/MM/YYYY').format('YYYY-MM-DD'),
 		// moment('11/04/1990 11:30', 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD')
 		// );
 
