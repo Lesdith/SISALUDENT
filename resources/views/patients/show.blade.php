@@ -208,7 +208,9 @@
                 </div>
                 <div class="panel-body">
                   <div class="container-fluid">
-                        <table id="tbl-plans" class="display responsive no-wrap" width="100%">
+                        <table id="tbl-
+                        
+                        "class="display responsive no-wrap" width="100%">
                           <thead>
                             <tr >
                               <th class="text-center">No.</th>
@@ -521,8 +523,9 @@ input.error {
       getLocationEdit();
       getDepartmentEdit();
       getMunicipalityEdit();
-      //disabledDepartmentEdit()
+     // disabledDepartmentEdit()
       filterMunicipalityEdit();
+      calcularEdad();
       embarazada();
       validar ();
       dataTablePlans();
@@ -615,16 +618,37 @@ function calcularEdad(fecha) {
 
      //Esta funcion sirve para cambiar la localidad del paciente
     function locationChange(){
-      $("#update_location_id").change(function(){
-       if($("#update_location_id").val() !== '2'){
+      $('#update_location_id').change(function(){
+       if($('#update_location_id').val() !== '2'){
            $('#update_department_id').val() = null;
-           $('update_department_id').prop('disabled', true);
+           $('#update_department_id').prop('disabled', true);
            $('#update_municipality_id').val() = null;
            $('#update_municipality_id').prop('disabled', true);
           }
      });
     }
 
+
+      
+			/* Esta función trabaja en conjunto con la función de location (si la localidad es =  local) se habilita el listado de departamentos
+			junto con los municipios asociados, en caso contrario (si la localidad es = extranjero) permanecen deshabilitados,
+			pero la función  debe ser llamada en el document ready*/
+			function disabledDepartmentEdit(){
+					$('#department_id').prop('disabled', true);
+						$('#location_id').change(function() {
+							if($('#location_id').val() == '1'){
+								getDepartment();
+								$('#department_id').prop('disabled', false);
+							}else{
+								$('#department_id').prop('disabled', true);
+								$('#department_id').empty();
+								$('#municipality_id').prop('disabled', true);
+								$('#municipality_id').empty();
+							}
+						});
+				}
+
+    
 	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
 			function getGenderEdit(vid){
 				$('#update_gender_id').empty();
@@ -828,6 +852,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 					window.location.reload();
 					console.log(data);
 						$('#update_patient_modal').modal('hide');
+						toastr["success"]("Paciente guardada","Información")
 
 					}
 					});
@@ -835,8 +860,8 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 
 		// // (fecha dada , fecha nacimiento)
 		// calculaEdad(
-		// m/oment('11/04/2020','DD/MM/YYYY').format('YYYY-MM-DD'),
-		// moment('11/04/1990 11:30', 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD')
+		// moment('11/04/2020','DD/MM/YYYY').format('YYYY-MM-DD'),
+		// moment('hnbv 11/04/1990 11:30', 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD')
 		// );
 
 		// // (fecha actual , fecha nacimiento)
@@ -985,7 +1010,7 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
 
 		$.get('../get-clinics/' + vid , {id:vid}, function(data){
 
-      	var infeccion=data.infectious_disease;
+    	var infeccion = data.infectious_disease;
 			if(infeccion == 1 ){
 				$('#infectious_disease').append($('<option>', {value: 1, text: 'Si'}));
 				$('#infectious_disease').append($('<option>', {value: 0, text: 'No'}));
@@ -1004,8 +1029,8 @@ para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y 
       $('#frm-update_history_clinic').find('#disease_name').val(data.disease_name)
       }
 			//console.log(data);
-			var infeccion=data.cardiac;
-			if(infeccion == 1 ){
+			var cardiac = data.cardiac;
+			if(cardiac == 1 ){
 				$('#cardiac').append($('<option>', {value: 1, text: 'Si'}));
 				$('#cardiac').append($('<option>', {value: 0, text: 'No'}));
 			} else{

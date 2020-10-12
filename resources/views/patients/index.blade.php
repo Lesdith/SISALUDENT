@@ -362,7 +362,7 @@ input.error {
 		alergia();
 		embarazada();
 		check();
-		calculaEdad();
+		//calculaEdad();
 		var validator;
 	});
 
