@@ -519,17 +519,18 @@ input.error {
 @push('js')
   <script>
     $(document).ready(function() {
+
+      
       getGenderEdit();
       getLocationEdit();
       getDepartmentEdit();
       getMunicipalityEdit();
      // disabledDepartmentEdit()
       filterMunicipalityEdit();
-      calcularEdad();
+      //calcularEdad();
       embarazada();
       validar ();
       dataTablePlans();
-
       var validator;
 
       var heights = $(".container-fluid").map(function() {
@@ -562,19 +563,33 @@ function embarazada(){
 			});
 	}
 
-// Esta función permite calcular la edad del paciente
-function calcularEdad(fecha) {
-    var hoy = new Date();
-    var cumpleanos = new Date(fecha);
-    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-      console.log(edad);
+      
+	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
+    function getGenderEdit(vid){
+				$('#update_gender_id').empty();
+			    $.get('../get-genders', function(data){
+					$.each(data,	function(i, value){
+						if(value.id === vid ){
+							$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
+						}
+						$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
+					});
+				});
+			}
 
-    var m = hoy.getMonth() - cumpleanos.getMonth();
-    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-        edad--;
-    }
-    return edad;
-}
+// // Esta función permite calcular la edad del paciente
+// function calcularEdad(fecha) {
+//     var hoy = new Date();
+//     var cumpleanos = new Date(fecha);
+//     var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+//       console.log(edad);
+
+//     var m = hoy.getMonth() - cumpleanos.getMonth();
+//     if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+//         edad--;
+//     }
+//     return edad;
+// }
 
 //-------------Editar paciente-------------
 // con esta sección se obtienen y se cargan los datos en un modal.
@@ -597,7 +612,9 @@ function calcularEdad(fecha) {
 			$('#frm-update_patient').find('#update_municipality_id').val(data.municipality_id)
 
 			$('#frm-update_patient').find('#update_patient_id').val(data.id)
-			$('#update_patient_modal').modal('show');
+      $('#update_patient_modal').modal('show');
+      catchDepartment();
+      filterMunicipalityEdit();
 		});
 
 	});
@@ -616,55 +633,23 @@ function calcularEdad(fecha) {
 				});
 			}
 
-     //Esta funcion sirve para cambiar la localidad del paciente
-    function locationChange(){
-      $('#update_location_id').change(function(){
-       if($('#update_location_id').val() !== '2'){
-           $('#update_department_id').val() = null;
-           $('#update_department_id').prop('disabled', true);
-           $('#update_municipality_id').val() = null;
-           $('#update_municipality_id').prop('disabled', true);
-          }
-     });
-    }
+    //  //Esta funcion sirve para cambiar la localidad del paciente
+    // function locationChange(){
+    //   $('#update_location_id').change(function(){
+    //    if($('#update_location_id').val() !== '2'){
+    //        $('#update_department_id').val() = null;
+    //        $('#update_department_id').prop('disabled', true);
+    //        $('#update_municipality_id').val() = null;
+    //        $('#update_municipality_id').prop('disabled', true);
+    //       }
+    //  });
+    // }
 
 
-      
-			/* Esta función trabaja en conjunto con la función de location (si la localidad es =  local) se habilita el listado de departamentos
-			junto con los municipios asociados, en caso contrario (si la localidad es = extranjero) permanecen deshabilitados,
-			pero la función  debe ser llamada en el document ready*/
-			function disabledDepartmentEdit(){
-					$('#department_id').prop('disabled', true);
-						$('#location_id').change(function() {
-							if($('#location_id').val() == '1'){
-								getDepartment();
-								$('#department_id').prop('disabled', false);
-							}else{
-								$('#department_id').prop('disabled', true);
-								$('#department_id').empty();
-								$('#municipality_id').prop('disabled', true);
-								$('#municipality_id').empty();
-							}
-						});
-				}
-
-    
-	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de genero
-			function getGenderEdit(vid){
-				$('#update_gender_id').empty();
-			    $.get('../get-genders', function(data){
-					$.each(data,	function(i, value){
-						if(value.id === vid ){
-							$('#update_gender_id').append($('<option selected >', {value: value.id, text: `${value.name}`}));
-						}
-						$('#update_gender_id').append($('<option >', {value: value.id, text: `${value.name}`}));
-					});
-				});
-			}
 
  //Esta función se utiliza para cargar los datos del dropdown list si el paciente pertenece a un departamento
       function getDepartmentEdit(vid){
-         $('#update_department_id').empty();
+         //$('#update_department_id').empty();
 			$.get('../get-departments', function(data){
 					$.each(data,	function(i, value){
             if(value.id === vid){
@@ -674,36 +659,40 @@ function calcularEdad(fecha) {
 					});
 				});
 
-			}
-
+      }
+      
+      
       function filterMunicipalityEdit(){
 				$("#update_department_id").change(function() {
-					if($("#update_department_id").val() !== '0'){
-						$('#update_municipality_id').empty();
-						getMunicipalityEdit();
-						$('#update_municipality_id').prop('disabled', false);
-					}else{
-						$('#update_municipality_id').prop('disabled', true);
-						$('#update_municipality_id').empty();
+          $('#update_municipality_id').empty();
+					  if($("#update_department_id").val() !== '0'){
+              $('#update_municipality_id').prop('disabled', false);
+                $id = $('#update_department_id').val();
+                getMunicipalityEdit();
+				  	}else{
+					  	$('#update_municipality_id').prop('disabled', true);
 					}
 				});
       }
-      
 
-  // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
-        $('#update_patient_modal').on('show.bs.modal', function (e) {
-          getMunicipalityEdit();
-        });
+    //Esta funcion se utiliza para capturar el departamento y el municipo que tiene asignado
+      function catchDepartment(){
+				if($("#update_department_id").val() !== '0'){
+				//	$('#update_municipality_id').empty();
+						$('#update_municipality_id').prop('disabled', false);
+						$id = $('#update_department_id').val();
+						getMunicipalityEdit();
+					}
+			}
 
   
   //Esta función se utiliza para cargar los datos del dropdown list de los municipios
 			function getMunicipalityEdit(vid){
-         $('#update_municipality_id').empty();
+        // $('#update_municipality_id').empty();
          var department = $('#update_department_id').val();
-			$.get('../get-municipalities/'+ department, function(data){
-
-					$.each(data,	function(i, value){
-            if(value.id === vid){
+			    $.get('../get-municipalities/'+ department, function(data){
+					  $.each(data,	function(i, value){
+              if(value.id === vid){
                 $('#update_municipality_id').append($('<option selected>', {value: value.id, text: `${value.name}`}));
             }
 					$('#update_municipality_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -711,6 +700,11 @@ function calcularEdad(fecha) {
 				});
 			}
 
+        // // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
+        // $('#update_patient_modal').on('show.bs.modal', function (e) {
+        //   //getMunicipalityEdit();
+        //   //catchDepartment();
+        //  });
 
 /* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
 para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
