@@ -525,12 +525,14 @@ input.error {
       getLocationEdit();
       getDepartmentEdit();
       getMunicipalityEdit();
+      //catchDepartment();
      // disabledDepartmentEdit()
-      filterMunicipalityEdit();
+      //filterMunicipalityEdit();
       //calcularEdad();
       embarazada();
       validar ();
       dataTablePlans();
+
       var validator;
 
       var heights = $(".container-fluid").map(function() {
@@ -591,37 +593,10 @@ function embarazada(){
 //     return edad;
 // }
 
-//-------------Editar paciente-------------
-// con esta sección se obtienen y se cargan los datos en un modal.
-
-	$('body').delegate('#edit', 'click', function(e){
-		e.preventDefault();
-		  var vid = $('#patient_id').val();
-      console.log(vid);
-
-		$.get('../patients/' + vid + '/edit', {id:vid}, function(data){
-
-			$('#frm-update_patient').find('#update_names').val(data.names)
-			$('#frm-update_patient').find('#update_surnames').val(data.surnames)
-			$('#frm-update_patient').find('#update_birth_date').val(data.birth_date)
-			$('#frm-update_patient').find('#update_gender_id').val(data.gender_id)
-			$('#frm-update_patient').find('#update_phone_number').val(data.phone_number)
-			$('#frm-update_patient').find('#update_location_id').val(data.location_id)
-			$('#frm-update_patient').find('#update_address').val(data.address)
-			$('#frm-update_patient').find('#update_department_id').val(data.municipality.department_id)
-			$('#frm-update_patient').find('#update_municipality_id').val(data.municipality_id)
-
-			$('#frm-update_patient').find('#update_patient_id').val(data.id)
-      $('#update_patient_modal').modal('show');
-      catchDepartment();
-      filterMunicipalityEdit();
-		});
-
-	});
 
 
 	  //Esta función se utiliza para cargar los datos del dropdown list de tipos de localidad
-			function getLocationEdit(vid){
+    function getLocationEdit(vid){
         $('#update_location_id').empty();
 				$.get('../get-locations', function(data){
 					$.each(data,	function(i, value){
@@ -649,10 +624,10 @@ function embarazada(){
 
  //Esta función se utiliza para cargar los datos del dropdown list si el paciente pertenece a un departamento
       function getDepartmentEdit(vid){
-         //$('#update_department_id').empty();
-			$.get('../get-departments', function(data){
-					$.each(data,	function(i, value){
-            if(value.id === vid){
+        $('#update_department_id').empty();
+		    	$.get('../get-departments', function(data){
+				  	$.each(data,	function(i, value){
+             if(value.id === vid){
                 $('#update_department_id').append($('<option selected>', {value: value.id, text: `${value.name}`}));
             }
 					$('#update_department_id').append($('<option>', {value: value.id, text: `${value.name}`}));
@@ -662,29 +637,35 @@ function embarazada(){
       }
       
       
-      function filterMunicipalityEdit(){
-				$("#update_department_id").change(function() {
-          $('#update_municipality_id').empty();
-					  if($("#update_department_id").val() !== '0'){
-              $('#update_municipality_id').prop('disabled', false);
-                $id = $('#update_department_id').val();
-                getMunicipalityEdit();
-				  	}else{
-					  	$('#update_municipality_id').prop('disabled', true);
-					}
-				});
-      }
+      // function filterMunicipalityEdit(){
+			// 	$("#update_department_id").change(function() {
+			// 		  if($("#update_department_id").val() !== '0'){
+      //         $('#update_municipality_id').empty();
+      //         getMunicipalityEdit();
+      //         $('#update_municipality_id').prop('disabled', false);
+      //          // $id = $('#update_department_id').val();
+			// 	  	}else{
+      //         $('#update_municipality_id').prop('disabled', true);
+      //         $('#update_municipality_id').empty();
+			// 		}
+			// 	});
+      // }
+
+  // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
+        $('#update_patient_modal').on('show.bs.modal', function (e) {
+         // getMunicipalityEdit();
+          catchDepartment();
+         });
+
 
     //Esta funcion se utiliza para capturar el departamento y el municipo que tiene asignado
-      function catchDepartment(){
+    function catchDepartment(){
 				if($("#update_department_id").val() !== '0'){
-				//	$('#update_municipality_id').empty();
 						$('#update_municipality_id').prop('disabled', false);
-						$id = $('#update_department_id').val();
+						department = $('#update_department_id').val();
 						getMunicipalityEdit();
 					}
 			}
-
   
   //Esta función se utiliza para cargar los datos del dropdown list de los municipios
 			function getMunicipalityEdit(vid){
@@ -700,11 +681,35 @@ function embarazada(){
 				});
 			}
 
-        // // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
-        // $('#update_patient_modal').on('show.bs.modal', function (e) {
-        //   //getMunicipalityEdit();
-        //   //catchDepartment();
-        //  });
+//-------------Editar paciente-------------
+// con esta sección se obtienen y se cargan los datos en un modal.
+
+
+	$('body').delegate('#edit', 'click', function(e){
+		e.preventDefault();
+		  var vid = $('#patient_id').val();
+      console.log(vid);
+
+		$.get('../patients/' + vid + '/edit', {id:vid}, function(data){
+
+			$('#frm-update_patient').find('#update_names').val(data.names)
+			$('#frm-update_patient').find('#update_surnames').val(data.surnames)
+			$('#frm-update_patient').find('#update_birth_date').val(data.birth_date)
+			$('#frm-update_patient').find('#update_gender_id').val(data.gender_id)
+			$('#frm-update_patient').find('#update_phone_number').val(data.phone_number)
+			$('#frm-update_patient').find('#update_location_id').val(data.location_id)
+			$('#frm-update_patient').find('#update_address').val(data.address)
+			$('#frm-update_patient').find('#update_department_id').val(data.municipality.department_id)
+			$('#frm-update_patient').find('#update_municipality_id').val(data.municipality_id)
+
+			$('#frm-update_patient').find('#update_patient_id').val(data.id)
+      $('#update_patient_modal').modal('show');
+      //catchDepartment();
+      //filterMunicipalityEdit();
+		});
+
+	});
+
 
 /* Esta función se creo para hacer validaciones mas especificas, como cantidad de caracteres, si solo permite números entre otros,
 para hacer uso de ella es necesario descargar la librería jqueryvalidate.js  y la función debe ser llamada en el document ready*/
