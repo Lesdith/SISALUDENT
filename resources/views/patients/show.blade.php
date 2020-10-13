@@ -520,11 +520,13 @@ input.error {
   <script>
     $(document).ready(function() {
 
-      
+
       getGenderEdit();
       getLocationEdit();
       getDepartmentEdit();
       getMunicipalityEdit();
+     // departmentMunicipality();
+
       //catchDepartment();
      // disabledDepartmentEdit()
       //filterMunicipalityEdit();
@@ -541,7 +543,6 @@ input.error {
 
       maxHeight = Math.max.apply(null, heights);
         $(".container-fluid").height(maxHeight);
-
     });
 
 // este apartado permite limpiar el formulario cargado en el modal al dar clic en el boton cancelar
@@ -624,7 +625,7 @@ function embarazada(){
 
  //Esta función se utiliza para cargar los datos del dropdown list si el paciente pertenece a un departamento
       function getDepartmentEdit(vid){
-        $('#update_department_id').empty();
+        //$('#update_department_id').empty();
 		    	$.get('../get-departments', function(data){
 				  	$.each(data,	function(i, value){
              if(value.id === vid){
@@ -636,6 +637,20 @@ function embarazada(){
 
       }
       
+
+      function departmentMunicipality(){
+				$("#update_department_id").change(function() {
+					$('#update_municipality_id').empty();
+					if($("#update_department_id").val() !== '0'){
+						$('#update_municipality_id').prop('disabled', false);
+						$id = $('#update_department_id').val();
+						getMunicipalityEdit();
+					}else{
+						$('#update_municipality_id').prop('disabled', true);
+					}
+				});
+
+			}
       
       // function filterMunicipalityEdit(){
 			// 	$("#update_department_id").change(function() {
@@ -651,11 +666,11 @@ function embarazada(){
 			// 	});
       // }
 
-  // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
-        $('#update_patient_modal').on('show.bs.modal', function (e) {
-         // getMunicipalityEdit();
-          catchDepartment();
-         });
+  // // esta seccion permite filtrar la municipalidad relacionada al departamento obtenido
+  //       $('#update_patient_modal').on('show.bs.modal', function (e) {
+  //        // getMunicipalityEdit();
+  //         catchDepartment();
+  //        });
 
 
     //Esta funcion se utiliza para capturar el departamento y el municipo que tiene asignado
@@ -704,8 +719,9 @@ function embarazada(){
 
 			$('#frm-update_patient').find('#update_patient_id').val(data.id)
       $('#update_patient_modal').modal('show');
-      //catchDepartment();
       //filterMunicipalityEdit();
+      //departmentMunicipality();
+      catchDepartment();
 		});
 
 	});
